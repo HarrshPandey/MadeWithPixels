@@ -32,6 +32,18 @@ body {
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 400;
   overflow-x: hidden;
+  transition: background 0.25s, color 0.25s;
+}
+body.light-mode {
+  --blk:  #FAFAF3;
+  --wht:  #080808;
+  --grn:  #9BFF00;
+  --grn2: #78C700;
+  --mid:  #FFFFFF;
+  --sur:  #F0F0E6;
+  --dim:  #D8D8CE;
+  --muted:#66665F;
+  --txt:  #282824;
 }
 
 /* ── CUSTOM CURSOR ─────────────────────────────── */
@@ -73,6 +85,7 @@ nav.scrolled {
   border-color: var(--dim);
   backdrop-filter: blur(8px);
 }
+body.light-mode nav.scrolled { background: rgba(250,250,243,0.95); }
 /* ── LOGO MARK ─────────────────────────────────── */
 .nav-logo {
   display: flex; align-items: center; gap: 10px;
@@ -104,6 +117,9 @@ nav.scrolled {
   text-decoration: none; transition: color 0.2s;
 }
 .nav-links a:hover { color: var(--grn); }
+.nav-actions {
+  display: flex; align-items: center; gap: 10px;
+}
 .nav-cta {
   font-family: 'Space Mono', monospace;
   font-size: 10px; letter-spacing: 2px;
@@ -117,12 +133,25 @@ nav.scrolled {
 .btn-quote-nav {
   font-family: 'Space Mono', monospace;
   font-size: 10px; letter-spacing: 2px;
-  text-transform: uppercase; color: var(--grn);
-  background: transparent; border: 1px solid var(--grn);
+  text-transform: uppercase; color: var(--blk);
+  background: var(--grn); border: none;
   padding: 10px 22px; cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.2s, transform 0.15s;
 }
-.btn-quote-nav:hover { background: var(--grn); color: var(--blk); }
+.btn-quote-nav:hover { background: var(--wht); transform: translateY(-1px); }
+.theme-toggle {
+  width: 38px; height: 38px;
+  border: 1px solid var(--dim);
+  background: transparent; color: var(--wht);
+  font-family: 'Space Mono', monospace;
+  font-size: 9px; letter-spacing: 1px;
+  cursor: pointer; transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.theme-toggle:hover {
+  border-color: var(--grn);
+  color: var(--blk);
+  background: var(--grn);
+}
 
 /* ── HERO ───────────────────────────────────────── */
 #hero {
@@ -393,16 +422,17 @@ section { padding: 120px 48px; }
 .service-list li {
   font-family: 'Space Mono', monospace;
   font-size: 9px; letter-spacing: 1px;
-  color: var(--dim); text-transform: uppercase;
+  color: var(--txt); text-transform: uppercase;
   display: flex; align-items: center; gap: 8px;
+  opacity: 0.92;
 }
 .service-list li::before {
   content: ''; width: 16px; height: 1px; background: var(--grn); flex-shrink: 0;
 }
-.service-list li:hover { color: var(--muted); }
+.service-list li:hover { color: var(--wht); opacity: 1; }
 
 /* ── WORK ───────────────────────────────────────── */
-#work { border-top: 1px solid var(--dim); }
+#work { border-top: 1px solid var(--dim); padding-bottom: 0; }
 .work-header {
   display: flex; justify-content: space-between;
   align-items: flex-end; margin-bottom: 64px;
@@ -418,7 +448,7 @@ section { padding: 120px 48px; }
 .work-link::after { content: '→'; color: var(--grn); }
 .work-link:hover { color: var(--grn); }
 .work-grid {
-  display: grid;
+  display: none;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto auto;
   gap: 3px;
@@ -431,6 +461,7 @@ section { padding: 120px 48px; }
   justify-content: flex-end;
   padding: 32px;
   cursor: pointer;
+  color: inherit; text-decoration: none;
 }
 .work-card.large { grid-column: 1 / -1; aspect-ratio: 21/9; }
 .work-bg {
@@ -461,6 +492,93 @@ section { padding: 120px 48px; }
 .work-sub {
   font-size: 13px; color: var(--txt);
   margin-top: 6px; font-weight: 300;
+}
+.work-case-link {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px; letter-spacing: 2px;
+  color: var(--grn); text-transform: uppercase;
+  margin-top: 18px;
+}
+
+/* Case studies */
+#case-studies {
+  background: var(--blk);
+  border-top: none;
+  padding-top: 0;
+}
+.case-study {
+  padding: 88px 0;
+  border-top: 1px solid var(--dim);
+}
+.case-study:first-of-type { border-top: none; padding-top: 0; }
+.case-kicker {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px; letter-spacing: 3px;
+  color: var(--grn); text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.case-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(42px, 6vw, 78px);
+  line-height: 0.9; letter-spacing: 1px;
+  color: var(--wht);
+  margin-bottom: 28px;
+}
+.case-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 56px;
+  align-items: start;
+}
+.case-summary {
+  font-size: 18px; font-weight: 300;
+  line-height: 1.65; color: var(--txt);
+}
+.case-meta {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 2px; margin-top: 32px;
+}
+.case-meta div {
+  background: var(--blk);
+  padding: 18px;
+  border-top: 2px solid var(--grn);
+}
+.case-meta span {
+  display: block;
+  font-family: 'Space Mono', monospace;
+  font-size: 8px; letter-spacing: 2px;
+  color: var(--muted); text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.case-meta strong {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px; letter-spacing: 1px;
+  color: var(--wht); font-weight: 400;
+}
+.case-steps {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+.case-step {
+  background: var(--blk);
+  padding: 26px 24px;
+  border-left: 3px solid var(--dim);
+}
+.case-step:hover { border-left-color: var(--grn); }
+.case-step-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px; letter-spacing: 2px;
+  color: var(--grn); margin-bottom: 10px;
+}
+.case-step-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px; letter-spacing: 1px;
+  color: var(--wht); margin-bottom: 8px;
+}
+.case-step-copy {
+  font-size: 13px; color: var(--muted);
+  line-height: 1.6; font-weight: 300;
 }
 
 /* Work card mock visuals */
@@ -744,7 +862,9 @@ footer {
   nav { padding: 14px 20px; gap: 8px; }
   .nav-links { display: none; }
   .btn-quote-nav { display: none; }
+  .nav-actions { gap: 8px; }
   .nav-cta { padding: 8px 14px; font-size: 9px; }
+  .theme-toggle { width: 32px; height: 32px; font-size: 8px; }
   .logo-name { font-size: 14px; }
   .logo-mark-img { width: 24px; height: 24px; }
 
@@ -783,6 +903,13 @@ footer {
   .work-card.large { grid-column: 1; aspect-ratio: 16/9; }
   .work-card { aspect-ratio: 16/9; }
   .work-name { font-size: 24px; }
+  .work-case-link { font-size: 8px; margin-top: 12px; }
+
+  /* CASE STUDIES */
+  .case-study { padding: 56px 0; }
+  .case-grid { grid-template-columns: 1fr; gap: 32px; }
+  .case-meta { grid-template-columns: 1fr; }
+  .case-steps { grid-template-columns: 1fr; }
 
   /* PROCESS */
   .process-grid { grid-template-columns: 1fr; }
@@ -847,8 +974,11 @@ footer {
     <li><a href="#work">Work</a></li>
     <li><a href="#process">Process</a></li>
   </ul>
-  <button class="btn-quote-nav" id="quoteNavBtn">Get a Quote</button>
-  <a href="#cta" class="nav-cta">Start a Project</a>
+  <div class="nav-actions">
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light mode">LIGHT</button>
+    <button class="btn-quote-nav" id="quoteNavBtn">Get a Quote</button>
+    <a href="#cta" class="nav-cta">Start a Project</a>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -872,15 +1002,15 @@ footer {
     </div>
     <div class="hero-stats">
       <div class="stat">
-        <div class="stat-num">48+</div>
+        <div class="stat-num" data-count="10" data-suffix="+">0+</div>
         <div class="stat-label">Projects Delivered</div>
       </div>
       <div class="stat">
-        <div class="stat-num">0</div>
+        <div class="stat-num" data-count="0">0</div>
         <div class="stat-label">Templates Used</div>
       </div>
       <div class="stat">
-        <div class="stat-num">100%</div>
+        <div class="stat-num" data-count="100" data-suffix="%">0%</div>
         <div class="stat-label">Custom Built</div>
       </div>
     </div>
@@ -1020,11 +1150,11 @@ footer {
       <div class="sec-label reveal">03 — Selected Work</div>
       <h2 class="sec-title reveal reveal-delay-1">THINGS<br><span class="grn">WE MADE.</span></h2>
     </div>
-    <a href="#" class="work-link reveal reveal-delay-2">View All Projects</a>
+    <a href="#case-studies" class="work-link reveal reveal-delay-2">View Case Studies</a>
   </div>
 
   <div class="work-grid">
-    <div class="work-card large reveal">
+    <a href="#case-machinaerp" class="work-card large reveal">
       <div class="work-bg" style="background:#080c08; overflow:hidden;">
         <svg width="100%" height="100%" viewBox="0 0 1200 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
           <defs>
@@ -1077,8 +1207,9 @@ footer {
       <div class="work-tag">SaaS · Project Tracking</div>
       <div class="work-name">MACHINAERP</div>
       <div class="work-sub">Project tracking software built specifically for mould manufacturers — from job cards to delivery</div>
-    </div>
-    <div class="work-card reveal reveal-delay-1">
+      <div class="work-case-link">View Case Study</div>
+    </a>
+    <a href="#case-made-of-pixels" class="work-card reveal reveal-delay-1">
       <div class="work-bg" style="background:#0a080f; overflow:hidden;">
         <svg width="100%" height="100%" viewBox="0 0 600 380" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
           <!-- Pixel grid mark -->
@@ -1099,8 +1230,9 @@ footer {
       <div class="work-tag">Brand Identity</div>
       <div class="work-name">MADE OF PIXELS STUDIO</div>
       <div class="work-sub">Our own brand — built the same way we build yours</div>
-    </div>
-    <div class="work-card reveal reveal-delay-2">
+      <div class="work-case-link">View Case Study</div>
+    </a>
+    <a href="#case-filelink" class="work-card reveal reveal-delay-2">
       <div class="work-bg" style="background:#050b0f; overflow:hidden;">
         <svg width="100%" height="100%" viewBox="0 0 600 380" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
           <!-- QR-code style dot grid -->
@@ -1141,6 +1273,121 @@ footer {
       <div class="work-tag">Web App</div>
       <div class="work-name">FILELINK PLATFORM</div>
       <div class="work-sub">File management & QR sharing for manufacturing teams</div>
+      <div class="work-case-link">View Case Study</div>
+    </a>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section id="case-studies">
+  <div class="case-study" id="case-machinaerp">
+    <div class="case-kicker reveal">Case Study / SaaS Platform</div>
+    <h2 class="case-title reveal reveal-delay-1">MACHINAERP<br><span class="grn">PROJECT TRACKING SYSTEM.</span></h2>
+    <div class="case-grid">
+      <div class="reveal reveal-delay-2">
+        <p class="case-summary">A focused ERP interface for mould manufacturers who needed job-card visibility, delivery tracking, and production status without the bloat of generic enterprise tools.</p>
+        <div class="case-meta">
+          <div><span>Scope</span><strong>UX / UI / Build</strong></div>
+          <div><span>Output</span><strong>SaaS Dashboard</strong></div>
+          <div><span>Focus</span><strong>Speed + Clarity</strong></div>
+        </div>
+      </div>
+      <div class="case-steps reveal reveal-delay-3">
+        <div class="case-step">
+          <div class="case-step-num">01</div>
+          <div class="case-step-title">DISCOVERY</div>
+          <div class="case-step-copy">Mapped the real factory workflow: enquiry, job card, mould progress, dispatch, and follow-up.</div>
+        </div>
+        <div class="case-step">
+          <div class="case-step-num">02</div>
+          <div class="case-step-title">STRUCTURE</div>
+          <div class="case-step-copy">Reduced the product into clear modules so operators could find work status without training overhead.</div>
+        </div>
+        <div class="case-step">
+          <div class="case-step-num">03</div>
+          <div class="case-step-title">INTERFACE</div>
+          <div class="case-step-copy">Built dense but readable screens with visual hierarchy for priority, ownership, and delivery risk.</div>
+        </div>
+        <div class="case-step">
+          <div class="case-step-num">04</div>
+          <div class="case-step-title">OUTCOME</div>
+          <div class="case-step-copy">A faster internal product that feels custom to the manufacturing floor instead of borrowed from another industry.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="case-study" id="case-made-of-pixels">
+    <div class="case-kicker reveal">Case Study / Brand Identity</div>
+    <h2 class="case-title reveal reveal-delay-1">MADE OF PIXELS<br><span class="grn">STUDIO IDENTITY.</span></h2>
+    <div class="case-grid">
+      <div class="reveal reveal-delay-2">
+        <p class="case-summary">A brand system designed to feel technical, loud, and precise: part machine shop, part creative studio, with a visual language that can scale across web, print, and social.</p>
+        <div class="case-meta">
+          <div><span>Scope</span><strong>Identity System</strong></div>
+          <div><span>Output</span><strong>Logo + Web</strong></div>
+          <div><span>Focus</span><strong>Recognition</strong></div>
+        </div>
+      </div>
+      <div class="case-steps reveal reveal-delay-3">
+        <div class="case-step">
+          <div class="case-step-num">01</div>
+          <div class="case-step-title">POSITIONING</div>
+          <div class="case-step-copy">Defined the brand around custom craft, sharp execution, and refusal to look template-made.</div>
+        </div>
+        <div class="case-step">
+          <div class="case-step-num">02</div>
+          <div class="case-step-title">SYSTEM</div>
+          <div class="case-step-copy">Built a tight type, color, grid, and mark system around acid green, black, and industrial spacing.</div>
+        </div>
+        <div class="case-step">
+          <div class="case-step-num">03</div>
+          <div class="case-step-title">APPLICATION</div>
+          <div class="case-step-copy">Translated the identity into a website, CTA language, case-study format, and repeatable visual assets.</div>
+        </div>
+        <div class="case-step">
+          <div class="case-step-num">04</div>
+          <div class="case-step-title">OUTCOME</div>
+          <div class="case-step-copy">A distinct studio presence that sells process, not just polish, and gives every touchpoint a point of view.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="case-study" id="case-filelink">
+    <div class="case-kicker reveal">Case Study / Web App</div>
+    <h2 class="case-title reveal reveal-delay-1">FILELINK PLATFORM<br><span class="grn">QR FILE SHARING.</span></h2>
+    <div class="case-grid">
+      <div class="reveal reveal-delay-2">
+        <p class="case-summary">A file management and QR sharing product for teams that need quick access to documents, drawings, and references without digging through folders or chat threads.</p>
+        <div class="case-meta">
+          <div><span>Scope</span><strong>Product UX</strong></div>
+          <div><span>Output</span><strong>Web App</strong></div>
+          <div><span>Focus</span><strong>Access Speed</strong></div>
+        </div>
+      </div>
+      <div class="case-steps reveal reveal-delay-3">
+        <div class="case-step">
+          <div class="case-step-num">01</div>
+          <div class="case-step-title">PROBLEM</div>
+          <div class="case-step-copy">Identified the handoff gap: files existed, but the right person could not always reach the right file quickly.</div>
+        </div>
+        <div class="case-step">
+          <div class="case-step-num">02</div>
+          <div class="case-step-title">FLOW</div>
+          <div class="case-step-copy">Designed upload, tagging, QR generation, and sharing flows around low-friction daily use.</div>
+        </div>
+        <div class="case-step">
+          <div class="case-step-num">03</div>
+          <div class="case-step-title">INTERFACE</div>
+          <div class="case-step-copy">Kept the UI direct: clear file states, copyable links, scannable QR blocks, and simple actions.</div>
+        </div>
+        <div class="case-step">
+          <div class="case-step-num">04</div>
+          <div class="case-step-title">OUTCOME</div>
+          <div class="case-step-copy">A practical internal platform that makes shared files feel immediate, trackable, and easy to trust.</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1202,9 +1449,7 @@ footer {
   </div>
 </section>
 
-<!-- TESTIMONIALS HIDDEN — remove these comment tags to restore:
-<!-- TESTIMONIALS — hidden for now, uncomment to restore
-<!-- TESTIMONIALS -->
+<!-- TESTIMONIALS HIDDEN FOR NOW
 <section id="testimonials">
   <div class="sec-label reveal">06 — What Clients Say</div>
   <h2 class="sec-title reveal reveal-delay-1">REAL<br><span class="grn">RESULTS.</span></h2>
@@ -1344,6 +1589,32 @@ window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 60);
 });
 
+// Theme toggle
+const themeToggle = document.getElementById('themeToggle');
+let savedTheme = null;
+try {
+  savedTheme = localStorage.getItem('mop-theme');
+} catch {}
+if (savedTheme === 'light') {
+  document.body.classList.add('light-mode');
+}
+function syncThemeToggle() {
+  const isLight = document.body.classList.contains('light-mode');
+  if (!themeToggle) return;
+  themeToggle.textContent = isLight ? 'DARK' : 'LIGHT';
+  themeToggle.setAttribute('aria-label', isLight ? 'Switch to dark mode' : 'Switch to light mode');
+}
+syncThemeToggle();
+if (themeToggle) {
+  themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('light-mode');
+    try {
+      localStorage.setItem('mop-theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+    } catch {}
+    syncThemeToggle();
+  });
+}
+
 // ── SCROLL REVEAL
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => {
@@ -1354,6 +1625,32 @@ const observer = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Animated stats
+const statNums = document.querySelectorAll('.stat-num[data-count]');
+function animateStat(el) {
+  const target = Number(el.dataset.count || 0);
+  const suffix = el.dataset.suffix || '';
+  const duration = target === 0 ? 450 : 1200;
+  const start = performance.now();
+  function tick(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const value = Math.round(target * eased);
+    el.textContent = value + suffix;
+    if (progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+const statsObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      animateStat(e.target);
+      statsObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.6 });
+statNums.forEach(el => statsObserver.observe(el));
 
 // ── CTA EMAIL FORM (formspree)
 const ctaForm = document.getElementById('ctaEmailForm');
@@ -1399,6 +1696,11 @@ if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
 if (quoteModalEl) quoteModalEl.addEventListener('click', (e) => { if (e.target === e.currentTarget) closeModal(); });
 if (quoteBtnEl)   quoteBtnEl.addEventListener('click', openModal);
 if (quoteNavBtnEl) quoteNavBtnEl.addEventListener('click', openModal);
+document.addEventListener('click', (e) => {
+  const modal = document.getElementById('quoteModal');
+  if (e.target && e.target.id === 'closeModal') closeModal();
+  if (modal && e.target === modal) closeModal();
+});
 
 // ── QUOTE FORM submit (formspree)
 const qForm = document.getElementById('quoteForm');
