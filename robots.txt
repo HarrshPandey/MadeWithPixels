@@ -1,8 +1,52 @@
+# Standard search engines
 User-agent: *
 Allow: /
-
-# Block any private or utility files if you add them later
 Disallow: /private/
-Disallow: /*.json$
+
+# Google
+User-agent: Googlebot
+Allow: /
+
+# Bing (used by ChatGPT search)
+User-agent: Bingbot
+Allow: /
+
+# Perplexity AI
+User-agent: PerplexityBot
+Allow: /
+
+# ChatGPT / OpenAI
+User-agent: GPTBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+
+# Claude / Anthropic
+User-agent: ClaudeBot
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+
+# Google Gemini / Bard
+User-agent: Google-Extended
+Allow: /
+
+# Meta AI
+User-agent: meta-externalagent
+Allow: /
+
+# Apple
+User-agent: Applebot
+Allow: /
+User-agent: Applebot-Extended
+Allow: /
+
+# Common AI research crawlers
+User-agent: CCBot
+Allow: /
+User-agent: cohere-ai
+Allow: /
 
 Sitemap: https://madeofpixels.in/sitemap.xml
