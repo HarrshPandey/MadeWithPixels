@@ -21,8 +21,6 @@ Website: https://madeofpixels.in
 
 ## Policies
 - Information Security Policy: https://madeofpixels.in/information-security-policy
-- Privacy Policy: https://madeofpixels.in/privacy-policy
-- Terms of Service: https://madeofpixels.in/terms-of-service
 
 ## Why Choose Us
 - 100% custom-built — zero templates used

@@ -124,17 +124,5 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
-  <url>
-    <loc>https://madeofpixels.in/privacy-policy</loc>
-    <lastmod>2026-09-21</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>https://madeofpixels.in/terms-of-service</loc>
-    <lastmod>2026-09-21</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
 
 </urlset>
