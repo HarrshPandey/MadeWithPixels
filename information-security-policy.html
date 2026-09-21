@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Information Security Policy | MadeOfPixels Studio</title>
+<meta name="description" content="How MadeOfPixels Studio protects client data and websites: access control, secure development, data protection, incident response and vulnerability disclosure.">
+<meta name="author" content="MadeOfPixels Studio">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://madeofpixels.in/information-security-policy">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://madeofpixels.in/information-security-policy">
+<meta property="og:title" content="Information Security Policy | MadeOfPixels Studio">
+<meta property="og:description" content="How MadeOfPixels Studio protects client data and websites: access control, secure development, data protection, incident response and vulnerability disclosure.">
+<meta property="og:image" content="https://madeofpixels.in/og-preview.png">
+<meta property="og:site_name" content="MadeOfPixels Studio">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Information Security Policy | MadeOfPixels Studio">
+<meta name="twitter:description" content="How MadeOfPixels Studio protects client data and websites: access control, secure development, data protection, incident response and vulnerability disclosure.">
+<meta name="twitter:image" content="https://madeofpixels.in/og-preview.png">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6TNKDP7018"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6TNKDP7018');
+</script>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "x2a7xuacr3");
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@id": "https://madeofpixels.in/information-security-policy",
+  "@type": "WebPage",
+  "name": "Information Security Policy | MadeOfPixels Studio",
+  "description": "How MadeOfPixels Studio protects client data and websites: access control, secure development, data protection, incident response and vulnerability disclosure.",
+  "url": "https://madeofpixels.in/information-security-policy",
+  "datePublished": "2026-09-21",
+  "dateModified": "2026-09-21",
+  "inLanguage": "en-IN",
+  "isPartOf": {"@id": "https://madeofpixels.in/"},
+  "publisher": {
+    "@type": "Organization",
+    "name": "MadeOfPixels Studio",
+    "url": "https://madeofpixels.in/",
+    "email": "hello@madeofpixels.in",
+    "telephone": "+918080356882",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Vasai",
+      "addressRegion": "Maharashtra",
+      "postalCode": "401202",
+      "addressCountry": "IN"
+    }
+  }
+}
+</script>
+<link rel="icon" type="image/png" href="/logo.png">
+<link rel="apple-touch-icon" href="/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Barlow+Condensed:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--blk:#080808;--wht:#F2F2F0;--grn:#BAFF2A;--mid:#141414;--sur:#1A1A1A;--dim:#3A3A3A;--muted:#666;--txt:#AAAAAA;}
+html{scroll-behavior:smooth;}
+::selection{background:var(--grn);color:var(--blk);}
+body{background:var(--blk);color:var(--wht);font-family:"Barlow Condensed",sans-serif;font-weight:400;overflow-x:hidden;}
+a{text-decoration:none;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 48px;border-bottom:1px solid transparent;transition:border-color 0.3s,background 0.3s;}
+nav.scrolled{background:rgba(8,8,8,0.95);border-color:var(--dim);backdrop-filter:blur(8px);}
+.nav-logo{display:flex;align-items:center;gap:10px;}
+.logo-mark-img{width:32px;height:32px;display:block;}
+.logo-text-wrap{display:flex;flex-direction:column;line-height:1;}
+.logo-name{font-family:"Bebas Neue",sans-serif;font-size:18px;letter-spacing:2px;color:var(--wht);}
+.logo-name span{color:var(--grn);}
+.logo-sub-txt{font-family:"Space Mono",monospace;font-size:7px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:1px;}
+.nav-links{display:flex;gap:36px;list-style:none;}
+.nav-links a{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);transition:color 0.2s;}
+.nav-links a:hover{color:var(--grn);}
+.nav-actions{display:flex;align-items:center;gap:10px;}
+.nav-cta{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--blk);background:var(--grn);padding:10px 22px;transition:background 0.2s;display:inline-block;}
+.nav-cta:hover{background:var(--wht);}
+.breadcrumb{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:2px;color:var(--muted);padding:20px 48px 0;margin-top:80px;}
+.breadcrumb a{color:var(--muted);transition:color 0.2s;}
+.breadcrumb a:hover{color:var(--grn);}
+.breadcrumb span{color:var(--grn);}
+.hero-page{min-height:60vh;display:flex;flex-direction:column;justify-content:flex-end;padding:140px 48px 64px;position:relative;overflow:hidden;border-bottom:1px solid var(--dim);}
+.hero-page::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(186,255,42,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(186,255,42,0.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
+.hero-stripe-page{position:absolute;top:0;right:0;width:32%;height:100%;background:var(--grn);clip-path:polygon(22% 0,100% 0,100% 100%,0% 100%);z-index:0;}
+.hero-content-page{position:relative;z-index:2;max-width:60%;}
+.hero-tag{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:20px;display:block;}
+.hero-h1{font-family:"Bebas Neue",sans-serif;font-size:clamp(52px,8vw,110px);line-height:0.88;letter-spacing:2px;color:var(--wht);font-weight:400;}
+.hero-h1 span{display:block;}
+.hero-h1 .grn{color:var(--grn);}
+.hero-sub{font-family:"Barlow Condensed",sans-serif;font-size:clamp(15px,1.8vw,20px);font-weight:300;color:var(--txt);max-width:520px;line-height:1.6;margin-top:28px;}
+.hero-ctas{display:flex;gap:16px;margin-top:36px;}
+.btn-primary{font-family:"Bebas Neue",sans-serif;font-size:18px;letter-spacing:2px;background:var(--grn);color:var(--blk);padding:16px 40px;display:inline-block;transition:background 0.2s;}
+.btn-primary:hover{background:var(--wht);}
+.btn-ghost{font-family:"Bebas Neue",sans-serif;font-size:18px;letter-spacing:2px;border:1px solid var(--dim);color:var(--muted);padding:16px 32px;display:inline-block;transition:all 0.2s;}
+.btn-ghost:hover{border-color:var(--grn);color:var(--blk);background:var(--grn);}
+section{padding:100px 48px;}
+.sec-label{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:16px;}
+.sec-label::before{content:"";width:32px;height:1px;background:var(--grn);}
+
+.glance{padding:0 48px;margin-top:64px;}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;}
+.stat-box{background:var(--mid);padding:36px 28px;border-top:3px solid var(--grn);}
+.stat-num{font-family:"Bebas Neue",sans-serif;font-size:56px;color:var(--grn);line-height:1;}
+.stat-label{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:8px;line-height:1.6;}
+
+.policy-wrap{display:grid;grid-template-columns:270px minmax(0,1fr);gap:64px;padding:80px 48px 100px;align-items:start;}
+.toc{position:sticky;top:100px;background:var(--mid);border-top:3px solid var(--grn);padding:28px 24px;max-height:calc(100vh - 130px);overflow-y:auto;}
+.toc-title{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:3px;color:var(--wht);text-transform:uppercase;margin-bottom:12px;}
+.toc a{display:block;font-family:"Space Mono",monospace;font-size:9px;letter-spacing:1px;color:var(--muted);padding:9px 0;border-bottom:1px solid var(--dim);line-height:1.5;transition:color 0.2s;}
+.toc a:last-child{border-bottom:none;}
+.toc a:hover{color:var(--grn);}
+.toc a b{color:var(--grn);font-weight:400;margin-right:8px;}
+
+.doc-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:64px;}
+.doc-meta div{background:var(--mid);padding:22px 24px;border-left:4px solid var(--grn);}
+.doc-meta dt{font-family:"Space Mono",monospace;font-size:8px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;}
+.doc-meta dd{font-family:"Barlow Condensed",sans-serif;font-size:17px;font-weight:600;color:var(--wht);}
+
+.pol-sec{margin-bottom:64px;scroll-margin-top:100px;}
+.pol-num{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:3px;color:var(--grn);text-transform:uppercase;margin-bottom:14px;}
+.pol-h{font-family:"Bebas Neue",sans-serif;font-size:clamp(34px,4vw,52px);line-height:0.95;letter-spacing:1px;color:var(--wht);margin-bottom:24px;font-weight:400;}
+.pol-sec p{font-size:17px;font-weight:300;color:var(--txt);line-height:1.8;margin-bottom:18px;max-width:820px;}
+.pol-sec strong{color:var(--wht);font-weight:600;}
+.pol-sec a{color:var(--grn);border-bottom:1px solid rgba(186,255,42,0.35);transition:border-color 0.2s;}
+.pol-sec a:hover{border-bottom-color:var(--grn);}
+.pol-list{list-style:none;margin:0 0 18px;max-width:820px;}
+.pol-list li{position:relative;font-size:17px;font-weight:300;color:var(--txt);line-height:1.7;padding:10px 0 10px 28px;border-bottom:1px solid var(--dim);}
+.pol-list li:last-child{border-bottom:none;}
+.pol-list li::before{content:"";position:absolute;left:0;top:20px;width:8px;height:8px;background:var(--grn);}
+.pol-sub{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:2px;color:var(--wht);text-transform:uppercase;margin:32px 0 14px;}
+.pol-note{background:var(--mid);border-left:4px solid var(--grn);padding:22px 26px;margin:24px 0;max-width:820px;}
+.pol-note p{margin:0;font-size:16px;}
+.table-scroll{overflow-x:auto;margin:22px 0 26px;max-width:960px;}
+.pol-table{width:100%;border-collapse:collapse;min-width:560px;}
+.pol-table th{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;text-align:left;background:var(--mid);padding:14px 18px;border-bottom:2px solid var(--grn);}
+.pol-table td{font-size:15px;font-weight:300;color:var(--txt);line-height:1.6;padding:16px 18px;border-bottom:1px solid var(--dim);vertical-align:top;}
+.pol-table td:first-child{color:var(--wht);font-weight:600;white-space:nowrap;}
+.steps{list-style:none;counter-reset:step;max-width:820px;margin:0 0 18px;}
+.steps li{counter-increment:step;position:relative;background:var(--mid);padding:20px 24px 20px 72px;margin-bottom:2px;font-size:16px;font-weight:300;color:var(--txt);line-height:1.7;border-top:2px solid var(--dim);}
+.steps li::before{content:counter(step,decimal-leading-zero);position:absolute;left:24px;top:18px;font-family:"Bebas Neue",sans-serif;font-size:28px;color:var(--grn);letter-spacing:1px;}
+.steps li strong{display:block;font-family:"Bebas Neue",sans-serif;font-size:20px;letter-spacing:1px;font-weight:400;margin-bottom:2px;}
+.contact-card{background:var(--mid);border-top:3px solid var(--grn);padding:32px 36px;max-width:620px;margin-top:8px;}
+.contact-card p{margin-bottom:6px;font-size:17px;}
+.contact-card .k{font-family:"Space Mono",monospace;font-size:8px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;display:block;margin-top:18px;margin-bottom:4px;}
+.contact-card .k:first-child{margin-top:0;}
+.disclaimer{border-top:1px solid var(--dim);padding-top:28px;margin-top:8px;}
+.disclaimer p{font-size:14px;color:var(--muted);}
+
+.cta-band{background:var(--grn);padding:80px 48px;display:flex;align-items:center;justify-content:space-between;gap:40px;}
+.cta-band-title{font-family:"Bebas Neue",sans-serif;font-size:clamp(36px,5vw,72px);line-height:0.9;color:var(--blk);letter-spacing:2px;}
+.cta-band-sub{font-family:"Barlow Condensed",sans-serif;font-size:16px;font-weight:300;color:rgba(8,8,8,0.6);margin-top:12px;}
+.cta-band-right{display:flex;flex-direction:column;gap:12px;align-items:flex-start;flex-shrink:0;}
+.btn-dark{font-family:"Bebas Neue",sans-serif;font-size:18px;letter-spacing:2px;background:var(--blk);color:var(--grn);padding:16px 40px;display:inline-block;transition:background 0.2s;}
+.btn-dark:hover{background:var(--sur);}
+.contact-note{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:1px;color:rgba(8,8,8,0.5);}
+footer{background:var(--blk);border-top:1px solid var(--dim);padding:64px 48px 32px;}
+.footer-top{display:grid;grid-template-columns:1fr 2fr;gap:64px;margin-bottom:48px;}
+.footer-logo-wrap{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.footer-logo-img{width:28px;height:28px;}
+.footer-logo{font-family:"Bebas Neue",sans-serif;font-size:20px;letter-spacing:2px;color:var(--wht);}
+.footer-logo span{color:var(--grn);}
+.footer-logo-sub{font-family:"Space Mono",monospace;font-size:7px;color:var(--muted);letter-spacing:2px;}
+.footer-tagline{font-family:"Barlow Condensed",sans-serif;font-size:14px;color:var(--muted);line-height:1.6;margin-top:12px;}
+.footer-links{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;}
+.footer-col-title{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:2px;color:var(--wht);text-transform:uppercase;margin-bottom:16px;}
+.footer-col a{display:block;font-family:"Space Mono",monospace;font-size:9px;letter-spacing:1px;color:var(--muted);margin-bottom:10px;transition:color 0.2s;}
+.footer-col a:hover{color:var(--grn);}
+.footer-seo{border-top:1px solid var(--dim);padding:24px 0;}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--dim);padding-top:24px;margin-top:24px;}
+.footer-copy{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:1px;color:var(--muted);}
+.footer-socials{display:flex;gap:16px;}
+.footer-socials a{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:1px;color:var(--muted);transition:color 0.2s;}
+.footer-socials a:hover{color:var(--grn);}
+@media(max-width:1024px){
+  .policy-wrap{grid-template-columns:minmax(0,1fr);gap:40px;padding:56px 32px 72px;}
+  .toc{position:static;max-height:none;}
+  .glance{padding:0 32px;}
+}
+@media(max-width:768px){
+  nav{padding:14px 20px;}
+  .nav-links{display:none;}
+  .breadcrumb{padding:20px 20px 0;}
+  .hero-page{padding:100px 20px 48px;min-height:50vh;}
+  .hero-stripe-page{display:none;}
+  .hero-content-page{max-width:100%;}
+  .hero-ctas{flex-direction:column;}
+  .glance{padding:0 20px;margin-top:40px;}
+  .stats-row{grid-template-columns:1fr 1fr;}
+  .stat-num{font-size:44px;}
+  .policy-wrap{padding:40px 20px 56px;}
+  .doc-meta{grid-template-columns:1fr;}
+  .pol-sec{margin-bottom:48px;}
+  .pol-sec p,.pol-list li{font-size:16px;}
+  .steps li{padding:18px 18px 18px 60px;}
+  .steps li::before{left:16px;}
+  .contact-card{padding:24px 22px;}
+  .cta-band{flex-direction:column;align-items:flex-start;padding:48px 20px;}
+  .footer-top{grid-template-columns:1fr;gap:32px;}
+  .footer-links{grid-template-columns:1fr 1fr;}
+  .footer-bottom{flex-direction:column;align-items:flex-start;gap:16px;}
+}
+@media print{
+  nav,.hero-stripe-page,.toc,.cta-band,footer,.breadcrumb{display:none;}
+  body,.pol-note,.doc-meta div,.stat-box,.steps li,.pol-table th,.contact-card{background:#fff;color:#000;}
+  .hero-page{min-height:0;padding:0 0 24px;border:0;}
+  .hero-h1,.hero-sub,.pol-h,.pol-sec p,.pol-list li,.pol-table td,.doc-meta dd,.pol-sec strong{color:#000;}
+  .policy-wrap{display:block;padding:0;}
+}
+</style>
+</head>
+<body>
+<nav id="nav">
+  <a href="/" class="nav-logo">
+    <img src="/logo.png" alt="MadeOfPixels Studio logo" class="logo-mark-img">
+    <div class="logo-text-wrap">
+      <span class="logo-name">MADE OF <span>PIXELS</span></span>
+      <span class="logo-sub-txt">Studio</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/#about">About</a></li>
+    <li><a href="/#services">Services</a></li>
+    <li><a href="/#work">Work</a></li>
+    <li><a href="/#process">Process</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="mailto:hello@madeofpixels.in" class="nav-cta">Get a Quote</a>
+  </div>
+</nav>
+<div class="breadcrumb"><a href="/">Home</a> &rsaquo; <span>Information Security Policy</span></div>
+
+<main>
+<section class="hero-page">
+  <div class="hero-stripe-page"></div>
+  <div class="hero-content-page">
+    <span class="hero-tag">Legal &middot; Security &amp; Compliance</span>
+    <h1 class="hero-h1"><span>INFORMATION</span><span>SECURITY</span><span class="grn">POLICY.</span></h1>
+    <p class="hero-sub">How MadeOfPixels Studio protects your data, your websites and your business. Version 1.0, effective 21 September 2026.</p>
+    <div class="hero-ctas">
+      <a href="#s13" class="btn-primary">Report a Vulnerability</a>
+      <a href="mailto:hello@madeofpixels.in" class="btn-ghost">Contact Us &#8599;</a>
+    </div>
+  </div>
+</section>
+
+<div class="glance">
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-num">0</div><div class="stat-label">Third-party themes, plugins<br>or page builders</div></div>
+    <div class="stat-box"><div class="stat-num">HTTPS</div><div class="stat-label">Encrypted transport<br>for all site traffic</div></div>
+    <div class="stat-box"><div class="stat-num">MFA</div><div class="stat-label">On critical accounts<br>where supported</div></div>
+    <div class="stat-box"><div class="stat-num">12 MO</div><div class="stat-label">Maximum interval between<br>policy reviews</div></div>
+  </div>
+</div>
+
+<div class="policy-wrap">
+  <aside class="toc" aria-label="Table of contents">
+    <div class="toc-title">Contents</div>
+    <a href="#s1"><b>01</b>Purpose and Scope</a>
+    <a href="#s2"><b>02</b>Security Principles</a>
+    <a href="#s3"><b>03</b>Roles and Responsibilities</a>
+    <a href="#s4"><b>04</b>Information Classification</a>
+    <a href="#s5"><b>05</b>Access Control</a>
+    <a href="#s6"><b>06</b>Secure Development</a>
+    <a href="#s7"><b>07</b>Hosting and Network Security</a>
+    <a href="#s8"><b>08</b>Data Protection and Privacy</a>
+    <a href="#s9"><b>09</b>Third-Party Services</a>
+    <a href="#s10"><b>10</b>Devices and Workspace</a>
+    <a href="#s11"><b>11</b>Backup and Continuity</a>
+    <a href="#s12"><b>12</b>Incident Response</a>
+    <a href="#s13"><b>13</b>Vulnerability Disclosure</a>
+    <a href="#s14"><b>14</b>Confidentiality</a>
+    <a href="#s15"><b>15</b>Awareness and Training</a>
+    <a href="#s16"><b>16</b>Compliance and Review</a>
+    <a href="#s17"><b>17</b>Policy Violations</a>
+    <a href="#s18"><b>18</b>Contact</a>
+  </aside>
+
+  <article class="policy-body">
+    <dl class="doc-meta">
+      <div><dt>Document</dt><dd>Information Security Policy</dd></div>
+      <div><dt>Version</dt><dd>1.0</dd></div>
+      <div><dt>Effective date</dt><dd>21 September 2026</dd></div>
+      <div><dt>Last reviewed</dt><dd>21 September 2026</dd></div>
+      <div><dt>Policy owner</dt><dd>Studio Management</dd></div>
+      <div><dt>Review cycle</dt><dd>Annually, and after major incidents</dd></div>
+    </dl>
+
+    <div class="pol-sec" id="s1">
+      <div class="pol-num">01</div>
+      <h2 class="pol-h">Purpose and Scope</h2>
+      <p>This Information Security Policy explains how MadeOfPixels Studio (&ldquo;we&rdquo;, &ldquo;us&rdquo;, &ldquo;the Studio&rdquo;) protects the confidentiality, integrity and availability of the information we handle. That includes client project data, personal information submitted through our website, source code, design assets and our own business records.</p>
+      <p>The policy applies to everyone who works on the Studio&rsquo;s behalf, including founders, employees, freelancers and contractors. It covers every system, device, account and third-party service used to deliver our work, including the website <strong>madeofpixels.in</strong>.</p>
+    </div>
+
+    <div class="pol-sec" id="s2">
+      <div class="pol-num">02</div>
+      <h2 class="pol-h">Security Principles</h2>
+      <p>Every security decision at the Studio is guided by the following principles.</p>
+      <ul class="pol-list">
+        <li><strong>Confidentiality.</strong> Information is available only to the people who need it to do their work.</li>
+        <li><strong>Integrity.</strong> Data, code and deployed websites are protected against unauthorised or accidental change.</li>
+        <li><strong>Availability.</strong> Client websites and our working systems remain available and can be recovered quickly if something fails.</li>
+        <li><strong>Least privilege.</strong> Accounts and people receive the minimum access needed, for the minimum time needed.</li>
+        <li><strong>Security by design.</strong> Security is considered at the start of every project rather than added at the end.</li>
+        <li><strong>Reduced attack surface.</strong> We hand-code our sites and avoid unnecessary third-party code, so there is less to attack and less to patch.</li>
+        <li><strong>Continuous improvement.</strong> We learn from incidents and near-misses and update our practices accordingly.</li>
+      </ul>
+    </div>
+
+    <div class="pol-sec" id="s3">
+      <div class="pol-num">03</div>
+      <h2 class="pol-h">Roles and Responsibilities</h2>
+      <ul class="pol-list">
+        <li><strong>Studio Management</strong> owns this policy, approves any exceptions, provides the resources needed to follow it, and leads the response to security incidents.</li>
+        <li><strong>Team members and contractors</strong> follow this policy, protect the credentials and data entrusted to them, complete security awareness activities, and report suspected incidents immediately.</li>
+        <li><strong>Clients</strong> are responsible for the security of accounts and credentials they hold themselves, and for telling us promptly if they suspect that any account shared with us has been compromised.</li>
+      </ul>
+    </div>
+
+    <div class="pol-sec" id="s4">
+      <div class="pol-num">04</div>
+      <h2 class="pol-h">Information Classification and Handling</h2>
+      <p>We sort information into four levels so that the right protection is applied to the right data.</p>
+      <div class="table-scroll">
+        <table class="pol-table">
+          <thead><tr><th>Level</th><th>Description and examples</th><th>Handling rule</th></tr></thead>
+          <tbody>
+            <tr><td>Public</td><td>Information intended for release, such as published website content and client-approved portfolio work.</td><td>Protect integrity; no confidentiality restrictions.</td></tr>
+            <tr><td>Internal</td><td>Business information not meant for the public, such as internal planning, drafts and general project notes.</td><td>Share only within the Studio and with the relevant client.</td></tr>
+            <tr><td>Confidential</td><td>Client materials, contracts, quotes, unreleased designs, project source code and personal data from enquiries.</td><td>Need-to-know access; encrypted in transit; stored only in approved systems.</td></tr>
+            <tr><td>Restricted</td><td>Passwords, API keys, access tokens, private keys and any payment or government-identity data.</td><td>Held only in a password manager or secrets store; never in email, chat or source code; collected only where unavoidable.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="pol-sec" id="s5">
+      <div class="pol-num">05</div>
+      <h2 class="pol-h">Access Control and Authentication</h2>
+      <ul class="pol-list">
+        <li>Access is granted on a need-to-know, least-privilege basis and is tied to a named individual. Shared accounts are avoided.</li>
+        <li>Passwords must be long, unique and generated and stored in a reputable password manager. Passwords are never reused across services.</li>
+        <li>Multi-factor authentication (MFA) is enabled on email, source code hosting, hosting and deployment platforms, domain registrar and DNS accounts, and any other critical service that supports it.</li>
+        <li>Access is removed promptly when a project ends, a contractor leaves or a role changes, and access rights are reviewed at least once a year.</li>
+        <li>Credentials supplied by clients are received through secure channels, used only for the agreed work, and returned, rotated or deleted at handover.</li>
+      </ul>
+    </div>
+
+    <div class="pol-sec" id="s6">
+      <div class="pol-num">06</div>
+      <h2 class="pol-h">Secure Design and Development</h2>
+      <p>Every website and web application we build follows secure development practices from the first line of code.</p>
+      <ul class="pol-list">
+        <li>Sites are <strong>hand-coded from scratch</strong>. We do not rely on off-the-shelf themes, plugins or page builders, which are a common source of vulnerabilities.</li>
+        <li>All source code lives in version control with a full change history. Changes are reviewed before they reach production.</li>
+        <li>Secrets such as API keys and tokens are never committed to source code. They are held in the hosting platform&rsquo;s environment settings or an equivalent secrets store.</li>
+        <li>Third-party scripts and libraries are kept to a minimum, evaluated before they are added, loaded from reputable sources, and updated when security fixes are released.</li>
+        <li>Where a project accepts user input, we validate it on the server side, encode output to prevent injection and cross-site scripting, and apply the OWASP Top 10 as a reference for common risks.</li>
+        <li>Changes are tested on a preview deployment before going live.</li>
+      </ul>
+    </div>
+
+    <div class="pol-sec" id="s7">
+      <div class="pol-num">07</div>
+      <h2 class="pol-h">Hosting, Network and Transport Security</h2>
+      <ul class="pol-list">
+        <li>Our website is served from a managed hosting platform with a global content delivery network, which handles server patching, TLS certificates and infrastructure hardening.</li>
+        <li>All traffic to madeofpixels.in is delivered over HTTPS. Sensitive information is never sent over unencrypted channels.</li>
+        <li>Domain, DNS and hosting accounts are protected with MFA, and changes to DNS records are made deliberately by authorised people only.</li>
+        <li>Domain registration and certificate renewals are monitored so that a lapse cannot interrupt or expose a site.</li>
+      </ul>
+    </div>
+
+    <div class="pol-sec" id="s8">
+      <div class="pol-num">08</div>
+      <h2 class="pol-h">Data Protection and Privacy</h2>
+      <p>We collect only the personal information needed to respond to enquiries and deliver projects: typically a name, email address, an optional phone number and the message you send us through our contact forms, plus aggregated usage data from website analytics.</p>
+      <ul class="pol-list">
+        <li>We collect personal data only for a specific, stated purpose, and we do not use it for unrelated purposes.</li>
+        <li>We do not sell personal data.</li>
+        <li>Personal data is retained only for as long as it is needed for the purpose it was collected for, or as the law requires, and is then deleted securely.</li>
+        <li>We handle personal data in line with applicable Indian law, including the Information Technology Act, 2000, the Information Technology (Reasonable Security Practices and Procedures and Sensitive Personal Data or Information) Rules, 2011, and the Digital Personal Data Protection Act, 2023, as its provisions come into force.</li>
+      </ul>
+      <p>You may ask us at any time what personal data we hold about you, and request that we correct or delete it. Write to <a href="mailto:hello@madeofpixels.in">hello@madeofpixels.in</a> and we will respond within a reasonable time.</p>
+    </div>
+
+    <div class="pol-sec" id="s9">
+      <div class="pol-num">09</div>
+      <h2 class="pol-h">Third-Party Services and Vendors</h2>
+      <p>We use a small number of established third-party services to run the Studio and this website. We choose reputable providers, review their security and privacy terms, share only the data a service needs, and remove access when it is no longer required.</p>
+      <div class="table-scroll">
+        <table class="pol-table">
+          <thead><tr><th>Category</th><th>Provider</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td>Hosting and CDN</td><td>Vercel</td><td>Serves madeofpixels.in over HTTPS.</td></tr>
+            <tr><td>Source code</td><td>GitHub</td><td>Version control and code backup.</td></tr>
+            <tr><td>Contact forms</td><td>Formspree</td><td>Delivers enquiries submitted through our website forms to our inbox.</td></tr>
+            <tr><td>Analytics</td><td>Google Analytics, Microsoft Clarity</td><td>Aggregated traffic and usage insight used to improve the site.</td></tr>
+            <tr><td>Web fonts</td><td>Google Fonts</td><td>Delivery of the typefaces used on our pages.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>These providers process data under their own terms and privacy policies. Where a project requires additional services, we tell the client which providers are involved.</p>
+    </div>
+
+    <div class="pol-sec" id="s10">
+      <div class="pol-num">10</div>
+      <h2 class="pol-h">Devices and Workspace Security</h2>
+      <ul class="pol-list">
+        <li>Devices used for Studio work are protected with a password or biometric lock and an automatic screen lock.</li>
+        <li>Full-disk encryption is enabled wherever the device supports it.</li>
+        <li>Operating systems, browsers and development tools are kept up to date, and security updates are applied promptly.</li>
+        <li>Only trusted software from reputable sources is installed, and built-in or reputable anti-malware protection is kept active.</li>
+        <li>Public or untrusted networks are avoided for sensitive work; where unavoidable, a trusted VPN is used.</li>
+        <li>A lost or stolen device is reported immediately so that sessions can be revoked and credentials rotated.</li>
+      </ul>
+    </div>
+
+    <div class="pol-sec" id="s11">
+      <div class="pol-num">11</div>
+      <h2 class="pol-h">Backup and Business Continuity</h2>
+      <ul class="pol-list">
+        <li>Source code is stored in remote version control, so every project can be rebuilt and redeployed from source.</li>
+        <li>Client deliverables and design assets are kept in more than one secure location.</li>
+        <li>Backups are protected by the same access controls as the original data, and restoration is tested periodically.</li>
+        <li>If a service fails or a site is compromised, we restore client-facing sites first and as quickly as practicable, and keep affected clients informed.</li>
+      </ul>
+    </div>
+
+    <div class="pol-sec" id="s12">
+      <div class="pol-num">12</div>
+      <h2 class="pol-h">Incident Response and Breach Notification</h2>
+      <p>A security incident is any event that compromises, or could compromise, the confidentiality, integrity or availability of information or systems. Everyone working with the Studio must report suspected incidents immediately. We respond in six stages.</p>
+      <ol class="steps">
+        <li><strong>Identify and report</strong>Confirm what happened, when it was detected and which systems or data are involved.</li>
+        <li><strong>Contain</strong>Limit the damage by disabling affected accounts, revoking tokens and keys, and isolating compromised systems.</li>
+        <li><strong>Assess</strong>Determine the scope, the data affected and the people or clients who may be impacted.</li>
+        <li><strong>Eradicate and recover</strong>Remove the cause, restore clean systems and data from trusted sources, and verify normal operation.</li>
+        <li><strong>Notify</strong>Inform affected clients and individuals without undue delay, and report to authorities where required by law. This includes reporting qualifying cyber incidents to CERT-In within the timeframe set by its directions, and meeting the notification duties of the Digital Personal Data Protection Act, 2023 as they come into force.</li>
+        <li><strong>Review</strong>Carry out a post-incident review, record the lessons learned and put corrective actions in place.</li>
+      </ol>
+      <p>We keep a record of every incident, its impact and the actions taken.</p>
+    </div>
+
+    <div class="pol-sec" id="s13">
+      <div class="pol-num">13</div>
+      <h2 class="pol-h">Responsible Vulnerability Disclosure</h2>
+      <p>We welcome reports from security researchers and members of the public who find a vulnerability in madeofpixels.in. If you believe you have found one, please tell us so we can fix it.</p>
+
+      <div class="pol-sub">How to report</div>
+      <p>Email <a href="mailto:hello@madeofpixels.in?subject=Security%20Report">hello@madeofpixels.in</a> with the subject &ldquo;Security Report&rdquo;. Please include a clear description, the steps needed to reproduce the issue, the affected URL or component, and the impact you expect. Our machine-readable contact details are published in <a href="/.well-known/security.txt">security.txt</a>.</p>
+
+      <div class="pol-sub">What you can expect from us</div>
+      <ul class="pol-list">
+        <li>We will acknowledge your report within three business days.</li>
+        <li>We will investigate, keep you informed of progress, and tell you when the issue is resolved.</li>
+        <li>We will credit you for the finding if you wish. We do not operate a paid bug bounty programme.</li>
+        <li>We will not pursue legal action against anyone who reports a vulnerability in good faith and follows the guidelines below.</li>
+      </ul>
+
+      <div class="pol-sub">Guidelines for researchers</div>
+      <ul class="pol-list">
+        <li>Test only madeofpixels.in. Third-party platforms we use are out of scope and should be reported to their owners.</li>
+        <li>Do not access, change or delete data that is not yours, and stop as soon as you have shown that the issue exists.</li>
+        <li>Do not perform denial-of-service testing, spam, social engineering, phishing or physical attacks.</li>
+        <li>Give us a reasonable time to fix the issue before you disclose it publicly.</li>
+      </ul>
+    </div>
+
+    <div class="pol-sec" id="s14">
+      <div class="pol-num">14</div>
+      <h2 class="pol-h">Confidentiality and Client Data</h2>
+      <ul class="pol-list">
+        <li>Client materials, credentials and business information are used only for the agreed project.</li>
+        <li>We do not publish, share or reuse client work or data without the client&rsquo;s consent.</li>
+        <li>We are glad to sign a non-disclosure agreement before a project begins, on request.</li>
+        <li>Confidentiality obligations continue after a project ends.</li>
+      </ul>
+    </div>
+
+    <div class="pol-sec" id="s15">
+      <div class="pol-num">15</div>
+      <h2 class="pol-h">Awareness and Training</h2>
+      <p>Most security incidents begin with human error, so awareness matters as much as technology. Everyone who works with the Studio is expected to read and follow this policy, to learn to recognise phishing and social engineering, and to review our security practices at least once a year.</p>
+    </div>
+
+    <div class="pol-sec" id="s16">
+      <div class="pol-num">16</div>
+      <h2 class="pol-h">Compliance, Monitoring and Review</h2>
+      <p>We review this policy at least once every 12 months, and sooner after a significant incident, a change in the services we use or a change in applicable law. We check our own compliance through periodic reviews of accounts, access rights and configurations.</p>
+      <p>When the policy changes, we update the version number and the &ldquo;Last reviewed&rdquo; date at the top of this page.</p>
+    </div>
+
+    <div class="pol-sec" id="s17">
+      <div class="pol-num">17</div>
+      <h2 class="pol-h">Policy Violations</h2>
+      <p>Failure to follow this policy may result in the removal of access, the termination of an engagement or employment, and, where the law requires or allows, legal action. Anyone who reports a concern in good faith will not be penalised for doing so.</p>
+    </div>
+
+    <div class="pol-sec" id="s18">
+      <div class="pol-num">18</div>
+      <h2 class="pol-h">Contact</h2>
+      <p>Questions about this policy, requests about your personal data and security reports can all be sent to us using the details below.</p>
+      <div class="contact-card">
+        <span class="k">Studio</span>
+        <p><strong>MadeOfPixels Studio</strong></p>
+        <span class="k">Email</span>
+        <p><a href="mailto:hello@madeofpixels.in">hello@madeofpixels.in</a></p>
+        <span class="k">Phone</span>
+        <p><a href="tel:+918080356882">+91 80803 56882</a></p>
+        <span class="k">Address</span>
+        <p>Vasai West, Maharashtra 401202, India</p>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      <p>This policy describes the security practices and commitments of MadeOfPixels Studio. It is not a certification or an independent audit, and it does not by itself create a contract. Where a client agreement contains specific security terms, those terms apply in addition to this policy.</p>
+    </div>
+  </article>
+</div>
+</main>
+
+<div class="cta-band">
+  <div>
+    <div class="cta-band-title">QUESTIONS ABOUT<br>SECURITY?</div>
+    <div class="cta-band-sub">We are happy to walk you through how we protect your project.</div>
+  </div>
+  <div class="cta-band-right">
+    <a href="mailto:hello@madeofpixels.in" class="btn-dark">EMAIL US &rarr;</a>
+    <a href="https://wa.me/918080356882" target="_blank" rel="noopener" class="btn-dark">WHATSAPP US &rarr;</a>
+    <span class="contact-note">+91 80803 56882 &middot; hello@madeofpixels.in</span>
+  </div>
+</div>
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo-wrap">
+        <img src="/logo.png" alt="MadeOfPixels Studio logo" class="footer-logo-img">
+        <div>
+          <div class="footer-logo">MADE OF <span>PIXELS</span></div>
+          <div class="footer-logo-sub">Studio</div>
+        </div>
+      </div>
+      <div class="footer-tagline">Bold by design. Built from scratch.<br>Web design agency in Vasai, Mumbai.</div>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <div class="footer-col-title">Studio</div>
+        <a href="/#about">About</a>
+        <a href="/#services">Services</a>
+        <a href="/#work">Work</a>
+        <a href="/#process">Process</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Services</div>
+        <a href="/web-design-vasai">Web Design Vasai</a>
+        <a href="/website-development-vasai">Website Development</a>
+        <a href="/branding-agency-vasai">Branding Vasai</a>
+        <a href="/ui-ux-design-mumbai">UI/UX Design Mumbai</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Contact</div>
+        <a href="mailto:hello@madeofpixels.in">hello@madeofpixels.in</a>
+        <a href="tel:+918080356882">+91 80803 56882</a>
+        <a href="https://wa.me/918080356882" target="_blank" rel="noopener">WhatsApp Us</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Legal</div>
+        <a href="/information-security-policy">Information Security Policy</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-seo">
+    <p style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--muted);line-height:2;">
+      <strong style="color:var(--txt);">MADEOFPIXELS STUDIO</strong> &nbsp;·&nbsp; Vasai West, Maharashtra 401202 &nbsp;·&nbsp;
+      <a href="tel:+918080356882" style="color:var(--muted);">+91 80803 56882</a> &nbsp;·&nbsp;
+      <a href="mailto:hello@madeofpixels.in" style="color:var(--muted);">hello@madeofpixels.in</a>
+    </p>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">&copy; 2025 MADE OF PIXELS STUDIO &middot; VASAI, MUMBAI &middot; MADEOFPIXELS.IN</div>
+    <div class="footer-socials">
+      <a href="/">Home</a>
+      <a href="/#work">Work</a>
+      <a href="/#cta">Contact</a>
+    </div>
+  </div>
+</footer>
+<script>
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));
+</script>
+</body>
+</html>

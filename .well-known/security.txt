@@ -1,0 +1,5 @@
+Contact: mailto:hello@madeofpixels.in
+Expires: 2027-09-21T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://madeofpixels.in/.well-known/security.txt
+Policy: https://madeofpixels.in/information-security-policy

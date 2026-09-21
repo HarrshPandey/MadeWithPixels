@@ -19,6 +19,9 @@ Email: hello@madeofpixels.in
 Phone: +91 80803 56882
 Website: https://madeofpixels.in
 
+## Policies
+- Information Security Policy: https://madeofpixels.in/information-security-policy
+
 ## Why Choose Us
 - 100% custom-built — zero templates used
 - Hand-coded for speed (under 2s load time)
