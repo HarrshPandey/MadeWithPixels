@@ -57,7 +57,7 @@ function blogIndex(v){
 ${sec({id:'posts',stage:'Articles',num:'01',name:'Articles',tagline:POSTS.length+' published',bodyStyle:'padding:0',body:`<div class="post-list">\n    ${cards}\n    </div>`})}
 ${ctaSection({num:'02'})}`;
   const list={'@type':'Blog','@id':SITE.url+'/blog#blog',name:SITE.name+' blog',url:SITE.url+'/blog',publisher:{'@id':SITE.url+'/#business'},blogPost:POSTS.map(p=>({'@type':'BlogPosting',headline:p.title,url:SITE.url+'/blog/'+p.slug,datePublished:p.date}))};
-  return {path:'/blog',file:'blog.html',opts:{path:'/blog',title:'Blog: Website, SEO & Local Business Guides | MadeOfPixels Studio',desc:'Practical guides on website cost, SEO and local marketing for businesses in Vasai, Mumbai and across India, from MadeOfPixels Studio.',nav:'blog',body,crumbs,v,pageType:'CollectionPage',graph:[list],keywords:'web design blog India, website cost guide, local SEO tips, website checklist'}};
+  return {path:'/blog',file:'blog.html',opts:{path:'/blog',title:'Blog: Website & SEO Guides | MadeOfPixels Studio',desc:'Practical guides on website cost, SEO and local marketing for businesses in Vasai, Mumbai and across India, from MadeOfPixels Studio.',nav:'blog',body,crumbs,v,pageType:'CollectionPage',graph:[list],keywords:'web design blog India, website cost guide, local SEO tips, website checklist'}};
 }
 function blogPost(p,i,v){
   const path='/blog/'+p.slug, crumbs=[['Home','/'],['Blog','/blog'],[p.title,path]];
@@ -122,7 +122,7 @@ function process(v){
 ${sec({id:'planner-sec',stage:'Planner',num:'01',name:'Planner',tagline:'Interactive',body:`    <h2 class="h2 rv">Plan your {{project}}.</h2>\n    <div style="margin-top:clamp(40px,5vw,80px)">${planner}</div>`})}
 ${sec({id:'stages',stage:'Stages',num:'02',name:'The four stages',tagline:'How it gets done',body:`    <h2 class="h2 rv">No surprises. Just {{progress}}.</h2>\n    <div class="cells c4 rv">${steps.map((x,i)=>'<article class="cell-i"><span class="n mono">0'+(i+1)+' — '+x[1]+'</span><div><h3>'+x[0]+'</h3><p>'+x[2]+'</p></div>'+stepper(i+1)+'</article>').join('')}</div>`})}
 ${ctaSection({num:'03'})}`;
-  return {path:'/process',file:'process.html',opts:{path:'/process',title:'Website Design Process & Project Planner | MadeOfPixels Studio',desc:'See how a MadeOfPixels website project goes from brief to launch, with an interactive planner that shows timeline and rough price for your project type.',nav:'tools',body,crumbs,v,keywords:'website design process, how long does a website take, website project timeline India'}};
+  return {path:'/process',file:'process.html',opts:{path:'/process',title:'Website Design Process & Planner | MadeOfPixels',desc:'See how a MadeOfPixels website project goes from brief to launch, with an interactive planner that shows timeline and rough price for your project type.',nav:'tools',body,crumbs,v,keywords:'website design process, how long does a website take, website project timeline India'}};
 }
 
 /* ---------------------------------------------------------------- free audit */
@@ -149,7 +149,7 @@ ${sec({id:'audit',stage:'Audit',num:'01',name:'Run the audit',tagline:'No sign-u
 ${sec({id:'faq',stage:'FAQ',num:'02',name:'FAQ',tagline:'Common questions',body:`    <h2 class="h2 rv">About the {{audit}}.</h2>\n    <div class="rv">${faqHTML(faq)}</div>`})}
 ${ctaSection({num:'03',h:'Want us to fix what the audit {{finds}}?'})}`;
   const tool={'@type':'WebApplication','@id':SITE.url+'/free-website-audit#tool',name:'Free website audit',url:SITE.url+'/free-website-audit',applicationCategory:'BusinessApplication',operatingSystem:'Any',offers:{'@type':'Offer',price:'0',priceCurrency:'INR'},provider:{'@id':SITE.url+'/#business'}};
-  return {path:'/free-website-audit',file:'free-website-audit.html',opts:{path:'/free-website-audit',title:'Free Website Audit: Speed, Mobile & SEO Check | MadeOfPixels Studio',desc:'Run a free website audit: speed, mobile and on-page SEO checks for any page in under a minute, with a clear checklist on screen and one click to send it to us. By MadeOfPixels Studio.',nav:'tools',body,crumbs,v,bodyClass:'no-strip',graph:[tool,faqNode(faq)],keywords:'free website audit, website SEO checker, website speed test India, mobile friendly test'}};
+  return {path:'/free-website-audit',file:'free-website-audit.html',opts:{path:'/free-website-audit',title:'Free Website Audit: Speed, Mobile & SEO | MadeOfPixels',desc:'Run a free website audit: speed, mobile and on-page SEO checks for any page in under a minute, with a clear checklist on screen and one click to send it to us. By MadeOfPixels Studio.',nav:'tools',body,crumbs,v,bodyClass:'no-strip',graph:[tool,faqNode(faq)],keywords:'free website audit, website SEO checker, website speed test India, mobile friendly test'}};
 }
 
 /* ---------------------------------------------------------------- location pages (generated) */

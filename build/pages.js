@@ -51,7 +51,7 @@ function projectArticle(p,idx,level){
 }
 
 function projectsIndex(v){
-  const title='Projects & Case Studies | Web Apps, SaaS & Branding | MadeOfPixels Studio';
+  const title='Projects & Case Studies | MadeOfPixels Studio';
   const desc='Selected projects by MadeOfPixels Studio: MachinaERP project tracking SaaS, the studio brand identity and FileLink QR file sharing. Open any project for the full case study.';
   const crumbs=[['Home','/'],['Projects','/projects']];
   const cats=[['all','All'],['saas','SaaS'],['brand','Brand identity'],['webapp','Web app']];
@@ -210,7 +210,7 @@ ${sec({id:'process',stage:'Process',num:'05',name:'Process',tagline:'How it gets
     <h2 class="h2 rv">From brief to {{live}}.</h2>
     <div class="cells c4 rv">${steps.map((x,i)=>'<article class="cell-i"><span class="n mono">0'+(i+1)+' — '+x[1]+'</span><div><h3>'+x[0]+'</h3><p>'+x[2]+'</p></div>'+stepper(i+1)+'</article>').join('')}</div>`})}
 ${ctaSection({num:'06'})}`;
-  return {path:'/about',file:'about.html',opts:{path:'/about',title:'About MadeOfPixels Studio | Custom Web Design Agency in Vasai & Mumbai',
+  return {path:'/about',file:'about.html',opts:{path:'/about',title:'About MadeOfPixels | Web Design Agency, Vasai & Mumbai',
     desc:'MadeOfPixels Studio is a Vasai West web design agency building hand-coded, zero-template websites. Meet the studio, our principles, our process and 10+ delivered projects.',
     nav:'about',body,crumbs,pageType:'AboutPage',v,keywords:'about MadeOfPixels Studio, web design agency Vasai West, custom web design studio Mumbai, hand-coded websites, zero templates'}};
 }
@@ -237,7 +237,7 @@ ${sec({id:'industries',stage:'Industries',num:'03',name:'Industries',tagline:'Wh
     ${linkGrid(SERVICE_PAGES.map(a=>[a[0],a[1],'Service']).concat(INDUSTRIES.map(a=>[a[0],a[1],'Industry'])))}`})}
 ${ctaSection({num:'04'})}`;
   const svcGraph=SERVICES.map(s=>({'@type':'Service','@id':SITE.url+'/services#'+s.slug,name:s.name,description:s.desc.replace(/ \[EDIT[^\]]*\]/,''),provider:{'@id':SITE.url+'/#business'},areaServed:['Vasai','Mumbai','India'],url:SITE.url+'/services#'+s.slug}));
-  return {path:'/services',file:'services.html',opts:{path:'/services',title:'Web Design, Development & Branding Services in Vasai & Mumbai | MadeOfPixels',
+  return {path:'/services',file:'services.html',opts:{path:'/services',title:'Web Design & Branding Services, Vasai | MadeOfPixels',
     desc:'Custom websites, UI/UX design, brand identity, web apps, e-commerce, landing pages and maintenance from MadeOfPixels Studio in Vasai and Mumbai. Hand-coded. Zero templates.',
     nav:'services',body,crumbs,v,graph:svcGraph,keywords:'web design services Vasai, website development Mumbai, branding agency Vasai, UI UX design Mumbai, web app development, graphic design Mumbai'}};
 }
@@ -288,7 +288,7 @@ ${sec({id:'faq',stage:'FAQ',num:'03',name:'FAQ',tagline:'Common questions',body:
     <h2 class="h2 rv">Quick {{answers}}.</h2>
     <div class="rv">${faqHTML(faq)}</div>`})}`;
   const faqLd=faqNode(faq);
-  return {path:'/contact',file:'contact.html',opts:{path:'/contact',title:'Contact MadeOfPixels Studio | Free Website Quote in 24 Hours, Vasai & Mumbai',
+  return {path:'/contact',file:'contact.html',opts:{path:'/contact',title:'Contact MadeOfPixels | Free Website Quote in 24 Hours',
     desc:'Get a free website quote within 24 hours. Contact MadeOfPixels Studio in Vasai West by email, WhatsApp or phone, or send your brief through the form.',
     nav:'contact',body,crumbs,pageType:'ContactPage',v,graph:[faqLd],keywords:'contact web design agency Vasai, free website quote Mumbai, web designer near me, hire website developer Vasai'}};
 }
