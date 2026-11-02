@@ -152,7 +152,7 @@ html.wipe-in .wipe i{opacity:1;transition:none}
 .planner-out .facts{margin-top:4px}
 
 /* audit */
-.audit-grid{display:grid;gap:clamp(40px,5vw,88px);margin-top:clamp(40px,5vw,80px)}
+.audit-grid{display:grid;gap:clamp(30px,3.75vw,66px);margin-top:clamp(30px,3.75vw,60px)}
 @media (min-width:1000px){.audit-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}}
 .audit-form{display:grid;gap:22px;max-width:560px}
 .audit-form .field input{width:100%;padding:12px 14px;border:1px solid var(--ink-4);background:transparent;color:var(--ink);font:400 15px/1.4 var(--f-display)}

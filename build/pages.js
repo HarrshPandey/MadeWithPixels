@@ -188,15 +188,15 @@ function about(v){
 ${sec({id:'studio',stage:'Studio',num:'01',name:'Who we are',tagline:'Established 2025',body:`
     <h2 class="h2 rv">Every project starts with a blank {{canvas}}.</h2>
     <div class="split">
-      <div class="prose rv"><p>Made of Pixels is a web design agency and website development studio based in Vasai, Mumbai. We build custom digital experiences for brands that refuse to look like everyone else.</p><p>We argue over 4px of spacing at 2am because your users will feel it. Every pixel is placed with intent. We don’t copy. We don’t compromise. We build.</p></div>
+      <div class="split-l"><div class="prose rv"><p>Made of Pixels is a web design agency and website development studio based in Vasai, Mumbai. We build custom digital experiences for brands that refuse to look like everyone else.</p><p>We argue over 4px of spacing at 2am because your users will feel it. Every pixel is placed with intent. We don’t copy. We don’t compromise. We build.</p></div>
+      <div class="stats-row rv"><div class="stat-box"><div class="stat-num">10+</div><div class="stat-label">Projects delivered</div></div><div class="stat-box"><div class="stat-num">0</div><div class="stat-label">Templates used</div></div><div class="stat-box"><div class="stat-num">100%</div><div class="stat-label">Custom code</div></div><div class="stat-box"><div class="stat-num">24hr</div><div class="stat-label">Quote turnaround</div></div></div></div>
       <dl class="facts rv">
         <div><dt>Studio</dt><dd>${SITE.name}</dd></div><div><dt>Established</dt><dd>2025</dd></div>
         <div><dt>Based in</dt><dd>Vasai West, Maharashtra</dd></div><div><dt>Serving</dt><dd>India &amp; Global</dd></div>
         <div><dt>Hours</dt><dd>Mon–Sat · 09:00–20:00</dd></div><div><dt>Email</dt><dd><a href="mailto:${SITE.email}">${SITE.email}</a></dd></div>
         <div><dt>WhatsApp</dt><dd><a href="${SITE.wa}" target="_blank" rel="noopener noreferrer">${SITE.phoneDisp}</a></dd></div>
       </dl>
-    </div>
-    <div class="stats-row rv"><div class="stat-box"><div class="stat-num">10+</div><div class="stat-label">Projects delivered</div></div><div class="stat-box"><div class="stat-num">0</div><div class="stat-label">Templates used</div></div><div class="stat-box"><div class="stat-num">100%</div><div class="stat-label">Custom code</div></div><div class="stat-box"><div class="stat-num">24hr</div><div class="stat-label">Quote turnaround</div></div></div>`})}
+    </div>`})}
 ${sec({id:'values',stage:'Values',num:'02',name:'What we stand for',tagline:'Four non-negotiables',body:`
     <h2 class="h2 rv">Craft, identity, speed, {{results}}.</h2>
     <div class="cells c4 rv">${vals.map(x=>'<article class="cell-i"><span class="n mono">'+x[0]+'</span><div><h3>'+x[1]+'</h3><p>'+x[2]+'</p></div></article>').join('')}</div>`})}
