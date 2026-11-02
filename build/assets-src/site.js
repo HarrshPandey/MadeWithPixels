@@ -540,26 +540,28 @@ let fitAll=()=>{}, measureAll=()=>{};
     }
     svg.innerHTML=s;
   }
-  /* Each stage name behaves like a sticky element inside its own section's span on the tape:
-     - upcoming names wait in a stack at the bottom, then lift out and ride along vertically as their section nears;
-     - once the section is under way the name sticks (vertically) below the passed names while the section lasts;
-     - at the end of the section it slides up and out, then parks in the stack at the top. */
+  /* Only one stage name is ever vertical at a time (the current one):
+     - upcoming names wait in a stack at the bottom;
+     - the next one lifts out and rides along the ruler vertically, and at that moment the previous name
+       snaps up into the stack at the top;
+     - the riding name sticks below the passed names until the name after it lifts out (or its section ends). */
   function place(){
     const hp=17, gap=6, edge=14, off=56;
     const start=i=>PAD+secU[i]*UNIT-shift, end=i=>i<N-1?start(i+1):PAD+100*UNIT-shift;
-    let p=0; while(p<N&&end(p)<=edge+(p+1)*(hp+gap)) p++;                    // names whose section has fully passed
+    const slotOf=i=>Hr-edge-hp/2-(N-1-i)*(hp+gap), riding=i=>start(i)+off+lens[i]<=slotOf(i);
+    let p=0; while(p<N&&(end(p)<=edge+(p+1)*(hp+gap)||(p<N-1&&riding(p+1)))) p++;   // names already passed
     const topEnd=edge+p*(hp+gap)+2, y=new Array(N), vert=new Array(N).fill(false);
     for(let i=0;i<p;i++) y[i]=edge+hp/2+i*(hp+gap);
-    let cur=-1, bottomCount=0;
+    let cur=-1, stick=-1, bottomCount=0;
     for(let i=p;i<N;i++){
-      if(i===p&&start(i)+off<=topEnd){ cur=i; continue; }                       // section already under way
-      const slot=Hr-edge-hp/2-(N-1-i)*(hp+gap), nat=Math.max(start(i)+off,topEnd);
-      if(nat+lens[i]<=slot){ vert[i]=true; y[i]=nat; } else { y[i]=slot; bottomCount++; }
+      if(i===p&&start(i)+off<=topEnd){ stick=i; cur=i; continue; }               // reached the top: sticks there
+      const slot=slotOf(i), nat=Math.max(start(i)+off,topEnd);
+      if(nat+(i===p?lensA[i]:lens[i])<=slot){ vert[i]=true; y[i]=nat; if(i===p) cur=i; } else { y[i]=slot; bottomCount++; }
     }
-    if(cur>=0){
+    if(stick>=0){
       const bottomTop=Hr-edge-bottomCount*(hp+gap)-gap;
-      if(topEnd+lensA[cur]<=bottomTop){ vert[cur]=true; y[cur]=Math.min(topEnd,end(cur)-lensA[cur]-8); }
-      else y[cur]=topEnd+16;                                                   // no room: large horizontal name instead
+      if(topEnd+lensA[stick]<=bottomTop){ vert[stick]=true; y[stick]=Math.min(topEnd,end(stick)-lensA[stick]-8); }
+      else y[stick]=topEnd+16;                                                   // no room: large horizontal name instead
     }
     labs.forEach((l,i)=>{
       l.style.transform='translateY('+y[i].toFixed(1)+'px)';
