@@ -55,16 +55,22 @@ body.strip-on .to-top{bottom:calc(var(--strip-h,0px) + 72px)}
 @media (max-width:899px){.wa-fab{left:16px;bottom:16px}}
 @media (max-width:560px){.wa-fab span{display:none}.wa-fab{padding:14px}}
 
-/* one-time nudge */
-.nudge{position:fixed;left:20px;bottom:140px;z-index:130;width:min(360px,calc(100vw - 40px));padding:22px 22px 24px;background:var(--paper);border:1px solid var(--ink);border-top:2px solid var(--accent);display:grid;gap:12px}
+/* one-time nudge: centred, inverted card over a dimmed page */
+.nudge{position:fixed;inset:0;z-index:420;display:grid;place-items:center;padding:20px;background:rgba(17,17,16,.64)}
 .nudge[hidden]{display:none}
-.nudge h2{font:600 clamp(22px,2.4vw,28px)/1.1 var(--f-display);letter-spacing:-.035em;text-transform:uppercase}
-.nudge p:not(.mono){color:var(--ink-2)}
-.nudge .btn{justify-self:start}
-.nudge-x{position:absolute;right:8px;top:8px;border:0;background:none;color:var(--ink);cursor:pointer;padding:8px}
-.nudge-x:hover{background:var(--ink);color:var(--paper)}
-body.strip-on .nudge{bottom:calc(var(--strip-h,0px) + 130px)}
-@media (max-width:899px){.nudge{left:16px;bottom:130px}}
+.nudge-card{position:relative;width:min(500px,100%);padding:clamp(28px,4vw,44px);background:var(--ink);color:var(--paper);border-top:6px solid var(--accent);box-shadow:10px 10px 0 var(--accent);display:grid;gap:16px;animation:nudge-in .4s steps(5,end) both}
+@keyframes nudge-in{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(-20px -20px -20px -20px)}}
+.nudge-card .mono{color:rgba(239,237,232,.7)}
+.nudge-card h2{font:600 clamp(28px,4.4vw,40px)/1.05 var(--f-display);letter-spacing:-.04em;text-transform:uppercase}
+.nudge-card p:not(.mono){color:rgba(239,237,232,.82);font-size:17px;line-height:1.55}
+.nudge-card .actions{margin-top:6px}
+.nudge-card .btn{border-color:var(--paper);color:var(--paper)}
+.nudge-card .btn:hover{background:var(--paper);color:var(--ink)}
+.nudge-card .btn-primary{background:var(--paper);color:var(--ink)}
+.nudge-card .btn-primary:hover{background:transparent;color:var(--paper)}
+.nudge-x{position:absolute;right:10px;top:10px;border:0;background:none;color:var(--paper);cursor:pointer;padding:10px;font-size:14px}
+.nudge-x:hover{background:var(--paper);color:var(--ink)}
+@media (prefers-reduced-motion:reduce){.nudge-card{animation:none}}
 
 /* cookie banner */
 .consent{position:fixed;left:50%;transform:translateX(-50%);bottom:20px;z-index:300;width:min(460px,calc(100vw - 40px));padding:20px 22px;background:var(--paper);border:1px solid var(--ink);display:grid;gap:16px}

@@ -368,7 +368,7 @@ function policy(v){
   const sub=g(/<p class="hero-sub">([\s\S]*?)<\/p>/), stats=g(/<div class="glance">\s*<div class="stats-row">([\s\S]*?)<\/div>\s*<\/div>\s*\n/)||'';
   const glance=h.match(/<div class="glance">([\s\S]*?)<\/div>\s*<div class="policy-wrap">/);
   const toc=g(/<aside class="toc"[^>]*>([\s\S]*?)<\/aside>/);
-  let art=g(/<article class="policy-body">([\s\S]*?)<\/article>/).replace(/class="steps"/g,'class="pol-steps"');
+  let art=g(/<article class="policy-body">([\s\S]*?)<\/article>/).replace(/class="steps"/g,'class="pol-steps"').replace('<td>Formspree</td><td>Delivers enquiries submitted through our website forms to our inbox.</td>','<td>Resend</td><td>Delivers enquiries submitted through our website forms to our inbox and sends confirmation emails.</td>');
   const crumbs=[['Home','/'],['Information security policy','/information-security-policy']];
   const body=`${pageHero({crumbs,tag:'Legal · Security & compliance',h1:'Information security {{policy}}.',sub,actions:'<a class="btn btn-primary" href="#s13">Report a vulnerability</a><a class="btn" href="mailto:'+SITE.email+'">Contact us ↗</a>'})}
 <section class="sec" id="policy" data-stage="Policy" style="border-top:0">

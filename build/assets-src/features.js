@@ -66,10 +66,11 @@ const toast=(msg,ms=3200)=>{
   const born=Date.now(); let shown=false;
   function show(){
     if(shown||locks||body.classList.contains('has-consent')) return;
-    shown=true; n.hidden=false; ls.set('mop-nudge',String(Date.now()));
+    shown=true; n.hidden=false; ls.set('mop-nudge',String(Date.now())); $('#nudge-x').focus({preventScroll:true});
   }
   const hide=()=>{ n.hidden=true; };
-  $('#nudge-x').addEventListener('click',hide);
+  $('#nudge-x').addEventListener('click',hide); $('#nudge-later').addEventListener('click',hide);
+  n.addEventListener('click',e=>{ if(e.target===n) hide(); });
   $('a',n).addEventListener('click',hide);
   addEventListener('keydown',e=>{ if(e.key==='Escape'&&!n.hidden) hide(); });
   document.addEventListener('mouseout',e=>{ if(!e.relatedTarget&&e.clientY<=0&&Date.now()-born>8000) show(); });
@@ -175,12 +176,7 @@ const toast=(msg,ms=3200)=>{
       const r=await fetch('/api/audit-send',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
       const j=await r.json().catch(()=>({}));
       if(r.ok) return done();
-      if(!j.fallback) throw new Error(j.error||'Could not send the report.');
-      /* email service unavailable: send the same report through the Formspree form instead */
-      const fd=new FormData(); fd.append('_subject','Free website audit request'); fd.append('email',d.email); fd.append('name',d.name); fd.append('website',d.url); fd.append('score',d.score+'/100');
-      fd.append('message','Audit request for '+d.url+'. Score '+d.score+'/100.\n'+d.summary+'\n\n'+d.groups.map(g=>g.name+'\n'+g.items.map(i=>'['+i.status+'] '+i.label+': '+i.note).join('\n')).join('\n\n'));
-      const fr=await fetch(MOP.form,{method:'POST',body:fd,headers:{Accept:'application/json'}}); if(!fr.ok) throw new Error('Could not send the report.');
-      done();
+      throw new Error(j.error||'Could not send the report.');
     }catch(ex){ b2.disabled=false; b2.textContent='Send this report to us →'; st.textContent=ex.message+' You can also email hello@madeofpixels.in.'; }
   }
   function render(d){

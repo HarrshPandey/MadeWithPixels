@@ -61,4 +61,16 @@ const gh={
   async put(path,text,message){ return this.putBase64(path,Buffer.from(text,'utf8').toString('base64'),message); }
 };
 
-module.exports={send,readBody,ip,limited,authed,gh,sign,verify,canonical};
+/* Resend: one place that sends every email (enquiries, sketches, audit reports, auto-replies) */
+const mail={
+  ready(){ return !!(process.env.RESEND_API_KEY&&process.env.AUDIT_FROM); },
+  owner(){ return process.env.AUDIT_TO||'hello@madeofpixels.in'; },
+  async send({to,subject,html,reply_to}){
+    const r=await fetch('https://api.resend.com/emails',{method:'POST',headers:{Authorization:'Bearer '+process.env.RESEND_API_KEY,'Content-Type':'application/json'},
+      body:JSON.stringify({from:process.env.AUDIT_FROM,to:[].concat(to),subject:String(subject).replace(/[\r\n]+/g,' ').slice(0,200),html,reply_to})});
+    if(!r.ok){ const t=await r.text().catch(()=>''); throw new Error('resend '+r.status+' '+t.slice(0,160)); }
+    return true;
+  }
+};
+
+module.exports={send,readBody,ip,limited,authed,gh,sign,verify,canonical,mail};

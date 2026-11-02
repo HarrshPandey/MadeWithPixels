@@ -6,7 +6,6 @@ const SITE={
   email:'hello@madeofpixels.in', phone:'+918080356882', phoneDisp:'+91 80803 56882', phone2:'+919699208605', phone2Disp:'+91 96992 08605',
   wa:'https://wa.me/918080356882',
   ig:'https://www.instagram.com/madeofpixelsstudio', li:'https://www.linkedin.com/company/madeofpixels',
-  formspree:'https://formspree.io/f/xkoeekoz',
   ga:'G-6TNKDP7018', clarity:'x2a7xuacr3',
   modified:'2026-11-02', founded:'2025',
   ogImage:'https://madeofpixels.in/og-preview.png',
@@ -167,7 +166,7 @@ function formHTML(prefix,kind){
   const f=n=>'f-'+prefix+'-'+n, e=n=>'e-'+prefix+'-'+n;
   const err=n=>'<p class="err" id="'+e(n)+'" data-for="'+n+'" aria-live="polite"></p>';
   const opts=['Custom Website','UI/UX Design','Brand Identity','Web App','E-commerce','Landing Page','Maintenance','Something else'].map(o=>'<option>'+o+'</option>').join('');
-  return `<form action="${SITE.formspree}" method="POST" novalidate data-enquiry="${kind}" aria-label="${kind==='dialog'?'Quote request':'Project enquiry'}">
+  return `<form action="/api/submit" method="POST" novalidate data-enquiry="${kind}" aria-label="${kind==='dialog'?'Quote request':'Project enquiry'}">
         <input type="hidden" name="_subject" value="New enquiry${kind==='dialog'?' (lightbox)':''} from madeofpixels.in">
         <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
         <input type="hidden" name="sketch" value="">
@@ -247,13 +246,15 @@ const CHROME_HTML=`<div class="wipe" id="wipe" aria-hidden="true">${wipeSquares(
 </div>
 <a class="wa-fab" href="${SITE.wa}?text=Hi%2C%20I%27d%20like%20a%20quote" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp">${waGlyph()}<span class="mono">WhatsApp</span></a>
 <button class="to-top mono" id="to-top" type="button" aria-label="Back to top" hidden>↑ Top</button>
-<aside class="nudge" id="nudge" role="dialog" aria-labelledby="nudge-t" hidden>
-  <button class="nudge-x mono" id="nudge-x" type="button" aria-label="Dismiss">✕</button>
-  <p class="mono faint">Before you go</p>
-  <h2 id="nudge-t">Get a free website <em>audit</em>.</h2>
-  <p>See how your site does on speed, mobile and SEO. It takes under a minute.</p>
-  <a class="btn btn-primary" href="/free-website-audit">Run the free audit →</a>
-</aside>
+<div class="nudge" id="nudge" role="dialog" aria-modal="true" aria-labelledby="nudge-t" hidden>
+  <div class="nudge-card">
+    <button class="nudge-x mono" id="nudge-x" type="button" aria-label="Close">✕</button>
+    <p class="mono">Before you go</p>
+    <h2 id="nudge-t">Get a free website <em>audit</em>.</h2>
+    <p>See how your site does on speed, mobile and SEO. It takes under a minute.</p>
+    <div class="actions"><a class="btn btn-primary" href="/free-website-audit">Run the free audit →</a><button class="btn nudge-later" id="nudge-later" type="button">Maybe later</button></div>
+  </div>
+</div>
 <div class="consent" id="consent" role="region" aria-label="Cookie preferences" hidden>
   <p>We use Google Analytics and Microsoft Clarity to see how the site is used. They only load if you accept. <a href="/information-security-policy#s8">Privacy details</a></p>
   <div class="actions"><button class="btn" type="button" data-consent="decline">Decline</button><button class="btn btn-primary" type="button" data-consent="accept">Accept</button></div>
@@ -324,7 +325,7 @@ ${footerHTML()}
 ${DIALOG_HTML}
 ${o.afterFooter||''}
 ${o.bare?'':CHROME_HTML}
-<script>window.MOP={ga:"${SITE.ga}",clarity:"${SITE.clarity}",wa:"${SITE.wa}",form:"${SITE.formspree}"};</script>
+<script>window.MOP={ga:"${SITE.ga}",clarity:"${SITE.clarity}",wa:"${SITE.wa}"};</script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
 <script src="/assets/site.js?v=${o.v}" defer></script>
 </body>

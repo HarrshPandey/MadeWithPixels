@@ -128,7 +128,7 @@ const hdr=(k,val)=>({key:k,value:val});
 fs.writeFileSync(path.join(ROOT,'vercel.json'),JSON.stringify({
   buildCommand:'node build/build.js',outputDirectory:'site',cleanUrls:true,trailingSlash:false,
   redirects:[{source:'/unpublished/:path*',destination:'/',permanent:false},{source:'/index',destination:'/',permanent:true}],
-  functions:{'api/audit.js':{maxDuration:30},'api/audit-send.js':{maxDuration:15},'api/content.js':{maxDuration:15},'api/upload.js':{maxDuration:15}},
+  functions:{'api/audit.js':{maxDuration:30},'api/submit.js':{maxDuration:15},'api/audit-send.js':{maxDuration:15},'api/content.js':{maxDuration:15},'api/upload.js':{maxDuration:15}},
   headers:[
     {source:'/(.*)',headers:[hdr('X-Content-Type-Options','nosniff'),hdr('X-Frame-Options','SAMEORIGIN'),hdr('Referrer-Policy','strict-origin-when-cross-origin'),hdr('Permissions-Policy','geolocation=(), microphone=(), camera=()'),hdr('Strict-Transport-Security','max-age=31536000; includeSubDomains')]},
     {source:'/assets/(.*)',headers:[hdr('Cache-Control','public, max-age=31536000, immutable')]},

@@ -26,7 +26,7 @@ const SCHEMAS={
     blank:()=>({id:'sketch-'+Date.now().toString(36),name:'',note:'',date:new Date().toISOString().slice(0,10),approved:true,art:Array(16).fill('.'.repeat(16)).join('\n')}),
     fields:[['id','ID','text'],['name','Credit (name)','text'],['note','Caption','text'],['date','Date','date'],['approved','Approved (visible on the wall)','bool'],['art','Sketch (click squares)','art']],
     chip:it=>it.approved===false?'Hidden':'On the wall',
-    help:'Visitor sketches arrive by email from the Formspree form (look for the gallery_ok line). If they said yes, add a gallery entry, paste the # and . rows into the sketch box (or click the squares), tick Approved and save.'},
+    help:'Visitor sketches arrive in your inbox from the pixel sketch form (the email says whether they gave permission for the gallery). If they said yes, add a gallery entry, paste the # and . rows into the sketch box (or click the squares), tick Approved and save.'},
   reviews:{label:'Reviews',id:'name',title:'name',sub:'source',
     blank:()=>({name:'',rating:5,text:'',date:new Date().toISOString().slice(0,10),source:'Google',url:'',photo:'',published:true}),
     fields:[['name','Reviewer name','text'],['rating','Rating','select','rating'],['text','Review text','textarea'],['photo','Profile photo','photo'],['date','Date','date'],['source','Source','text'],['url','Link to the review (optional)','text'],['published','Published (visible on the site)','bool']],

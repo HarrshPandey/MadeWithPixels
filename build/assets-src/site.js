@@ -78,7 +78,7 @@ $$('.marquee').forEach(m=>{                         // repeat items until one se
 
 /* ---------- pixelating wordmark: letters shatter into squares around the cursor, then reform ---------- */
 (function(){
-  if(!wm||reduce||!fine) return;
+  if(!wm||reduce) return;                       // works with a mouse (hover) and with touch (press and hold on the wordmark)
   const wrap=wm.parentElement, cv=document.createElement('canvas'), ctx=cv.getContext('2d');
   if(!('letterSpacing' in ctx)) return;
   cv.className='wm-canvas'; cv.setAttribute('aria-hidden','true'); wrap.appendChild(cv);
@@ -150,7 +150,7 @@ if(!reduce&&fine){
   });
 }
 
-/* ---------- enquiry forms (Formspree) + contact lightbox ---------- */
+/* ---------- enquiry forms (emailed through /api/submit) + contact lightbox ---------- */
 const rules={
   name:v=>v.trim().length>=2||'Tell us your name.',
   email:v=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim())||'Enter a valid email.',
@@ -181,14 +181,14 @@ function initForm(form,onSent){
     if(field('_gotcha').value) return;                       // honeypot: bots only
     btn.disabled=true; btn.textContent='Sending…';
     try{
-      const res=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});
+      const res=await fetch('/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign(Object.fromEntries(new FormData(form)),{kind:'enquiry',source:form.dataset.enquiry,page:location.pathname}))});
       if(res.ok){
         form.reset(); say('Sent. We’ll be in touch within 24 hours.');
         if(window.gtag) gtag('event','generate_lead',{event_category:'form',event_label:form.dataset.enquiry});
         if(onSent) onSent();
       }else{
         let msg='Something went wrong. Email us at hello@madeofpixels.in';
-        try{ const d=await res.json(); if(d.errors&&d.errors.length) msg=d.errors.map(x=>x.message).join(' '); }catch(_){}
+        try{ const d=await res.json(); if(d.error) msg=d.error; }catch(_){}
         say(msg);
       }
     }catch(_){ say('Network error. Email us at hello@madeofpixels.in'); }
@@ -303,7 +303,7 @@ const ESTIMATOR={
     e.preventDefault(); render();
   });
   $('#sk-clear').addEventListener('click',()=>{ grid.fill(0); status.textContent='Cleared.'; render(); });
-  /* "Send us your sketch" asks for an email, then posts the drawing straight to Formspree (no contact form) */
+  /* "Send us your sketch" asks for an email, then emails the drawing to us through /api/submit (no contact form) */
   const sf=$('#sk-form'), sbtn=$('button[type="submit"]',sf), slabel=sbtn.textContent;
   const art=()=>Array.from({length:N},(_,y)=>grid.slice(y*N,y*N+N).map(v=>v?'#':'.').join('')).join('\n');
   $('#sk-send').addEventListener('click',()=>{
@@ -319,12 +319,12 @@ const ESTIMATOR={
     if(sf.elements._gotcha.value) return;
     sf.elements.sketch.value=art(); sbtn.disabled=true; sbtn.textContent='Sending…';
     try{
-      const res=await fetch(sf.action,{method:'POST',body:new FormData(sf),headers:{Accept:'application/json'}});
+      const res=await fetch('/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({kind:'sketch',email:em,credit:sf.elements.credit.value.trim(),gallery_ok:sf.elements.gallery_ok.checked,sketch:art(),_gotcha:sf.elements._gotcha.value})});
       if(res.ok){
         status.textContent='Sent. We’ve got your sketch and will reply by email.';
         if(window.gtag) gtag('event','generate_lead',{event_category:'form',event_label:'sketch'});
         sf.reset(); sf.hidden=true; grid.fill(0); render();
-      }else status.textContent='Something went wrong. Email us at hello@madeofpixels.in';
+      }else{ let m='Something went wrong. Email us at hello@madeofpixels.in'; try{ const d=await res.json(); if(d.error) m=d.error; }catch(_){} status.textContent=m; }
     }catch(_){ status.textContent='Network error. Email us at hello@madeofpixels.in'; }
     sbtn.disabled=false; sbtn.textContent=slabel;
   });

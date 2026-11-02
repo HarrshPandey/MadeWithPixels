@@ -19,6 +19,9 @@
     "api/audit.js": {
       "maxDuration": 30
     },
+    "api/submit.js": {
+      "maxDuration": 15
+    },
     "api/audit-send.js": {
       "maxDuration": 15
     },

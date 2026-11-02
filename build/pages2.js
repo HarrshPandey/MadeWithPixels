@@ -21,7 +21,7 @@ function sketchBlock(){
         <h3>Draw with <em>pixels</em>.</h3>
         <p>Click or drag to place squares. Click a filled one to erase it. Made something good? Send it to us.</p>
         <div class="actions"><button class="btn" type="button" id="sk-clear">Clear</button><button class="btn btn-primary" type="button" id="sk-send">Send us your sketch →</button></div>
-        <form class="sk-form" id="sk-form" action="${SITE.formspree}" method="POST" hidden novalidate>
+        <form class="sk-form" id="sk-form" action="/api/submit" method="POST" hidden novalidate>
           <input type="hidden" name="_subject" value="Pixel sketch from madeofpixels.in">
           <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
           <input type="hidden" name="sketch" value="">

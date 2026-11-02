@@ -15,8 +15,10 @@ The site is static HTML plus a few small serverless functions in `api/`. Vercel 
 | `GITHUB_TOKEN` | Publishing from the admin panel | Fine-grained token on this repo only, with **Contents: Read and write**. |
 | `GITHUB_REPO` | Publishing from the admin panel | `HarrshPandey/MadeWithPixels` |
 | `GITHUB_BRANCH` | Publishing (optional) | Defaults to `main`. |
-| `RESEND_API_KEY` + `AUDIT_FROM` | Audit report emails to you | When a visitor presses "Send this report to us" on the audit page, the report is emailed to you through Resend. Without these, the same report goes to your Formspree inbox instead. `AUDIT_FROM` is the sender, e.g. `MadeOfPixels Audit <audit@madeofpixels.in>` on a domain you verified in Resend (or `onboarding@resend.dev` while testing, which only delivers to your own Resend sign-up email). |
+| `RESEND_API_KEY` + `AUDIT_FROM` | **All site emails** | Resend sends every email: contact and lightbox enquiries, pixel sketches, audit reports, and the confirmation replies to visitors. `AUDIT_FROM` is the sender, e.g. `MadeOfPixels <audit@madeofpixels.in>`, on a domain you verified in Resend. Without these, forms show an error and ask visitors to email you. |
 | `AUDIT_TO` | Optional | Where those emails go. Defaults to hello@madeofpixels.in. |
+| `AUDIT_REPLY_TO` | Optional | Reply-to on the confirmation emails visitors receive. Defaults to hello@madeofpixels.in. |
+| `AUTORESPONSE` | Optional | Set to `off` to stop sending visitors the "We got your brief" confirmation email. |
 | `PSI_API_KEY` | Optional | Google PageSpeed Insights key (see below). The audit works without it but speed results can be limited. |
 
 ## 2b. Creating the PageSpeed key (PSI_API_KEY)
@@ -29,13 +31,13 @@ The site is static HTML plus a few small serverless functions in `api/`. Vercel 
 - **Projects, Blog, Gallery, Reviews** each have a list on the left and a form on the right.
 - **Save and publish** commits the change to GitHub. Vercel rebuilds and the live site updates in about a minute.
 - **Blog posts** are markdown. Untick *Published* to keep a draft hidden.
-- **Gallery**: visitors who tick the permission box send their sketch to your Formspree inbox (the email shows the `gallery_ok` line and the sketch as `#` and `.` rows). To show it, add a Gallery entry, paste the rows (or click the squares), tick *Approved*, save.
+- **Gallery**: visitors who tick the permission box send their sketch to your inbox (the email says whether they gave permission, shows the sketch and the # and . rows). To show it, add a Gallery entry, paste the rows (or click the squares), tick *Approved*, save.
 - **Reviews**: type the reviewer's name and paste their review. Optionally upload a profile photo; if you do not, their initials are shown in a square. The Reviews section stays hidden on the site until at least one review is published.
 
 You can also edit `content/*.json` directly in GitHub; the result is the same.
 
-## 4. Formspree autoresponder
-Paste the text from `docs/autoresponder.txt` into Formspree > your form > Settings > Autoresponse. It is a dashboard setting, not code.
+## 4. Forms and emails
+There is no Formspree any more. The contact form, the contact lightbox and the pixel sketch form post to `/api/submit`, which emails you through Resend and sends the visitor a short confirmation ("We got your brief. Reply within 24 hours."). Spam is filtered with a hidden trap field and rate limits. You can delete the old Formspree form.
 
 ## 5. Uptime and error monitoring
 - **UptimeRobot (free):** create an HTTP monitor for `https://madeofpixels.in/api/health` and one for `https://madeofpixels.in/` (5-minute interval) with email alerts.
