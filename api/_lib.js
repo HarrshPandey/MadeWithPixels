@@ -35,6 +35,12 @@ function authed(req){
   return {ok:true};
 }
 
+/* signed audit results: the browser can only send back a report the server produced */
+const sigKey=()=>process.env.AUDIT_SECRET||process.env.RESEND_API_KEY||process.env.ADMIN_PASSWORD||'';
+const canonical=d=>({url:String(d.url||''),score:Number(d.score)||0,summary:String(d.summary||''),groups:(d.groups||[]).map(g=>({name:String(g.name),items:(g.items||[]).map(i=>({label:String(i.label),status:String(i.status),note:String(i.note)}))})),email:String(d.email||''),name:String(d.name||''),ts:Number(d.ts)||0});
+function sign(d){ const k=sigKey(); return k?crypto.createHmac('sha256',k).update(JSON.stringify(canonical(d))).digest('hex'):''; }
+function verify(d,sig){ const s=sign(d); if(!s||typeof sig!=='string'||sig.length!==s.length) return false; return crypto.timingSafeEqual(Buffer.from(s),Buffer.from(sig)); }
+
 /* GitHub Contents API (used to commit content/*.json from the admin panel) */
 const gh={
   conf(){ const repo=process.env.GITHUB_REPO, token=process.env.GITHUB_TOKEN; return repo&&token?{repo,token,branch:process.env.GITHUB_BRANCH||'main'}:null; },
@@ -47,11 +53,12 @@ const gh={
     return {status:r.status,data:d};
   },
   async get(path){ const c=this.conf(); const {status,data}=await this.req(c,'GET',path); if(status===404) return null; return {sha:data.sha,text:Buffer.from(data.content||'','base64').toString('utf8')}; },
-  async put(path,text,message){
+  async putBase64(path,b64,message){
     const c=this.conf(); const cur=await this.get(path);
-    const {data}=await this.req(c,'PUT',path,{message,content:Buffer.from(text,'utf8').toString('base64'),branch:c.branch,sha:cur?cur.sha:undefined});
+    const {data}=await this.req(c,'PUT',path,{message,content:b64,branch:c.branch,sha:cur?cur.sha:undefined});
     return {commit:data.commit&&data.commit.html_url};
-  }
+  },
+  async put(path,text,message){ return this.putBase64(path,Buffer.from(text,'utf8').toString('base64'),message); }
 };
 
-module.exports={send,readBody,ip,limited,authed,gh};
+module.exports={send,readBody,ip,limited,authed,gh,sign,verify,canonical};

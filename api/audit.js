@@ -1,8 +1,8 @@
 // Free website audit: POST /api/audit {url,email,name}
 // Fetches one page, checks speed / mobile / SEO / security basics, optionally adds Google PageSpeed data,
-// and emails the result when RESEND_API_KEY and AUDIT_FROM are set. Results are always returned to the browser too.
+// and returns a signed report. The visitor can then press a button (api/audit-send.js) to email it to you.
 const dns=require('dns').promises, net=require('net');
-const {send,readBody,ip,limited}=require('./_lib');
+const {send,readBody,ip,limited,sign}=require('./_lib');
 
 const UA='MadeOfPixelsAudit/1.0 (+https://madeofpixels.in/free-website-audit)';
 const MAX_BYTES=1500000;
@@ -131,19 +131,6 @@ function analyse(page,extra,ps){
   return {score,groups,summary};
 }
 
-/* ---------- email (optional) ---------- */
-async function emailResult(to,name,d){
-  const key=process.env.RESEND_API_KEY, from=process.env.AUDIT_FROM; if(!key||!from) return false;
-  const colour={pass:'#111110',warn:'#8a6d00',fail:'#c42b00'}, mark={pass:'OK',warn:'IMPROVE',fail:'FIX'};
-  const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-  const body=d.groups.map(g=>'<h3 style="font:700 13px monospace;text-transform:uppercase;letter-spacing:.08em;margin:24px 0 8px">'+esc(g.name)+'</h3>'+g.items.map(i=>'<p style="margin:0 0 10px;font:14px/1.5 Arial,sans-serif"><b style="color:'+colour[i.status]+'">['+mark[i.status]+']</b> <b>'+esc(i.label)+'</b><br><span style="color:#555">'+esc(i.note)+'</span></p>').join('')).join('');
-  const html='<div style="max-width:620px;margin:0 auto;padding:24px;font-family:Arial,sans-serif;color:#111110"><p style="font:12px monospace;letter-spacing:.08em;text-transform:uppercase;color:#6b6a65">MadeOfPixels Studio</p><h1 style="font:700 28px/1.1 Arial,sans-serif;margin:8px 0">Your website audit</h1><p style="font-size:15px">Hi'+(name?' '+esc(name):'')+', here are the results for <b>'+esc(d.url)+'</b>.</p><p style="font:700 44px/1 Arial,sans-serif;margin:16px 0 4px">'+d.score+'<span style="font-size:16px;color:#6b6a65">/100</span></p><p style="font-size:15px;color:#333">'+esc(d.summary)+'</p>'+body+'<p style="margin-top:28px;font-size:14px">Want help fixing these? Reply to this email, WhatsApp us on +91 80803 56882 or visit <a href="https://madeofpixels.in/contact">madeofpixels.in/contact</a>. We reply within 24 hours.</p><p style="font-size:12px;color:#6b6a65">Bold by design. Built from scratch. Vasai West, Maharashtra.</p></div>';
-  try{
-    const r=await fetch('https://api.resend.com/emails',{method:'POST',headers:{Authorization:'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({from,to:[to],reply_to:process.env.AUDIT_REPLY_TO||'hello@madeofpixels.in',subject:'Your website audit: '+d.score+'/100 for '+d.url.replace(/^https?:\/\//,'').slice(0,60),html})});
-    return r.ok;
-  }catch(e){ return false; }
-}
-
 module.exports=async(req,res)=>{
   if(req.method!=='POST'){ res.setHeader('Allow','POST'); return send(res,405,{error:'POST only.'}); }
   const b=await readBody(req), email=String(b.email||'').trim(), name=String(b.name||'').trim().slice(0,80);
@@ -157,8 +144,8 @@ module.exports=async(req,res)=>{
     const origin=new URL(page.url).origin;
     const [rb,sm]=await Promise.all([get(origin+'/robots.txt',{method:'HEAD',timeout:5000}).catch(()=>null),get(origin+'/sitemap.xml',{method:'HEAD',timeout:5000}).catch(()=>null)]);
     const r=analyse(page,{robots:rb&&rb.status<400,sitemap:sm&&sm.status<400},ps);
-    const out={url:page.url,score:r.score,summary:r.summary,groups:r.groups};
-    out.emailed=await emailResult(email,name,out);
+    const out={url:page.url,score:r.score,summary:r.summary,groups:r.groups,email,name,ts:Date.now()};
+    out.sig=sign(out); out.canEmail=!!(process.env.RESEND_API_KEY&&process.env.AUDIT_FROM);
     return send(res,200,out);
   }catch(e){
     const known=/website|address|redirect|reach|page|public|http/i.test(e.message);

@@ -167,12 +167,27 @@ const toast=(msg,ms=3200)=>{
   const ICON={pass:'✓',warn:'!',fail:'✗'}, WORD={pass:'Good',warn:'Improve',fail:'Fix'};
   function meter(score){ let s=''; for(let i=1;i<=20;i++) s+='<i'+(i<=Math.round(score/5)?' class="on"':'')+'></i>'; return '<div class="meter" role="img" aria-label="Score '+score+' out of 100">'+s+'</div>'; }
   const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  async function sendReport(d,b2,st){
+    b2.disabled=true; b2.textContent='Sending…'; st.textContent='';
+    const body={url:d.url,score:d.score,summary:d.summary,groups:d.groups,email:d.email,name:d.name,ts:d.ts,sig:d.sig};
+    const done=()=>{ b2.textContent='Sent ✓'; st.textContent='Thanks! We have your report and will reply within 24 hours.'; if(window.gtag) gtag('event','generate_lead',{event_category:'audit'}); };
+    try{
+      const r=await fetch('/api/audit-send',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+      const j=await r.json().catch(()=>({}));
+      if(r.ok) return done();
+      if(!j.fallback) throw new Error(j.error||'Could not send the report.');
+      /* email service unavailable: send the same report through the Formspree form instead */
+      const fd=new FormData(); fd.append('_subject','Free website audit request'); fd.append('email',d.email); fd.append('name',d.name); fd.append('website',d.url); fd.append('score',d.score+'/100');
+      fd.append('message','Audit request for '+d.url+'. Score '+d.score+'/100.\n'+d.summary+'\n\n'+d.groups.map(g=>g.name+'\n'+g.items.map(i=>'['+i.status+'] '+i.label+': '+i.note).join('\n')).join('\n\n'));
+      const fr=await fetch(MOP.form,{method:'POST',body:fd,headers:{Accept:'application/json'}}); if(!fr.ok) throw new Error('Could not send the report.');
+      done();
+    }catch(ex){ b2.disabled=false; b2.textContent='Send this report to us →'; st.textContent=ex.message+' You can also email hello@madeofpixels.in.'; }
+  }
   function render(d){
     const groups=d.groups.map(g=>'<section class="au-g"><h3 class="mono">'+esc(g.name)+'</h3><ul>'+g.items.map(it=>'<li class="'+it.status+'"><span class="au-s mono" aria-label="'+WORD[it.status]+'">'+ICON[it.status]+'</span><div><b>'+esc(it.label)+'</b><p>'+esc(it.note)+'</p></div></li>').join('')+'</ul></section>').join('');
     out.innerHTML='<div class="au-head"><div><p class="mono faint">Audit for '+esc(d.url)+'</p><p class="au-score">'+d.score+'<small>/100</small></p>'+meter(d.score)+'</div><p class="au-sum">'+esc(d.summary)+'</p></div>'+groups+
-      '<p class="mono au-mail">'+(d.emailed?'A copy of this checklist has been emailed to you.':'Tip: keep this page open or take a screenshot of your results.')+'</p>'+
-      '<div class="actions"><a class="btn btn-primary" href="/contact" data-open-contact data-audit="'+esc(d.url)+'">Fix these with us →</a><a class="btn" href="'+MOP.wa+'?text='+encodeURIComponent('Hi, I ran the free audit for '+d.url+' and would like help.')+'" target="_blank" rel="noopener noreferrer">WhatsApp us</a></div>';
-    const cta=$('[data-open-contact]',out); if(cta) cta.addEventListener('click',e=>{ if(openContact({type:'Custom Website',message:'I ran the free audit for '+d.url+' (score '+d.score+'/100) and would like help with it. '})) e.preventDefault(); });
+      '<div class="au-send"><p class="mono faint">Want help fixing these?</p><p class="au-sendp">Send this report to MadeOfPixels and we will reply within 24 hours with how we would fix it. No commitment.</p><div class="actions"><button class="btn btn-primary" type="button" id="au-send">Send this report to us →</button><a class="btn" href="'+MOP.wa+'?text='+encodeURIComponent('Hi, I ran the free audit for '+d.url+' and would like help.')+'" target="_blank" rel="noopener noreferrer">WhatsApp us</a></div><p class="mono" id="au-send-s" role="status" aria-live="polite"></p></div>';
+    $('#au-send',out).addEventListener('click',()=>sendReport(d,$('#au-send',out),$('#au-send-s',out)));
     out.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
   }
   f.addEventListener('submit',async e=>{
@@ -189,10 +204,7 @@ const toast=(msg,ms=3200)=>{
       const r=await fetch('/api/audit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url,email,name})});
       const d=await r.json().catch(()=>({})); if(!r.ok) throw new Error(d.error||'The audit could not be completed.');
       status.classList.remove('show'); render(d);
-      if(window.gtag) gtag('event','generate_lead',{event_category:'audit'});
-      const fd=new FormData(); fd.append('_subject','Free website audit lead'); fd.append('email',email); fd.append('name',name); fd.append('website',d.url); fd.append('score',d.score+'/100');
-      fd.append('message','Audit run for '+d.url+'. Score '+d.score+'/100.\n'+d.groups.map(g=>g.items.filter(i=>i.status!=='pass').map(i=>'['+i.status+'] '+i.label).join('\n')).filter(Boolean).join('\n'));
-      fetch(MOP.form,{method:'POST',body:fd,headers:{Accept:'application/json'}}).catch(()=>{});
+      if(window.gtag) gtag('event','audit_run',{event_category:'audit'});
     }catch(ex){ status.textContent=ex.message+' You can also email '+'hello@madeofpixels.in'+' and we will run it for you.'; status.classList.add('show'); }
     btn.disabled=false; btn.textContent=label;
   });

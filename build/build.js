@@ -16,6 +16,7 @@ const at=base.indexOf(MARK); if(at<0) throw new Error('site.js marker missing');
 const js=base.slice(0,at)+feat+'\n'+base.slice(at);
 const adminJs=fs.readFileSync(path.join(A,'admin.js'),'utf8');
 const v=crypto.createHash('md5').update(css+js+adminJs).digest('hex').slice(0,8);
+if(fs.existsSync(path.join(ROOT,'content','avatars'))) fs.cpSync(path.join(ROOT,'content','avatars'),path.join(OUT,'avatars'),{recursive:true});
 write('assets/site.css',css); write('assets/site.js',js); write('assets/admin.js',adminJs);
 
 /* ---- pages ---- */
@@ -121,7 +122,7 @@ const hdr=(k,val)=>({key:k,value:val});
 fs.writeFileSync(path.join(ROOT,'vercel.json'),JSON.stringify({
   buildCommand:'node build/build.js',outputDirectory:'site',cleanUrls:true,trailingSlash:false,
   redirects:[{source:'/unpublished/:path*',destination:'/',permanent:false},{source:'/index',destination:'/',permanent:true}],
-  functions:{'api/audit.js':{maxDuration:30},'api/reviews.js':{maxDuration:15},'api/content.js':{maxDuration:15}},
+  functions:{'api/audit.js':{maxDuration:30},'api/audit-send.js':{maxDuration:15},'api/content.js':{maxDuration:15},'api/upload.js':{maxDuration:15}},
   headers:[
     {source:'/(.*)',headers:[hdr('X-Content-Type-Options','nosniff'),hdr('X-Frame-Options','SAMEORIGIN'),hdr('Referrer-Policy','strict-origin-when-cross-origin'),hdr('Permissions-Policy','geolocation=(), microphone=(), camera=()'),hdr('Strict-Transport-Security','max-age=31536000; includeSubDomains')]},
     {source:'/assets/(.*)',headers:[hdr('Cache-Control','public, max-age=31536000, immutable')]},

@@ -24,9 +24,9 @@ const SCHEMAS={
     fields:[['id','ID','text'],['name','Credit (name)','text'],['note','Caption','text'],['date','Date','date'],['approved','Approved (visible on the wall)','bool'],['art','Sketch (click squares)','art']],
     help:'Visitor sketches arrive by email from the Formspree form (look for the gallery_ok line). If they said yes, add a gallery entry, paste the # and . rows into the sketch box (or click the squares), tick Approved and save.'},
   reviews:{label:'Reviews',id:'name',title:'name',sub:'source',
-    blank:()=>({name:'',rating:5,text:'',date:new Date().toISOString().slice(0,10),source:'Google',url:'',published:true}),
-    fields:[['name','Reviewer','text'],['rating','Rating','select','rating'],['text','Review text','textarea'],['date','Date','date'],['source','Source','text'],['url','Link to the review (optional)','text'],['published','Published (visible on the site)','bool']],
-    help:'Add reviews from your Google Business Profile, or press "Import from Google" if the Places API keys are set up (see docs/SETUP.md). Only publish reviews you have the right to show.'}
+    blank:()=>({name:'',rating:5,text:'',date:new Date().toISOString().slice(0,10),source:'Google',url:'',photo:'',published:true}),
+    fields:[['name','Reviewer name','text'],['rating','Rating','select','rating'],['text','Review text','textarea'],['photo','Profile photo','photo'],['date','Date','date'],['source','Source','text'],['url','Link to the review (optional)','text'],['published','Published (visible on the site)','bool']],
+    help:'Type the reviewer\'s name and paste their review. If you do not add a profile photo, their initials are shown in a square instead. Only publish reviews you have the right to show.'}
 };
 const state={file:'projects',data:{},idx:0,dirty:false};
 
@@ -60,12 +60,11 @@ function draw(){
    '<div class="adm-bar"><div><p class="mono faint">MadeOfPixels Studio</p><h1 style="font:600 28px/1.1 var(--f-display);letter-spacing:-.03em;text-transform:uppercase">Admin</h1></div><div><a class="btn" href="/" target="_blank" rel="noopener">View site ↗</a> <button class="btn" id="adm-out" type="button">Sign out</button></div></div>'+
    '<div class="adm-tabs" role="tablist">'+Object.keys(SCHEMAS).map(k=>'<button role="tab" data-t="'+k+'" aria-selected="'+(k===state.file)+'">'+SCHEMAS[k].label+' ('+((state.data[k]||[]).length)+')</button>').join('')+'</div>'+
    (S.help?'<p class="adm-help" style="margin-bottom:16px">'+esc(S.help)+'</p>':'')+
-   '<div class="adm-grid"><div><div class="adm-list">'+list.map((it,i)=>'<button type="button" data-i="'+i+'" aria-current="'+(i===state.idx)+'">'+esc(it[S.title]||'(untitled)')+'<small>'+esc(it[S.sub]||'')+(it.published===false||it.approved===false?' · hidden':'')+'</small></button>').join('')+'</div><p style="margin-top:12px"><button class="btn" id="adm-new" type="button">+ New</button>'+(state.file==='reviews'?' <button class="btn" id="adm-import" type="button">Import from Google</button>':'')+'</p></div><div id="adm-edit"></div></div>';
+   '<div class="adm-grid"><div><div class="adm-list">'+list.map((it,i)=>'<button type="button" data-i="'+i+'" aria-current="'+(i===state.idx)+'">'+esc(it[S.title]||'(untitled)')+'<small>'+esc(it[S.sub]||'')+(it.published===false||it.approved===false?' · hidden':'')+'</small></button>').join('')+'</div><p style="margin-top:12px"><button class="btn" id="adm-new" type="button">+ New</button>'+'</p></div><div id="adm-edit"></div></div>';
   $$('[data-t]').forEach(b=>b.addEventListener('click',()=>{ state.file=b.dataset.t; state.idx=0; draw(); }));
   $$('[data-i]').forEach(b=>b.addEventListener('click',()=>{ state.idx=+b.dataset.i; draw(); }));
   $('#adm-new').addEventListener('click',()=>{ list.push(S.blank()); state.idx=list.length-1; draw(); });
   $('#adm-out').addEventListener('click',()=>{ try{ sessionStorage.removeItem(KEY); }catch(_){} location.reload(); });
-  const imp=$('#adm-import'); if(imp) imp.addEventListener('click',importGoogle);
   edit();
 }
 
@@ -82,7 +81,16 @@ function field(f,item){
   if(type==='list') return '<div class="adm-full">'+L+'<textarea id="'+id+'" data-f="'+name+'" data-kind="list">'+esc((v||[]).join('\n'))+'</textarea></div>';
   if(type==='pairs') return '<div class="adm-full"><span class="mono faint">'+esc(label)+'</span><div id="pairs" style="margin-top:6px">'+(v||[]).map((p,i)=>'<div class="adm-pair"><input type="text" data-p="'+i+'" data-k="0" value="'+esc(p[0])+'" aria-label="Title"><input type="text" data-p="'+i+'" data-k="1" value="'+esc(p[1])+'" aria-label="Text"><button class="btn" type="button" data-rm="'+i+'" aria-label="Remove">✕</button></div>').join('')+'</div><button class="btn" type="button" id="pair-add">+ Add stage</button></div>';
   if(type==='art') return '<div class="adm-full">'+L+'<canvas id="art-cv" width="192" height="192" style="width:192px;height:192px;border:1px solid var(--ink-4);cursor:crosshair" aria-label="Sketch editor"></canvas><textarea id="'+id+'" data-f="'+name+'" class="adm-art" style="margin-top:8px;min-height:240px">'+esc(v)+'</textarea></div>';
+  if(type==='photo') return '<div class="adm-full">'+L+'<div class="adm-photo"><span class="av" id="adm-av"></span><div><input type="file" id="adm-file" accept="image/*"><p class="adm-help" style="margin-top:6px">Any photo works: it is cropped to a small square. Leave empty to use initials.</p></div><button class="btn" type="button" id="adm-photo-rm">Remove photo</button></div><input id="'+id+'" type="text" data-f="'+name+'" value="'+esc(v)+'" placeholder="/avatars/… or https://… (filled in by the upload)" style="margin-top:8px"></div>';
   return '<div>'+L+'<input id="'+id+'" type="text" data-f="'+name+'" value="'+esc(v)+'"></div>';
+}
+function initialsOf(n){ const w=String(n||'').trim().split(/\s+/).filter(Boolean); return w.length?([...w[0]][0]+(w.length>1?[...w[w.length-1]][0]:'')).toUpperCase():'?'; }
+function squareJpeg(file,size){
+  return new Promise((resolve,reject)=>{
+    const img=new Image(), url=URL.createObjectURL(file);
+    img.onload=()=>{ const s=Math.min(img.width,img.height), c=document.createElement('canvas'); c.width=c.height=size; c.getContext('2d').drawImage(img,(img.width-s)/2,(img.height-s)/2,s,s,0,0,size,size); URL.revokeObjectURL(url); resolve(c.toDataURL('image/jpeg',.85)); };
+    img.onerror=()=>reject(new Error('That file could not be read as an image.')); img.src=url;
+  });
 }
 function edit(){
   const S=SCHEMAS[state.file], list=state.data[state.file]||[], box=$('#adm-edit');
@@ -105,6 +113,18 @@ function edit(){
     function paint(){ c.clearRect(0,0,192,192); c.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--ink'); rows().forEach((r,y)=>[...r].forEach((ch,x)=>{ if(ch==='#') c.fillRect(x*12,y*12,12,12); })); c.strokeStyle='rgba(120,120,120,.3)'; c.beginPath(); for(let i=1;i<16;i++){ c.moveTo(i*12,0); c.lineTo(i*12,192); c.moveTo(0,i*12); c.lineTo(192,i*12); } c.stroke(); }
     art.addEventListener('click',e=>{ const r=art.getBoundingClientRect(), x=Math.floor((e.clientX-r.left)/r.width*16), y=Math.floor((e.clientY-r.top)/r.height*16), rs=rows(); const row=[...rs[y]]; row[x]=row[x]==='#'?'.':'#'; rs[y]=row.join(''); ta.value=rs.join('\n'); paint(); });
     ta.addEventListener('input',paint); paint();
+  }
+  const file=$('#adm-file');
+  if(file){
+    const inp=$('#f-photo'), av=$('#adm-av'); let local='';
+    const showAv=()=>{ av.innerHTML=''; const src=local&&inp.value&&inp.value.startsWith('/avatars/')?local:inp.value; if(src){ const im=document.createElement('img'); im.alt=''; im.src=src; av.appendChild(im); } else av.textContent=initialsOf($('#f-name').value); };
+    inp.addEventListener('input',()=>{ local=''; showAv(); }); $('#f-name').addEventListener('input',()=>{ if(!inp.value) showAv(); }); showAv();
+    $('#adm-photo-rm').addEventListener('click',()=>{ inp.value=''; local=''; showAv(); });
+    file.addEventListener('change',async()=>{
+      const pic=file.files[0]; if(!pic) return; const m=$('#adm-msg'); m.className='adm-msg mono'; m.textContent='Uploading photo…';
+      try{ const data=await squareJpeg(pic,160); const d=await api('/api/upload',{method:'POST',body:JSON.stringify({data})}); local=data; inp.value=d.path; showAv(); m.textContent='Photo uploaded. Press “Save and publish” to attach it to this review.'; }
+      catch(ex){ m.className='adm-msg mono err'; m.textContent=ex.message; }
+    });
   }
   f.addEventListener('click',e=>{
     if(e.target.id==='pair-add'){ read(); (item.steps=item.steps||[]).push(['','']); edit(); }
@@ -129,14 +149,5 @@ async function save(afterDelete){
     const d=await api('/api/content',{method:'PUT',body:JSON.stringify({file:state.file,data:list,message:'Admin: update '+state.file})});
     draw(); const m=msg(); if(m){ m.textContent='Saved. The site rebuilds in about a minute.'+(d.url?' Commit: '+d.url:''); }
   }catch(ex){ set(ex.message,true); }
-}
-async function importGoogle(){
-  const m=$('#adm-msg')||document.createElement('p');
-  try{
-    const d=await api('/api/reviews');
-    const list=state.data.reviews, have=new Set(list.map(r=>r.name+'|'+(r.text||'').slice(0,40)));
-    let added=0; (d.reviews||[]).forEach(r=>{ const k=r.name+'|'+(r.text||'').slice(0,40); if(!have.has(k)){ list.push(r); added++; } });
-    alert(added?added+' review(s) imported. Review them, then press Save and publish.':'No new reviews found.'); draw();
-  }catch(ex){ alert(ex.message); }
 }
 })();

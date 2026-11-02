@@ -209,3 +209,20 @@ body.strip-on .nudge{bottom:calc(var(--strip-h,0px) + 130px)}
 .adm-art{font-family:var(--f-mono);white-space:pre}
 .adm-prev{width:120px;color:var(--ink)}
 .adm-help{color:var(--ink-3);font-size:13px;line-height:1.5}
+
+/* reviewer avatars: photo, or initials in a square */
+.av{width:44px;height:44px;flex-shrink:0;display:grid;place-items:center;background:var(--ink);color:var(--paper);font:600 14px/1 var(--f-mono);letter-spacing:.04em;overflow:hidden}
+.av img{width:100%;height:100%;object-fit:cover;display:block}
+.rev figcaption{display:flex;align-items:center;gap:14px}
+.rev-who{display:grid;gap:4px}
+.rev-who b{font-weight:600}
+.rev-who a{text-underline-offset:3px}
+
+/* audit: send-to-us panel */
+.au-send{border:1px solid var(--rule);padding:clamp(20px,3vw,32px);display:grid;gap:12px}
+.au-sendp{color:var(--ink-2);max-width:54ch}
+.au-send .actions{margin-top:4px}
+
+/* admin: photo field */
+.adm-photo{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:4px}
+.adm-photo .av{width:56px;height:56px}

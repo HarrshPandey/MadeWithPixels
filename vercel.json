@@ -19,10 +19,13 @@
     "api/audit.js": {
       "maxDuration": 30
     },
-    "api/reviews.js": {
+    "api/audit-send.js": {
       "maxDuration": 15
     },
     "api/content.js": {
+      "maxDuration": 15
+    },
+    "api/upload.js": {
       "maxDuration": 15
     }
   },

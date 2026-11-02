@@ -15,17 +15,22 @@ The site is static HTML plus a few small serverless functions in `api/`. Vercel 
 | `GITHUB_TOKEN` | Publishing from the admin panel | Fine-grained token on this repo only, with **Contents: Read and write**. |
 | `GITHUB_REPO` | Publishing from the admin panel | `HarrshPandey/MadeWithPixels` |
 | `GITHUB_BRANCH` | Publishing (optional) | Defaults to `main`. |
-| `RESEND_API_KEY` + `AUDIT_FROM` | Emailing audit results to visitors | Create a free Resend account, verify your domain, then use e.g. `MadeOfPixels <audit@madeofpixels.in>`. Without these the audit still works and shows results on screen. |
-| `AUDIT_REPLY_TO` | Optional | Defaults to `hello@madeofpixels.in`. |
-| `PSI_API_KEY` | Optional | Google PageSpeed Insights key. The audit works without it, but a key avoids Google's anonymous rate limits. |
-| `GOOGLE_PLACES_API_KEY` + `GOOGLE_PLACE_ID` | "Import from Google" for reviews | Enable the **Places API (New)** in Google Cloud and find your Place ID for the Business Profile. |
+| `RESEND_API_KEY` + `AUDIT_FROM` | Audit report emails to you | When a visitor presses "Send this report to us" on the audit page, the report is emailed to you through Resend. Without these, the same report goes to your Formspree inbox instead. `AUDIT_FROM` is the sender, e.g. `MadeOfPixels Audit <audit@madeofpixels.in>` on a domain you verified in Resend (or `onboarding@resend.dev` while testing, which only delivers to your own Resend sign-up email). |
+| `AUDIT_TO` | Optional | Where those emails go. Defaults to hello@madeofpixels.in. |
+| `PSI_API_KEY` | Optional | Google PageSpeed Insights key (see below). The audit works without it but speed results can be limited. |
+
+## 2b. Creating the PageSpeed key (PSI_API_KEY)
+1. Go to console.cloud.google.com and sign in. Create a project (e.g. MadeOfPixels).
+2. Menu > APIs & Services > Library > search "PageSpeed Insights API" > Enable.
+3. APIs & Services > Credentials > **+ Create credentials > API key**. If Google offers the "Help me choose" wizard that asks for user data or application data, close it and pick the plain "API key" option; the audit calls Google from our server about public web pages, so no user or application data is involved.
+4. Copy the key, press "Edit API key", under API restrictions choose Restrict key > PageSpeed Insights API > Save. Leave application restrictions on None.
 
 ## 3. Using the admin panel (`/admin`)
 - **Projects, Blog, Gallery, Reviews** each have a list on the left and a form on the right.
 - **Save and publish** commits the change to GitHub. Vercel rebuilds and the live site updates in about a minute.
 - **Blog posts** are markdown. Untick *Published* to keep a draft hidden.
 - **Gallery**: visitors who tick the permission box send their sketch to your Formspree inbox (the email shows the `gallery_ok` line and the sketch as `#` and `.` rows). To show it, add a Gallery entry, paste the rows (or click the squares), tick *Approved*, save.
-- **Reviews**: add them by hand, or press *Import from Google* (needs the Places keys). Imported reviews start unpublished so you can check them first. The Reviews section stays hidden on the site until at least one review is published.
+- **Reviews**: type the reviewer's name and paste their review. Optionally upload a profile photo; if you do not, their initials are shown in a square. The Reviews section stays hidden on the site until at least one review is published.
 
 You can also edit `content/*.json` directly in GitHub; the result is the same.
 

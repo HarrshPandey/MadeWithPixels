@@ -12,7 +12,7 @@ const RULES={
   projects:it=>slug(it.slug)&&str(it.name,200)&&['saas','brand','webapp'].includes(it.cat)&&['dash','brand','qr'].includes(it.kind)&&Array.isArray(it.steps)&&it.steps.every(s=>Array.isArray(s)&&s.length===2&&str(s[0],200)&&str(s[1],2000))&&Array.isArray(it.stack)&&Array.isArray(it.features)&&[it.short,it.lede,it.note,it.seoTitle,it.seoDesc,it.tag,it.status,it.scope,it.output,it.focus,it.client,it.type,it.catLabel].every(x=>str(x,2000)),
   posts:it=>slug(it.slug)&&str(it.title,300)&&str(it.body,200000)&&day(it.date)&&str(it.description,500)&&str(it.category,80),
   gallery:it=>slug(it.id)&&typeof it.art==='string'&&it.art.split('\n').length===16&&it.art.split('\n').every(r=>/^[#.]{16}$/.test(r))&&str(it.name,120)&&str(it.note||'',200),
-  reviews:it=>str(it.name,200)&&str(it.text,3000)&&Number.isInteger(it.rating)&&it.rating>=1&&it.rating<=5
+  reviews:it=>str(it.name,200)&&str(it.text,3000)&&Number.isInteger(it.rating)&&it.rating>=1&&it.rating<=5&&(!it.photo||/^(\/avatars\/[a-z0-9-]+\.(jpg|png|webp)|https:\/\/\S+)$/.test(it.photo))
 };
 
 module.exports=async(req,res)=>{

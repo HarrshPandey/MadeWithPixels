@@ -39,10 +39,13 @@ function sketchBlock(){
 }
 const galleryGrid=(items)=>'<div class="gal rv">'+items.map(g=>'<figure class="gal-i">'+sketchSvg(g.art,'Pixel sketch by '+g.name+(g.note?': '+g.note:''))+'<figcaption class="mono"><span>'+esc(g.name)+'</span><span>'+esc(g.note||'')+'</span></figcaption></figure>').join('')+'</div>';
 
+/* reviewer avatar: their photo when there is one, otherwise their initials in a square */
+const initials=n=>{ const w=String(n||'').trim().split(/\s+/).filter(Boolean); if(!w.length) return '?'; return ([...w[0]][0]+(w.length>1?[...w[w.length-1]][0]:'')).toUpperCase(); };
+const avatar=r=>r.photo?'<span class="av"><img src="'+esc(r.photo)+'" alt="" width="44" height="44" loading="lazy"></span>':'<span class="av" aria-hidden="true">'+esc(initials(r.name))+'</span>';
 function reviewsSection(){
   if(!REVIEWS.length) return '';
   const sq=n=>'<span class="stars" role="img" aria-label="'+n+' out of 5">'+[1,2,3,4,5].map(i=>'<i'+(i<=n?' class="on"':'')+'></i>').join('')+'</span>';
-  const cards=REVIEWS.map(r=>'<figure class="rev"><blockquote>'+esc(r.text)+'</blockquote><figcaption>'+sq(r.rating||5)+'<b>'+esc(r.name)+'</b><span class="mono faint">'+(r.date?fmtDate(r.date)+' · ':'')+(r.url?'<a href="'+esc(r.url)+'" target="_blank" rel="noopener noreferrer">'+esc(r.source||'Google')+' review</a>':esc(r.source||'Google review'))+'</span></figcaption></figure>').join('');
+  const cards=REVIEWS.map(r=>'<figure class="rev">'+sq(r.rating||5)+'<blockquote>'+esc(r.text)+'</blockquote><figcaption>'+avatar(r)+'<div class="rev-who"><b>'+esc(r.name)+'</b><span class="mono faint">'+(r.date?fmtDate(r.date)+' · ':'')+(r.url?'<a href="'+esc(r.url)+'" target="_blank" rel="noopener noreferrer">'+esc(r.source||'Google')+' review</a>':esc(r.source||'Google review'))+'</span></div></figcaption></figure>').join('');
   return sec({id:'reviews',stage:'Reviews',num:'00',name:'Reviews',tagline:'What clients say',body:`    <h2 class="h2 rv">Kind words. Real {{clients}}.</h2>\n    <div class="revs rv">${cards}</div>`});
 }
 
@@ -126,16 +129,16 @@ ${ctaSection({num:'03'})}`;
 function audit(v){
   const crumbs=[['Home','/'],['Free website audit','/free-website-audit']];
   const checks=[['Speed','Server response time, page weight, compression and (when available) Google PageSpeed scores for mobile.'],['Mobile','Viewport setup, mobile PageSpeed results and whether the page is usable on a phone.'],['SEO','Title, meta description, headings, canonical, image alt text, structured data, sitemap and robots.txt.'],['Trust & security','HTTPS, social sharing tags and basic technical hygiene.']];
-  const faq=[['Is the audit really free?','Yes. There is no cost and no commitment. We only use your email to send the results and to follow up if you ask us to.'],['What do you check?','Speed, mobile readiness and on-page SEO basics for the page you enter: the things we look at first on every project.'],['Does it replace a full SEO audit?','No. It is a quick health check of one page. A full audit also looks at keywords, competitors, content and backlinks.'],['How long does it take?','Usually 10 to 30 seconds. Speed tests from Google can occasionally take a little longer.']];
-  const body=`${pageHero({crumbs,tag:'Free tool',h1:'Free website {{audit}}.',sub:'Enter your website address. We check speed, mobile and SEO basics in under a minute and email you the checklist.'})}
+  const faq=[['Is the audit really free?','Yes. There is no cost and no commitment. We only use your email if you choose to send us the report.'],['What do you check?','Speed, mobile readiness and on-page SEO basics for the page you enter: the things we look at first on every project.'],['Does it replace a full SEO audit?','No. It is a quick health check of one page. A full audit also looks at keywords, competitors, content and backlinks.'],['How long does it take?','Usually 10 to 30 seconds. Speed tests from Google can occasionally take a little longer.']];
+  const body=`${pageHero({crumbs,tag:'Free tool',h1:'Free website {{audit}}.',sub:'Enter your website address. We check speed, mobile and SEO basics in under a minute and show you the checklist right here. Like what you see? Send the report to us in one click.'})}
 ${sec({id:'audit',stage:'Audit',num:'01',name:'Run the audit',tagline:'No sign-up needed',body:`    <h2 class="h2 rv">How healthy is your {{website}}?</h2>
     <div class="audit-grid">
       <form id="audit-form" class="audit-form rv" novalidate aria-label="Website audit">
         <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
         <div class="field"><label class="mono" for="au-url">Website address</label><input id="au-url" name="url" type="text" inputmode="url" autocomplete="url" placeholder="yourbusiness.com" required aria-describedby="au-url-e"><p class="err" id="au-url-e" aria-live="polite"></p></div>
         <div class="field"><label class="mono" for="au-name">Your name <span class="faint">(optional)</span></label><input id="au-name" name="name" type="text" autocomplete="name"></div>
-        <div class="field"><label class="mono" for="au-email">Email, to send the results</label><input id="au-email" name="email" type="email" autocomplete="email" required aria-describedby="au-email-e"><p class="err" id="au-email-e" aria-live="polite"></p></div>
-        <label class="chk"><input type="checkbox" name="consent" required><span>I agree to receive my audit results and a follow-up from ${SITE.name} by email.</span></label>
+        <div class="field"><label class="mono" for="au-email">Your email, so we can reply</label><input id="au-email" name="email" type="email" autocomplete="email" required aria-describedby="au-email-e"><p class="err" id="au-email-e" aria-live="polite"></p></div>
+        <label class="chk"><input type="checkbox" name="consent" required><span>I agree that ${SITE.name} may contact me about my audit.</span></label>
         <p class="err" id="au-consent-e" aria-live="polite"></p>
         <button class="btn btn-primary" type="submit" id="au-btn" style="justify-self:start">Run the free audit →</button>
         <p class="form-status mono" id="au-status" role="status" aria-live="polite"></p>
@@ -146,7 +149,7 @@ ${sec({id:'audit',stage:'Audit',num:'01',name:'Run the audit',tagline:'No sign-u
 ${sec({id:'faq',stage:'FAQ',num:'02',name:'FAQ',tagline:'Common questions',body:`    <h2 class="h2 rv">About the {{audit}}.</h2>\n    <div class="rv">${faqHTML(faq)}</div>`})}
 ${ctaSection({num:'03',h:'Want us to fix what the audit {{finds}}?'})}`;
   const tool={'@type':'WebApplication','@id':SITE.url+'/free-website-audit#tool',name:'Free website audit',url:SITE.url+'/free-website-audit',applicationCategory:'BusinessApplication',operatingSystem:'Any',offers:{'@type':'Offer',price:'0',priceCurrency:'INR'},provider:{'@id':SITE.url+'/#business'}};
-  return {path:'/free-website-audit',file:'free-website-audit.html',opts:{path:'/free-website-audit',title:'Free Website Audit: Speed, Mobile & SEO Check | MadeOfPixels Studio',desc:'Run a free website audit: speed, mobile and on-page SEO checks for any page in under a minute, with the results emailed to you. By MadeOfPixels Studio.',nav:null,body,crumbs,v,bodyClass:'no-strip',graph:[tool,faqNode(faq)],keywords:'free website audit, website SEO checker, website speed test India, mobile friendly test'}};
+  return {path:'/free-website-audit',file:'free-website-audit.html',opts:{path:'/free-website-audit',title:'Free Website Audit: Speed, Mobile & SEO Check | MadeOfPixels Studio',desc:'Run a free website audit: speed, mobile and on-page SEO checks for any page in under a minute, with a clear checklist on screen and one click to send it to us. By MadeOfPixels Studio.',nav:null,body,crumbs,v,bodyClass:'no-strip',graph:[tool,faqNode(faq)],keywords:'free website audit, website SEO checker, website speed test India, mobile friendly test'}};
 }
 
 /* ---------------------------------------------------------------- location pages (generated) */
