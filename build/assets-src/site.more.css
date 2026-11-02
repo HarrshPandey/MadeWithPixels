@@ -29,29 +29,27 @@ html.wipe-in .wipe i{opacity:1;transition:none}
 .to-top[hidden]{display:none}
 @media (max-width:899px){.to-top{left:16px;bottom:72px}}
 
-/* sticky quote strip */
-.strip{position:fixed;left:0;right:72px;bottom:0;z-index:110;background:var(--ink);color:var(--paper);border-top:2px solid var(--accent)}
+/* sticky quote strip: a compact, centred card (text on top, buttons below) */
+.strip{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);width:min(540px,calc(100vw - 32px));z-index:110;background:var(--ink);color:var(--paper);border-top:3px solid var(--accent)}
 .strip[hidden]{display:none}
-.strip-in{display:flex;align-items:center;justify-content:space-between;gap:16px 24px;flex-wrap:wrap;padding:12px var(--pad);padding-right:clamp(20px,22vw,320px)}
-.strip-t{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 18px}
-.strip-t b{font:600 clamp(16px,1.6vw,20px)/1.2 var(--f-display);letter-spacing:-.02em;text-transform:uppercase}
-.strip-t span{color:rgba(239,237,232,.6)}
-.strip-a{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.strip-in{display:grid;justify-items:center;gap:14px;padding:18px 20px 16px;text-align:center}
+.strip-t{display:grid;gap:5px;justify-items:center}
+.strip-t b{font:600 clamp(16px,1.8vw,19px)/1.2 var(--f-display);letter-spacing:-.02em;text-transform:uppercase}
+.strip-t span{color:rgba(239,237,232,.62)}
+.strip-a{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
 .strip .btn{min-height:40px;padding:0 18px;border-color:var(--paper);color:var(--paper)}
 .strip .btn:hover{background:var(--paper);color:var(--ink)}
 .strip .btn-primary{background:var(--paper);color:var(--ink)}
 .strip .btn-primary:hover{background:transparent;color:var(--paper)}
 .strip-x{background:none;border:0;color:rgba(239,237,232,.6);cursor:pointer;padding:8px}
 .strip-x:hover{color:var(--paper)}
-@media (max-width:899px){.strip{right:16px}.strip-in{padding-right:var(--pad)}.strip-t span{display:none}}
-@media (max-width:560px){.strip-in{justify-content:center;text-align:center}.strip-a .btn:not(.btn-primary){display:none}}
+@media (max-width:560px){.strip-t span{display:none}.strip-a .btn:not(.btn-primary){display:none}}
 
 /* whatsapp button */
 .wa-fab{position:fixed;left:20px;bottom:20px;z-index:120;display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--paper);color:var(--ink);border:1px solid var(--ink);text-decoration:none}
 .wa-fab svg{width:24px;height:24px;flex-shrink:0;display:block}
 .wa-fab:hover{background:var(--ink);color:var(--paper)}
-body.strip-on .wa-fab{bottom:calc(var(--strip-h,0px) + 16px)}
-body.strip-on .to-top{bottom:calc(var(--strip-h,0px) + 72px)}
+@media (max-width:899px){body.strip-on .wa-fab{bottom:calc(var(--strip-h,0px) + 32px)}body.strip-on .to-top{bottom:calc(var(--strip-h,0px) + 88px)}}
 @media (max-width:899px){.wa-fab{left:16px;bottom:16px}}
 @media (max-width:560px){.wa-fab span{display:none}.wa-fab{padding:14px}}
 
