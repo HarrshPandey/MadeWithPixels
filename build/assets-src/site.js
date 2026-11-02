@@ -518,7 +518,7 @@ $$('.case-article').forEach(initArticle);
 const ruler=$('#ruler');
 let fitAll=()=>{}, measureAll=()=>{};
 (function(){
-  const zone=$('.r-zone'), svg=$('#r-ticks'), line=$('#r-line'), pct=$('#r-pct'), meas=$('.r-measure'), box=$('.r-labels');
+  const win=$('#r-win'), zone=$('.r-zone'), svg=$('#r-ticks'), line=$('#r-line'), pct=$('#r-pct'), meas=$('.r-measure'), box=$('.r-labels');
   const stages=$$('[data-stage]');
   stages.forEach(s=>{
     const a=document.createElement('a'), name=s.dataset.stage, rb=document.createElement('span'), sr=document.createElement('span');
@@ -528,8 +528,8 @@ let fitAll=()=>{}, measureAll=()=>{};
     sr.className='sr-only'; sr.textContent=name; a.appendChild(rb); a.appendChild(sr); box.appendChild(a);
   });
   const labs=$$('.r-label',box), ids=labs.map(l=>l.dataset.target), N=labs.length;
-  const PAD=16, TW=72, VRATIO=18/13;
-  let Hr=0, docH=1, vh=1, UNIT=1, shift=0, secU=[], lens=[], lensA=[], active=-1, raf=0;
+  const PAD=16, TW=96, VRATIO=18/13;
+  let hov=false, UNIT0=1, hovT=0, Hr=0, docH=1, vh=1, UNIT=1, shift=0, secU=[], lens=[], lensA=[], active=-1, raf=0;
 
   /* a long tape (0 to 100) slides past as you scroll; the tick under the accent line is the scroll percentage */
   function ticks(){
@@ -537,7 +537,7 @@ let fitAll=()=>{}, measureAll=()=>{};
     svg.setAttribute('width',TW); svg.setAttribute('height',th); svg.setAttribute('viewBox','0 0 '+TW+' '+th);
     let s='';
     for(let p=0;p<=100;p++){
-      const y=(PAD+p*UNIT).toFixed(1), bold=p%25===0, long=p%5===0, len=bold?26:long?18:8;
+      const y=(PAD+p*UNIT).toFixed(1), bold=p%25===0, long=p%5===0, len=bold?34:long?22:hov&&p%2?8:12;
       s+='<line class="'+(bold?'t3':long?'t2':'t1')+'" x1="'+(TW-len)+'" x2="'+TW+'" y1="'+y+'" y2="'+y+'"/>';
       if(long) s+='<text class="'+(bold?'n3':'')+'" x="'+(TW-len-5)+'" y="'+(+y+3)+'" text-anchor="end">'+p+'</text>';
     }
@@ -570,6 +570,15 @@ let fitAll=()=>{}, measureAll=()=>{};
     const hp=17, gap=6, edge=14, off=56;
     const start=i=>PAD+secU[i]*UNIT-shift, end=i=>i<N-1?start(i+1):PAD+100*UNIT-shift;
     const slotOf=i=>Hr-edge-hp/2-(N-1-i)*(hp+gap), riding=i=>start(i)+off+lens[i]<=slotOf(i);
+    if(hov){                                                               // hovered: every name sits level with its section on the full 0-100 tape
+      const hy=[]; for(let i=0;i<N;i++) hy[i]=Math.max(start(i),i?hy[i-1]+hp+2:edge+hp/2);
+      labs.forEach((l,i)=>{
+        if(l._k!=='x'){ l._k='x'; l.classList.add('sw'); clearTimeout(l._t); l._t=setTimeout(()=>l.classList.remove('sw'),700); }
+        l.style.transform='translateY('+hy[i].toFixed(1)+'px)';
+        l.classList.remove('is-vert','is-past'); l.classList.toggle('is-active',i===active);
+      });
+      return;
+    }
     let p=0; while(p<N&&(end(p)<=edge+(p+1)*(hp+gap)||(p<N-1&&riding(p+1)))) p++;   // names already passed
     const topEnd=edge+p*(hp+gap)+2, y=new Array(N), vert=new Array(N).fill(false);
     for(let i=0;i<p;i++) y[i]=edge+hp/2+i*(hp+gap);
@@ -586,7 +595,7 @@ let fitAll=()=>{}, measureAll=()=>{};
       else y[stick]=topEnd+16;                                                   // no room: large horizontal name instead
     }
     labs.forEach((l,i)=>{
-      const key=(vert[i]?'v':'h')+(i<p?'p':'u');                              // a state change gets a slower, eased move
+      const key=(vert[i]?'v':'h')+(i<p?'p':'u'); if(l._k==='x') l._k=undefined;                              // a state change gets a slower, eased move
       if(l._k!==undefined&&l._k!==key){ l.classList.add('sw'); clearTimeout(l._t); l._t=setTimeout(()=>l.classList.remove('sw'),1000); }
       l._k=key;
       l.style.transform='translateY('+y[i].toFixed(1)+'px)';
@@ -600,14 +609,15 @@ let fitAll=()=>{}, measureAll=()=>{};
   function update(){
     raf=0;
     const maxS=Math.max(docH-vh,1), p=Math.min(Math.max(scrollY,0),maxS)/maxS;
-    shift=p*(100*UNIT-(Hr-2*PAD));
+    shift=hov?0:p*(100*UNIT-(Hr-2*PAD));
+    win.style.transform='translateY('+(PAD+Math.min(Math.max(scrollY,0),maxS)/docH*100*UNIT).toFixed(1)+'px)'; win.style.height=Math.max(vh/docH*100*UNIT,3).toFixed(1)+'px';
     svg.style.transform='translateY('+(-shift).toFixed(1)+'px)';
     line.style.transform='translateY('+(PAD+p*(Hr-2*PAD)).toFixed(1)+'px)';
     pct.textContent=String(Math.round(p*100)).padStart(3,'0')+'%';
     place();
   }
   function measure(){
-    vh=innerHeight; Hr=Math.max(ruler.clientHeight||vh-52,200); UNIT=Hr*.095;
+    vh=innerHeight; Hr=Math.max(ruler.clientHeight||vh-52,200); UNIT0=Hr*.095; UNIT=hov?(Hr-2*PAD)/100:UNIT0;
     docH=Math.max(document.documentElement.scrollHeight,vh+1);
     secU=ids.map(id=>{const el=document.getElementById(id);return el?100*(el.getBoundingClientRect().top+scrollY)/docH:0});
     if(!lettersOk){ layoutLetters(); lettersOk=true; }
@@ -636,6 +646,10 @@ let fitAll=()=>{}, measureAll=()=>{};
   ['pointerup','pointercancel'].forEach(t=>zone.addEventListener(t,()=>{ drag=false }));
   ruler._isDragging=()=>drag;
   ruler._stops=()=>ids.map(id=>topOf(document.getElementById(id))).concat(0,Math.max(docH-vh,0));
+  /* hover: the tape compresses to the full 0-100 with fine marks, and each stage name moves level with its section */
+  const setHov=v=>{ if(v===hov) return; hov=v; ruler.classList.toggle('is-hov',v); UNIT=v?(Hr-2*PAD)/100:UNIT0; ticks(); update(); };
+  ruler.addEventListener('pointerenter',e=>{ if(e.pointerType!=='mouse'||innerWidth<900) return; clearTimeout(hovT); setHov(true); });
+  ruler.addEventListener('pointerleave',()=>{ clearTimeout(hovT); hovT=setTimeout(()=>{ if(!drag) setHov(false); },140); });
   measure();
 })();
 addEventListener('resize',()=>{ fitWordmark(); measureAll(); });

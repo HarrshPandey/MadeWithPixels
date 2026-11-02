@@ -113,7 +113,7 @@ function navHTML(active){
 
 const RULER_HTML=`<aside id="ruler" aria-label="Page scroll ruler">
   <nav class="r-labels" aria-label="Page sections"></nav>
-  <div class="r-zone" aria-hidden="true"><svg id="r-ticks"></svg><div id="r-line"><span id="r-pct">000%</span></div></div>
+  <div class="r-zone" aria-hidden="true"><div id="r-win"></div><svg id="r-ticks"></svg><div id="r-line"><span id="r-pct">000%</span></div></div>
   <span class="r-measure" aria-hidden="true"></span>
 </aside>`;
 
