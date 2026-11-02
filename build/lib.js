@@ -74,7 +74,7 @@ const HOME_FAQ=[
 const BIZ_ID=SITE.url+'/#business', ORG_NODE={'@id':BIZ_ID};
 const BUSINESS={
   '@type':['ProfessionalService','LocalBusiness'],'@id':BIZ_ID,name:SITE.name,alternateName:'Made of Pixels',url:SITE.url+'/',
-  logo:{'@type':'ImageObject','@id':SITE.url+'/#logo',url:SITE.url+'/logo.png',caption:SITE.name},
+  logo:{'@type':'ImageObject','@id':SITE.url+'/#logo',url:SITE.url+'/icon-512.png',caption:SITE.name},
   image:SITE.ogImage,slogan:'Bold by design. Built from scratch.',
   description:'MadeOfPixels Studio is a web design agency in Vasai West and Mumbai building custom websites, brand identities, UI/UX design and web apps from scratch. Zero templates.',
   foundingDate:SITE.founded,email:SITE.email,telephone:SITE.phone,
@@ -299,9 +299,10 @@ ${og}<meta name="geo.region" content="IN-MH">
 <meta name="geo.position" content="19.3919;72.8397">
 <meta name="ICBM" content="19.3919, 72.8397">
 
+<link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="/logo.png" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="${SITE.fonts}" onload="this.onload=null;this.rel='stylesheet'">

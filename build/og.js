@@ -67,4 +67,25 @@ function card(opts){
   im.rect(pad+17*sw,H-pad-6,sw-6,6,C.accent);
   return png(im);
 }
-module.exports={card};
+
+/* ---------- app icons: the six-square mark on a solid tile (PNG + ICO) ---------- */
+function pngRGBA(w,h,px){
+  const raw=Buffer.alloc((w*4+1)*h); for(let y=0;y<h;y++){ raw[y*(w*4+1)]=0; px.copy(raw,y*(w*4+1)+1,y*w*4,(y+1)*w*4); }
+  const ihdr=Buffer.alloc(13); ihdr.writeUInt32BE(w,0); ihdr.writeUInt32BE(h,4); ihdr[8]=8; ihdr[9]=6;
+  return Buffer.concat([Buffer.from([137,80,78,71,13,10,26,10]),chunk('IHDR',ihdr),chunk('IDAT',zlib.deflateSync(raw,{level:9})),chunk('IEND',Buffer.alloc(0))]);
+}
+function iconPng(size,o={}){
+  const bg=o.bg||C.paper, fg=o.fg||C.ink, pad=o.pad==null?.17:o.pad, px=Buffer.alloc(size*size*4);
+  for(let i=0;i<size*size;i++){ px[i*4]=bg[0]; px[i*4+1]=bg[1]; px[i*4+2]=bg[2]; px[i*4+3]=255; }
+  const gap=Math.max(1,Math.round(size/32)), m=Math.round(size*pad), cell=Math.max(1,Math.floor((size-2*m-2*gap)/3)), total=3*cell+2*gap, off=Math.floor((size-total)/2);
+  [[0,0],[1,0],[0,1],[2,1],[1,2],[2,2]].forEach(p=>{
+    for(let y=0;y<cell;y++) for(let x=0;x<cell;x++){ const X=off+p[0]*(cell+gap)+x, Y=off+p[1]*(cell+gap)+y, k=(Y*size+X)*4; px[k]=fg[0]; px[k+1]=fg[1]; px[k+2]=fg[2]; px[k+3]=255; }
+  });
+  return pngRGBA(size,size,px);
+}
+function ico(sizes){
+  const pngs=sizes.map(s=>iconPng(s)), head=Buffer.alloc(6); head.writeUInt16LE(0,0); head.writeUInt16LE(1,2); head.writeUInt16LE(sizes.length,4);
+  let off=6+16*sizes.length; const ents=sizes.map((s,i)=>{ const e=Buffer.alloc(16); e[0]=s>=256?0:s; e[1]=s>=256?0:s; e.writeUInt16LE(1,4); e.writeUInt16LE(32,6); e.writeUInt32LE(pngs[i].length,8); e.writeUInt32LE(off,12); off+=pngs[i].length; return e; });
+  return Buffer.concat([head,...ents,...pngs]);
+}
+module.exports={card,iconPng,ico};

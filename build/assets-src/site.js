@@ -526,7 +526,7 @@ let fitAll=()=>{}, measureAll=()=>{};
   });
   const labs=$$('.r-label',box), ids=labs.map(l=>l.dataset.target), N=labs.length;
   const PAD=16, TW=72, VRATIO=18/13;
-  let Hr=0, docH=1, vh=1, UNIT=1, shift=0, secU=[], lens=[], active=-1, raf=0;
+  let Hr=0, docH=1, vh=1, UNIT=1, shift=0, secU=[], lens=[], lensA=[], active=-1, raf=0;
 
   /* a long tape (0 to 100) slides past as you scroll; the tick under the accent line is the scroll percentage */
   function ticks(){
@@ -540,25 +540,33 @@ let fitAll=()=>{}, measureAll=()=>{};
     }
     svg.innerHTML=s;
   }
-  /* passed labels stack at the top, the active one sits under them (large), upcoming ones wait in a stack at
-     the bottom and, once their section is close on the tape, lift out and run vertically along the ruler */
+  /* Each stage name behaves like a sticky element inside its own section's span on the tape:
+     - upcoming names wait in a stack at the bottom, then lift out and ride along vertically as their section nears;
+     - once the section is under way the name sticks (vertically) below the passed names while the section lasts;
+     - at the end of the section it slides up and out, then parks in the stack at the top. */
   function place(){
-    const hp=17, ha=Math.round(Math.min(30,Math.max(20,innerWidth*.019))*1.3), gap=6, edge=14;
-    const topA=active<0?edge:edge+active*(hp+gap)+ha/2, topEnd=active<0?edge:topA+ha/2+gap;
+    const hp=17, gap=6, edge=14, off=56;
+    const start=i=>PAD+secU[i]*UNIT-shift, end=i=>i<N-1?start(i+1):PAD+100*UNIT-shift;
+    let p=0; while(p<N&&end(p)<=edge+(p+1)*(hp+gap)) p++;                    // names whose section has fully passed
+    const topEnd=edge+p*(hp+gap)+2, y=new Array(N), vert=new Array(N).fill(false);
+    for(let i=0;i<p;i++) y[i]=edge+hp/2+i*(hp+gap);
+    let cur=-1, bottomCount=0;
+    for(let i=p;i<N;i++){
+      if(i===p&&start(i)+off<=topEnd){ cur=i; continue; }                       // section already under way
+      const slot=Hr-edge-hp/2-(N-1-i)*(hp+gap), nat=Math.max(start(i)+off,topEnd);
+      if(nat+lens[i]<=slot){ vert[i]=true; y[i]=nat; } else { y[i]=slot; bottomCount++; }
+    }
+    if(cur>=0){
+      const bottomTop=Hr-edge-bottomCount*(hp+gap)-gap;
+      if(topEnd+lensA[cur]<=bottomTop){ vert[cur]=true; y[cur]=Math.min(topEnd,end(cur)-lensA[cur]-8); }
+      else y[cur]=topEnd+16;                                                   // no room: large horizontal name instead
+    }
     labs.forEach((l,i)=>{
-      let y, vert=false;
-      if(i<active) y=edge+hp/2+i*(hp+gap);
-      else if(i===active) y=topA;
-      else{
-        const slot=Hr-edge-hp/2-(N-1-i)*(hp+gap);
-        const top=Math.max(PAD+secU[i]*UNIT-shift+56,topEnd);
-        if(top+lens[i]<=slot){vert=true;y=top} else y=slot;
-      }
-      l.style.transform='translateY('+y.toFixed(1)+'px)';
-      l.classList.toggle('is-vert',vert);
-      l.classList.toggle('is-active',i===active);
-      l.classList.toggle('is-past',i<active);
-      if(i===active) l.setAttribute('aria-current','location'); else l.removeAttribute('aria-current');
+      l.style.transform='translateY('+y[i].toFixed(1)+'px)';
+      l.classList.toggle('is-vert',vert[i]);
+      l.classList.toggle('is-active',i===cur);
+      l.classList.toggle('is-past',i<p);
+      if(i===cur) l.setAttribute('aria-current','location'); else l.removeAttribute('aria-current');
     });
   }
   function setActive(i){ if(i<-1||i===active) return; active=i; place(); }
@@ -575,7 +583,8 @@ let fitAll=()=>{}, measureAll=()=>{};
     vh=innerHeight; Hr=Math.max(ruler.clientHeight||vh-52,200); UNIT=Hr*.095;
     docH=Math.max(document.documentElement.scrollHeight,vh+1);
     secU=ids.map(id=>{const el=document.getElementById(id);return el?100*(el.getBoundingClientRect().top+scrollY)/docH:0});
-    lens=labs.map(l=>{meas.textContent=l.textContent;return meas.offsetWidth*VRATIO*1.08+14});
+    const mw=labs.map(l=>{meas.textContent=l.textContent;return meas.offsetWidth});
+    lens=mw.map(w=>w*VRATIO*1.08+14); lensA=mw.map(w=>w*(21/13)*1.08+14);
     ticks(); update();
   }
   const schedule=fn=>{ if(!raf) raf=requestAnimationFrame(fn) };

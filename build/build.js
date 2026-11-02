@@ -52,7 +52,13 @@ write('robots.txt',fs.readFileSync(path.join(SRC,'robots.txt'),'utf8').replace(/
 write('.well-known/security.txt',fs.readFileSync(path.join(SRC,'.well-known/security.txt'),'utf8'));
 fs.copyFileSync(path.join(SRC,'logo.png'),path.join(OUT,'logo.png'));
 fs.copyFileSync(path.join(SRC,'og-preview.png'),path.join(OUT,'og-preview.png'));
-write('favicon.svg','<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37 37"><rect width="37" height="37" fill="#111110"/><g fill="#BAFF2A"><rect x="4" y="4" width="9" height="9"/><rect x="14" y="4" width="9" height="9"/><rect x="4" y="14" width="9" height="9"/><rect x="24" y="14" width="9" height="9"/><rect x="14" y="24" width="9" height="9"/><rect x="24" y="24" width="9" height="9"/></g></svg>\n');
+/* favicon: the six-square mark on a transparent background; ink on light browsers, paper on dark ones.
+   PNG/ICO fallbacks use a solid paper tile so they read on any tab or home-screen colour. */
+write('favicon.svg','<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 29"><style>.m{fill:#111110}@media (prefers-color-scheme:dark){.m{fill:#EFEDE8}}</style><path class="m" d="M0 0h9v9H0zM10 0h9v9h-9zM0 10h9v9H0zM20 10h9v9h-9zM10 20h9v9h-9zM20 20h9v9h-9z"/></svg>\n');
+fs.writeFileSync(path.join(OUT,'favicon.ico'),OG.ico([16,32,48]));
+fs.writeFileSync(path.join(OUT,'favicon-32.png'),OG.iconPng(32));
+fs.writeFileSync(path.join(OUT,'apple-touch-icon.png'),OG.iconPng(180,{pad:.22}));
+fs.writeFileSync(path.join(OUT,'icon-512.png'),OG.iconPng(512,{pad:.2}));
 
 const llm=fs.readFileSync(path.join(SRC,'llms.txt'),'utf8').replace(/\n## Policies[\s\S]*?\n## Why Choose Us/,
 `\n## Key pages
@@ -127,7 +133,7 @@ fs.writeFileSync(path.join(ROOT,'vercel.json'),JSON.stringify({
     {source:'/(.*)',headers:[hdr('X-Content-Type-Options','nosniff'),hdr('X-Frame-Options','SAMEORIGIN'),hdr('Referrer-Policy','strict-origin-when-cross-origin'),hdr('Permissions-Policy','geolocation=(), microphone=(), camera=()'),hdr('Strict-Transport-Security','max-age=31536000; includeSubDomains')]},
     {source:'/assets/(.*)',headers:[hdr('Cache-Control','public, max-age=31536000, immutable')]},
     {source:'/og/(.*)',headers:[hdr('Cache-Control','public, max-age=86400')]},
-    {source:'/(logo.png|og-preview.png|favicon.svg)',headers:[hdr('Cache-Control','public, max-age=2592000')]},
+    {source:'/(logo.png|og-preview.png|favicon.svg|favicon.ico|favicon-32.png|apple-touch-icon.png|icon-512.png)',headers:[hdr('Cache-Control','public, max-age=2592000')]},
     {source:'/(sitemap.xml|robots.txt|llms.txt|feed.xml)',headers:[hdr('Cache-Control','public, max-age=3600')]},
     {source:'/admin',headers:[hdr('X-Robots-Tag','noindex, nofollow'),hdr('Cache-Control','no-store')]},
     {source:'/api/(.*)',headers:[hdr('X-Robots-Tag','noindex'),hdr('Cache-Control','no-store')]}

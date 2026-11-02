@@ -300,3 +300,6 @@ body.strip-on .nudge{bottom:calc(var(--strip-h,0px) + 130px)}
   .dd-menu{position:static;border:0;min-width:0;background:var(--paper-2)}
   .dd-item{padding:14px 22px}
 }
+
+/* ruler: the name that is sticking to its section is larger and black */
+.r-label.is-active.is-vert{font-size:21px;letter-spacing:.01em}
