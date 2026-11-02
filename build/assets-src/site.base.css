@@ -160,7 +160,8 @@ em{
 .sqrow i.hot{background:var(--accent);border-color:var(--accent)}
 
 /* ========================================================================== sections */
-.sec{border-top:1px solid var(--rule);position:relative}
+.sec{border-top:2px solid var(--ink);position:relative}
+.sec::before{content:"";position:absolute;left:var(--pad);top:-2px;width:clamp(48px,7vw,104px);height:2px;background:var(--accent)}
 .bar{display:flex;justify-content:space-between;gap:16px;padding:16px var(--pad);border-bottom:1px solid var(--rule);background:var(--paper)}
 .bar span:last-child{color:var(--ink-3);text-align:right}
 .body{padding:clamp(54px,7.5vw,114px) var(--pad)}
