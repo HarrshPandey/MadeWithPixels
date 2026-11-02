@@ -521,8 +521,11 @@ let fitAll=()=>{}, measureAll=()=>{};
   const zone=$('.r-zone'), svg=$('#r-ticks'), line=$('#r-line'), pct=$('#r-pct'), meas=$('.r-measure'), box=$('.r-labels');
   const stages=$$('[data-stage]');
   stages.forEach(s=>{
-    const a=document.createElement('a'); a.className='r-label'; a.href='#'+s.id; a.dataset.target=s.id;
-    a.innerHTML='<span></span>'; $('span',a).textContent=s.dataset.stage; box.appendChild(a);
+    const a=document.createElement('a'), name=s.dataset.stage, rb=document.createElement('span'), sr=document.createElement('span');
+    a.className='r-label'; a.href='#'+s.id; a.dataset.target=s.id; a.dataset.name=name;
+    rb.className='r-box'; rb.setAttribute('aria-hidden','true');
+    [...name].forEach((c,i)=>{ const ch=document.createElement('span'), g=document.createElement('i'); ch.className='ch'; ch.style.setProperty('--k',i); g.textContent=c===' '?'':c; ch.appendChild(g); rb.appendChild(ch); });
+    sr.className='sr-only'; sr.textContent=name; a.appendChild(rb); a.appendChild(sr); box.appendChild(a);
   });
   const labs=$$('.r-label',box), ids=labs.map(l=>l.dataset.target), N=labs.length;
   const PAD=16, TW=72, VRATIO=18/13;
@@ -540,6 +543,19 @@ let fitAll=()=>{}, measureAll=()=>{};
     }
     svg.innerHTML=s;
   }
+  /* where each letter sits, measured from the right end of its name (set once fonts are ready) */
+  let lettersOk=false;
+  function layoutLetters(){
+    labs.forEach(l=>{
+      const chs=$$('.ch',l), row=document.createElement('span');
+      row.style.cssText='display:inline-block;white-space:pre'; meas.innerHTML='';
+      [...l.dataset.name].forEach(c=>{ const k=document.createElement('span'); k.style.display='inline-block'; k.textContent=c===' '?'\u00a0':c; row.appendChild(k); });
+      meas.appendChild(row); const W=row.offsetWidth; l._W=W;
+      [...row.children].forEach((k,i)=>{ if(chs[i]) chs[i].style.setProperty('--o',(W-(k.offsetLeft+k.offsetWidth)).toFixed(2)+'px'); });
+    });
+    meas.innerHTML='';
+  }
+  if(document.fonts&&document.fonts.addEventListener) document.fonts.addEventListener('loadingdone',()=>{ lettersOk=false; measureAll(); });
   /* Only one stage name is ever vertical at a time (the current one):
      - upcoming names wait in a stack at the bottom;
      - the next one lifts out and rides along the ruler vertically, and at that moment the previous name
@@ -585,7 +601,8 @@ let fitAll=()=>{}, measureAll=()=>{};
     vh=innerHeight; Hr=Math.max(ruler.clientHeight||vh-52,200); UNIT=Hr*.095;
     docH=Math.max(document.documentElement.scrollHeight,vh+1);
     secU=ids.map(id=>{const el=document.getElementById(id);return el?100*(el.getBoundingClientRect().top+scrollY)/docH:0});
-    const mw=labs.map(l=>{meas.textContent=l.textContent;return meas.offsetWidth});
+    if(!lettersOk){ layoutLetters(); lettersOk=true; }
+    const mw=labs.map(l=>l._W||0);
     lens=mw.map(w=>w*VRATIO*1.08+14); lensA=mw.map(w=>w*(21/13)*1.08+14);
     ticks(); update();
   }

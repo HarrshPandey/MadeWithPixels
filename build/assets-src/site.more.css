@@ -308,4 +308,3 @@ body.strip-on .to-top{bottom:calc(var(--strip-h,0px) + 72px)}
 }
 
 /* ruler: the name that is sticking to its section is larger and black */
-.r-label.is-active.is-vert{font-size:21px;letter-spacing:.01em}
