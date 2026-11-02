@@ -308,7 +308,7 @@ const ESTIMATOR={
   const art=()=>Array.from({length:N},(_,y)=>grid.slice(y*N,y*N+N).map(v=>v?'#':'.').join('')).join('\n');
   $('#sk-send').addEventListener('click',()=>{
     if(!grid.some(Boolean)){ status.textContent='Place a few squares first.'; return; }
-    sf.hidden=false; status.textContent='Add your email so we can reply, then send it.';
+    sf.hidden=false; $('#sk-send').classList.remove('btn-primary'); status.textContent='Add your email so we can reply, then send it.';   // only one accent button at a time
     $('#sk-email').focus();
   });
   sf.addEventListener('submit',async e=>{
@@ -323,7 +323,7 @@ const ESTIMATOR={
       if(res.ok){
         status.textContent='Sent. We’ve got your sketch and will reply by email.';
         if(window.gtag) gtag('event','generate_lead',{event_category:'form',event_label:'sketch'});
-        sf.reset(); sf.hidden=true; grid.fill(0); render();
+        sf.reset(); sf.hidden=true; $('#sk-send').classList.add('btn-primary'); grid.fill(0); render();
       }else{ let m='Something went wrong. Email us at hello@madeofpixels.in'; try{ const d=await res.json(); if(d.error) m=d.error; }catch(_){} status.textContent=m; }
     }catch(_){ status.textContent='Network error. Email us at hello@madeofpixels.in'; }
     sbtn.disabled=false; sbtn.textContent=slabel;

@@ -70,8 +70,9 @@ em{
   font:600 11.5px/1 var(--f-display);letter-spacing:.04em;text-transform:uppercase;text-decoration:none;cursor:pointer;
 }
 .btn:hover{background:var(--ink);color:var(--paper)}
-.btn-primary{background:var(--ink);color:var(--paper)}
-.btn-primary:hover{background:transparent;color:var(--ink)}
+/* the one main call to action in a group is the accent colour; every other button stays an outline */
+.btn-primary{background:var(--accent);border-color:var(--accent);color:var(--ink)}
+.btn-primary:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
 
 /* ========================================================================== nav */
 .nav{
@@ -91,10 +92,10 @@ em{
 .soc{border-right:0;border-left:1px solid var(--rule)}
 .cta{
   display:flex;align-items:center;padding:0 clamp(18px,2.4vw,32px);margin-left:0;
-  background:var(--ink);color:var(--paper);border-left:1px solid var(--ink);
+  background:var(--accent);color:var(--ink);border-left:1px solid var(--accent);
   font:600 11.5px/1 var(--f-display);letter-spacing:.04em;text-transform:uppercase;text-decoration:none;
 }
-.cta:hover{background:var(--paper);color:var(--ink)}
+.cta:hover{background:var(--ink);border-left-color:var(--ink);color:var(--paper)}
 .menu-btn{display:none}
 @media (max-width:1179px){.soc{display:none}}
 @media (max-width:899px){
@@ -356,7 +357,7 @@ dialog[open] .dlg-in{animation:rev .4s steps(6,end) both}
 .wm.is-px .wm-line{color:transparent}
 .btn{transition:transform .25s cubic-bezier(.2,.8,.2,1)}
 .btn:disabled{opacity:.35;cursor:not-allowed}
-.btn-primary:disabled:hover{background:var(--ink);color:var(--paper)}
+.btn-primary:disabled:hover{background:var(--accent);border-color:var(--accent);color:var(--ink)}
 
 /* estimator */
 .est{border:1px solid var(--rule);margin-top:clamp(48px,6vw,96px)}
