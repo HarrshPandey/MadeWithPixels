@@ -551,7 +551,12 @@ let fitAll=()=>{}, measureAll=()=>{};
       row.style.cssText='display:inline-block;white-space:pre'; meas.innerHTML='';
       [...l.dataset.name].forEach(c=>{ const k=document.createElement('span'); k.style.display='inline-block'; k.textContent=c===' '?'\u00a0':c; row.appendChild(k); });
       meas.appendChild(row); const W=row.offsetWidth; l._W=W;
-      [...row.children].forEach((k,i)=>{ if(chs[i]) chs[i].style.setProperty('--o',(W-(k.offsetLeft+k.offsetWidth)).toFixed(2)+'px'); });
+      [...row.children].forEach((k,i)=>{
+        if(!chs[i]) return; const w=k.offsetWidth, left=k.offsetLeft, o=W-left-w;
+        chs[i].style.setProperty('--o',o.toFixed(2)+'px');
+        chs[i].style.setProperty('--dx',(o+w/2).toFixed(2)+'px');           // horizontal slot -> column: right ...
+        chs[i].style.setProperty('--dy',(-(left+w/2)).toFixed(2)+'px');     // ... and up (the column grows upward from its bottom)
+      });
     });
     meas.innerHTML='';
   }
@@ -572,14 +577,18 @@ let fitAll=()=>{}, measureAll=()=>{};
     for(let i=p;i<N;i++){
       if(i===p&&start(i)+off<=topEnd){ stick=i; cur=i; continue; }               // reached the top: sticks there
       const slot=slotOf(i), nat=Math.max(start(i)+off,topEnd);
-      if(nat+(i===p?lensA[i]:lens[i])<=slot){ vert[i]=true; y[i]=nat; if(i===p) cur=i; } else { y[i]=slot; bottomCount++; }
+      const L=i===p?lensA[i]:lens[i];
+      if(nat+L<=slot){ vert[i]=true; y[i]=nat+L; if(i===p) cur=i; } else { y[i]=slot; bottomCount++; }       // vertical: y is the bottom end
     }
     if(stick>=0){
       const bottomTop=Hr-edge-bottomCount*(hp+gap)-gap;
-      if(topEnd+lensA[stick]<=bottomTop){ vert[stick]=true; y[stick]=Math.min(topEnd,end(stick)-lensA[stick]-8); }
+      if(topEnd+lensA[stick]<=bottomTop){ vert[stick]=true; y[stick]=Math.min(topEnd,end(stick)-lensA[stick]-8)+lensA[stick]; }
       else y[stick]=topEnd+16;                                                   // no room: large horizontal name instead
     }
     labs.forEach((l,i)=>{
+      const key=(vert[i]?'v':'h')+(i<p?'p':'u');                              // a state change gets a slower, eased move
+      if(l._k!==undefined&&l._k!==key){ l.classList.add('sw'); clearTimeout(l._t); l._t=setTimeout(()=>l.classList.remove('sw'),1000); }
+      l._k=key;
       l.style.transform='translateY('+y[i].toFixed(1)+'px)';
       l.classList.toggle('is-vert',vert[i]);
       l.classList.toggle('is-active',i===cur);
