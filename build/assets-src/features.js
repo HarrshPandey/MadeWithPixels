@@ -264,3 +264,14 @@ const toast=(msg,ms=3200)=>{
   });
   build();
 })();
+
+/* ---- header "Tools" dropdown ---- */
+(function(){
+  const dd=$('#dd-tools'); if(!dd) return;
+  const btn=$('.dd-btn',dd);
+  const set=o=>{ dd.classList.toggle('open',o); btn.setAttribute('aria-expanded',String(o)); };
+  btn.addEventListener('click',e=>{ e.stopPropagation(); set(!dd.classList.contains('open')); });
+  document.addEventListener('click',e=>{ if(!dd.contains(e.target)) set(false); });
+  addEventListener('keydown',e=>{ if(e.key==='Escape'&&dd.classList.contains('open')){ set(false); btn.focus(); } });
+  $$('.dd-item',dd).forEach(a=>a.addEventListener('click',()=>set(false)));
+})();

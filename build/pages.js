@@ -121,9 +121,12 @@ ${sec({id:'manifesto',stage:'Manifesto',num:'01',name:'Manifesto',tagline:'What 
         <p class="rv"><a class="btn" href="/about">About the studio →</a></p>
       </div>
       <div class="counter rv">
-        <div class="row mono"><span>Templates used</span><span>Live count</span></div>
-        <div class="big" aria-label="Templates used: 0">0</div>
-        <div class="row mono"><span>Projects delivered</span><span>10+</span></div>
+        <div class="row mono"><span>By the numbers</span><span>Live count</span></div>
+        <div class="cstats">
+          <div class="cs"><div class="big" aria-hidden="true">0</div><span class="mono">Templates used</span></div>
+          <div class="cs"><div class="big" aria-hidden="true">10+</div><span class="mono">Projects delivered</span></div>
+        </div>
+        <p class="sr-only">Zero templates used. Ten or more projects delivered.</p>
         <div class="row mono"><span>Status: Building</span><span>Client: Hyped</span></div>
       </div>
     </div>

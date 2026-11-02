@@ -21,6 +21,7 @@ const strip=s=>unent(String(s).replace(/<[^>]*>/g,'')).replace(/\s+/g,' ').trim(
 
 const NAV=[['/','Home','home'],['/about','About','about'],['/services','Services','services'],['/projects','Projects','projects'],['/blog','Blog','blog'],['/contact','Contact','contact']];
 
+const TOOLS=[['/free-website-audit','Free website audit','Speed, mobile and SEO check'],['/contact#estimate','Cost estimator','A rough price in ten seconds'],['/process','Project planner','Brief to launch, in pixels'],['/gallery','Pixel gallery','Sketches from our visitors']];
 const AREAS=[
   ['/web-design-company-vasai','Web design in Vasai'],['/web-design-company-virar','Web design in Virar'],['/web-design-company-mumbai','Web design in Mumbai'],
   ['/web-design-company-thane','Web design in Thane'],['/web-design-company-nalasopara','Web design in Nalasopara'],['/web-design-company-mira-road','Web design in Mira Road']
@@ -95,7 +96,9 @@ const pageNode=(o,type='WebPage')=>({'@type':type,'@id':SITE.url+o.path+'#webpag
 const MARK_SYMBOL='<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="m" viewBox="0 0 29 29"><path fill="currentColor" d="M0 0h9v9H0zM10 0h9v9h-9zM0 10h9v9H0zM20 10h9v9h-9zM10 20h9v9h-9zM20 20h9v9h-9z"/></symbol></svg>';
 
 function navHTML(active){
-  const links=NAV.map(n=>'<a class="cell" href="'+n[0]+'"'+(n[2]===active?' aria-current="page"':'')+'>'+n[1]+'</a>').join('\n    ');
+  const item=n=>'<a class="cell" href="'+n[0]+'"'+(n[2]===active?' aria-current="page"':'')+'>'+n[1]+'</a>';
+  const dd='<div class="dd" id="dd-tools"><button class="cell dd-btn" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="dd-tools-menu"'+(active==='tools'?' aria-current="page"':'')+'>Tools <span class="dd-caret" aria-hidden="true">▾</span></button><div class="dd-menu" id="dd-tools-menu">'+TOOLS.map(t=>'<a class="dd-item" href="'+t[0]+'"><b>'+t[1]+'</b><span>'+t[2]+'</span></a>').join('')+'</div></div>';
+  const links=NAV.slice(0,-1).map(item).concat(dd,item(NAV[NAV.length-1])).join('\n    ');
   return `<header class="nav" id="nav">
   <a class="cell logo" href="/" aria-label="${SITE.name}, home"><svg class="mark" aria-hidden="true"><use href="#m"/></svg></a>
   <button class="cell menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>

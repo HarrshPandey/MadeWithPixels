@@ -262,3 +262,41 @@ body.strip-on .nudge{bottom:calc(var(--strip-h,0px) + 130px)}
 .au-sendp{color:var(--ink-2);max-width:54ch}
 .au-send .actions{margin-top:4px}
 
+
+/* manifesto counter: two stats side by side */
+.cstats{display:grid;grid-template-columns:1fr 1fr}
+.cs{padding:clamp(24px,3vw,40px) clamp(14px,2vw,22px);display:grid;gap:18px;align-content:space-between;border-right:1px solid var(--rule)}
+.cs:last-child{border-right:0}
+.counter .cs .big{font:500 clamp(52px,6.4vw,96px)/.85 var(--f-display);letter-spacing:-.06em;padding:0}
+.cs .mono{color:var(--ink-3)}
+
+/* audit page: single-column form and a compact "what we check" list */
+.audit-form{grid-template-columns:minmax(0,1fr)}
+.au-checks{display:grid;border:1px solid var(--rule);margin:0;padding:0;list-style:none}
+.au-checks li{display:grid;grid-template-columns:36px 1fr;gap:12px;padding:18px 20px;border-bottom:1px solid var(--rule)}
+.au-checks li:last-child{border-bottom:0}
+.au-checks .n{color:var(--ink-3);padding-top:3px}
+.au-checks h3{font:600 17px/1.2 var(--f-display);letter-spacing:-.02em;text-transform:uppercase;margin-bottom:4px}
+.au-checks p{color:var(--ink-2);font-size:14px;line-height:1.55}
+
+/* header dropdown ("Tools") */
+.dd{position:relative;display:flex}
+.dd-btn{gap:6px}
+.dd-caret{font-size:9px}
+.dd.open .dd-caret{transform:rotate(180deg)}
+.dd-menu{display:none;position:absolute;top:100%;left:-1px;min-width:310px;background:var(--paper);border:1px solid var(--ink);z-index:80}
+.dd.open .dd-menu{display:block}
+@media (hover:hover){.dd:hover .dd-menu{display:block}}
+.dd-item{display:grid;gap:2px;padding:14px 18px;border-bottom:1px solid var(--rule);text-decoration:none;color:var(--ink)}
+.dd-item:last-child{border-bottom:0}
+.dd-item b{font:600 15px/1.2 var(--f-display);letter-spacing:-.01em}
+.dd-item span{font:400 10.5px/1.4 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.dd-item:hover{background:var(--ink);color:var(--paper)}
+.dd-item:hover span{color:var(--paper)}
+@media (max-width:1100px){.cell{padding:0 14px}}
+@media (max-width:899px){
+  .dd{display:block}
+  .dd-btn{width:100%;min-height:48px;justify-content:space-between;border-right:0;border-top:1px solid var(--rule)}
+  .dd-menu{position:static;border:0;min-width:0;background:var(--paper-2)}
+  .dd-item{padding:14px 22px}
+}

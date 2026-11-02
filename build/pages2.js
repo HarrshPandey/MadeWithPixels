@@ -94,7 +94,7 @@ function gallery(v){
 ${sec({id:'wall',stage:'Wall',num:'01',name:'The wall',tagline:GALLERY.length+' sketches',body:galleryGrid(GALLERY)})}
 ${sec({id:'draw',stage:'Draw',num:'02',name:'Add yours',tagline:'Playground',body:'    '+sketchBlock()})}
 ${ctaSection({num:'03'})}`;
-  return {path:'/gallery',file:'gallery.html',opts:{path:'/gallery',title:'Pixel Gallery: Sketches Made with Pixels | MadeOfPixels Studio',desc:'A wall of 16x16 pixel sketches drawn on the MadeOfPixels Studio website by the team and by visitors. Draw your own and send it in.',nav:null,body,crumbs,v,pageType:'CollectionPage'}};
+  return {path:'/gallery',file:'gallery.html',opts:{path:'/gallery',title:'Pixel Gallery: Sketches Made with Pixels | MadeOfPixels Studio',desc:'A wall of 16x16 pixel sketches drawn on the MadeOfPixels Studio website by the team and by visitors. Draw your own and send it in.',nav:'tools',body,crumbs,v,pageType:'CollectionPage'}};
 }
 
 /* ---------------------------------------------------------------- process planner */
@@ -122,7 +122,7 @@ function process(v){
 ${sec({id:'planner-sec',stage:'Planner',num:'01',name:'Planner',tagline:'Interactive',body:`    <h2 class="h2 rv">Plan your {{project}}.</h2>\n    <div style="margin-top:clamp(40px,5vw,80px)">${planner}</div>`})}
 ${sec({id:'stages',stage:'Stages',num:'02',name:'The four stages',tagline:'How it gets done',body:`    <h2 class="h2 rv">No surprises. Just {{progress}}.</h2>\n    <div class="cells c4 rv">${steps.map((x,i)=>'<article class="cell-i"><span class="n mono">0'+(i+1)+' — '+x[1]+'</span><div><h3>'+x[0]+'</h3><p>'+x[2]+'</p></div>'+stepper(i+1)+'</article>').join('')}</div>`})}
 ${ctaSection({num:'03'})}`;
-  return {path:'/process',file:'process.html',opts:{path:'/process',title:'Website Design Process & Project Planner | MadeOfPixels Studio',desc:'See how a MadeOfPixels website project goes from brief to launch, with an interactive planner that shows timeline and rough price for your project type.',nav:null,body,crumbs,v,keywords:'website design process, how long does a website take, website project timeline India'}};
+  return {path:'/process',file:'process.html',opts:{path:'/process',title:'Website Design Process & Project Planner | MadeOfPixels Studio',desc:'See how a MadeOfPixels website project goes from brief to launch, with an interactive planner that shows timeline and rough price for your project type.',nav:'tools',body,crumbs,v,keywords:'website design process, how long does a website take, website project timeline India'}};
 }
 
 /* ---------------------------------------------------------------- free audit */
@@ -143,13 +143,13 @@ ${sec({id:'audit',stage:'Audit',num:'01',name:'Run the audit',tagline:'No sign-u
         <button class="btn btn-primary" type="submit" id="au-btn" style="justify-self:start">Run the free audit →</button>
         <p class="form-status mono" id="au-status" role="status" aria-live="polite"></p>
       </form>
-      <div class="cells c1 rv">${checks.map((c,i)=>'<article class="cell-i"><span class="n mono">0'+(i+1)+'</span><div><h3>'+c[0]+'</h3><p>'+c[1]+'</p></div></article>').join('')}</div>
+      <ul class="au-checks rv" aria-label="What we check">${checks.map((c,i)=>'<li><span class="n mono">0'+(i+1)+'</span><div><h3>'+c[0]+'</h3><p>'+c[1]+'</p></div></li>').join('')}</ul>
     </div>
     <div id="audit-out" class="audit-out" aria-live="polite"></div>`})}
 ${sec({id:'faq',stage:'FAQ',num:'02',name:'FAQ',tagline:'Common questions',body:`    <h2 class="h2 rv">About the {{audit}}.</h2>\n    <div class="rv">${faqHTML(faq)}</div>`})}
 ${ctaSection({num:'03',h:'Want us to fix what the audit {{finds}}?'})}`;
   const tool={'@type':'WebApplication','@id':SITE.url+'/free-website-audit#tool',name:'Free website audit',url:SITE.url+'/free-website-audit',applicationCategory:'BusinessApplication',operatingSystem:'Any',offers:{'@type':'Offer',price:'0',priceCurrency:'INR'},provider:{'@id':SITE.url+'/#business'}};
-  return {path:'/free-website-audit',file:'free-website-audit.html',opts:{path:'/free-website-audit',title:'Free Website Audit: Speed, Mobile & SEO Check | MadeOfPixels Studio',desc:'Run a free website audit: speed, mobile and on-page SEO checks for any page in under a minute, with a clear checklist on screen and one click to send it to us. By MadeOfPixels Studio.',nav:null,body,crumbs,v,bodyClass:'no-strip',graph:[tool,faqNode(faq)],keywords:'free website audit, website SEO checker, website speed test India, mobile friendly test'}};
+  return {path:'/free-website-audit',file:'free-website-audit.html',opts:{path:'/free-website-audit',title:'Free Website Audit: Speed, Mobile & SEO Check | MadeOfPixels Studio',desc:'Run a free website audit: speed, mobile and on-page SEO checks for any page in under a minute, with a clear checklist on screen and one click to send it to us. By MadeOfPixels Studio.',nav:'tools',body,crumbs,v,bodyClass:'no-strip',graph:[tool,faqNode(faq)],keywords:'free website audit, website SEO checker, website speed test India, mobile friendly test'}};
 }
 
 /* ---------------------------------------------------------------- location pages (generated) */
