@@ -30,18 +30,19 @@ html.wipe-in .wipe i{opacity:1;transition:none}
 @media (max-width:899px){.to-top{left:16px;bottom:72px}}
 
 /* sticky quote strip: a compact, centred card (text on top, buttons below) */
-.strip{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);width:min(540px,calc(100vw - 32px));z-index:110;background:var(--ink);color:var(--paper);border-top:3px solid var(--accent)}
+.strip{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);width:min(540px,calc(100vw - 32px));z-index:110;background:var(--ink);color:var(--paper);border-top:2px solid var(--accent)}
 .strip[hidden]{display:none}
-.strip-in{display:grid;justify-items:center;gap:14px;padding:18px 20px 16px;text-align:center}
-.strip-t{display:grid;gap:5px;justify-items:center}
-.strip-t b{font:600 clamp(16px,1.8vw,19px)/1.2 var(--f-display);letter-spacing:-.02em;text-transform:uppercase}
+.strip-in{display:grid;justify-items:center;gap:8px;padding:10px 16px 10px;text-align:center}
+.strip-t{display:grid;gap:1px;justify-items:center}
+.strip-t b{font:600 15px/1.2 var(--f-display);letter-spacing:-.02em;text-transform:uppercase}
+.strip-t span{font-size:9.5px;letter-spacing:.08em}
 .strip-t span{color:rgba(239,237,232,.62)}
-.strip-a{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
-.strip .btn{min-height:40px;padding:0 18px;border-color:var(--paper);color:var(--paper)}
+.strip-a{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+.strip .btn{min-height:32px;padding:0 14px;font-size:11px;border-color:var(--paper);color:var(--paper)}
 .strip .btn:hover{background:var(--paper);color:var(--ink)}
-.strip .btn-primary{background:var(--accent);border-color:var(--accent);color:var(--ink)}
-.strip .btn-primary:hover{background:var(--paper);border-color:var(--paper);color:var(--ink)}
-.strip-x{background:none;border:0;color:rgba(239,237,232,.6);cursor:pointer;padding:8px}
+.strip .btn-primary{background:var(--paper);border-color:var(--paper);color:var(--ink)}
+.strip .btn-primary:hover{background:transparent;border-color:var(--paper);color:var(--paper)}
+.strip-x{background:none;border:0;color:rgba(239,237,232,.6);cursor:pointer;padding:4px 8px}
 .strip-x:hover{color:var(--paper)}
 @media (max-width:560px){.strip-t span{display:none}.strip-a .btn:not(.btn-primary){display:none}}
 
@@ -64,7 +65,7 @@ html.wipe-in .wipe i{opacity:1;transition:none}
 .nudge-card .actions{margin-top:6px}
 .nudge-card .btn{border-color:var(--paper);color:var(--paper)}
 .nudge-card .btn:hover{background:var(--paper);color:var(--ink)}
-.nudge-card .btn-primary{background:var(--accent);border-color:var(--accent);color:var(--ink)}
+.nudge-card .btn-primary{background:var(--accent);border-color:var(--accent);color:#fff}
 .nudge-card .btn-primary:hover{background:var(--paper);border-color:var(--paper);color:var(--ink)}
 .nudge-x{position:absolute;right:10px;top:10px;border:0;background:none;color:var(--paper);cursor:pointer;padding:10px;font-size:14px}
 .nudge-x:hover{background:var(--paper);color:var(--ink)}
