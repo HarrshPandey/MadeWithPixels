@@ -1,0 +1,243 @@
+[
+  {
+    "slug": "web-design-company-bhayandar",
+    "name": "Bhayandar",
+    "area": "Mira-Bhayandar",
+    "nearby": [
+      "Mira Road",
+      "Dahisar",
+      "Naigaon",
+      "Vasai"
+    ],
+    "blurb": "Bhayandar sits on the Western line between Mira Road and Naigaon, with a busy mix of local shops, clinics, coaching classes and small manufacturers."
+  },
+  {
+    "slug": "web-design-company-navi-mumbai",
+    "name": "Navi Mumbai",
+    "area": "Navi Mumbai",
+    "nearby": [
+      "Vashi",
+      "Nerul",
+      "Belapur",
+      "Kharghar",
+      "Panvel"
+    ],
+    "blurb": "Navi Mumbai is a planned city across the harbour from Mumbai, with a large base of offices, schools, hospitals and trading businesses."
+  },
+  {
+    "slug": "web-design-company-palghar",
+    "name": "Palghar",
+    "area": "Palghar district",
+    "nearby": [
+      "Boisar",
+      "Virar",
+      "Vasai",
+      "Dahanu"
+    ],
+    "blurb": "Palghar is the district headquarters north of Virar, with industry, agriculture-linked businesses and a growing number of local services going online."
+  },
+  {
+    "slug": "web-design-company-dahisar",
+    "name": "Dahisar",
+    "area": "Mumbai (north)",
+    "nearby": [
+      "Borivali",
+      "Mira Road",
+      "Bhayandar",
+      "Kandivali"
+    ],
+    "blurb": "Dahisar is the northern gateway to Mumbai city, close to Mira Road and Bhayandar, with many neighbourhood businesses and professional practices."
+  },
+  {
+    "slug": "web-design-company-borivali",
+    "name": "Borivali",
+    "area": "Mumbai (western suburbs)",
+    "nearby": [
+      "Kandivali",
+      "Dahisar",
+      "Goregaon",
+      "Malad"
+    ],
+    "blurb": "Borivali is one of the busiest suburbs on the Western line, with clinics, tuition centres, CA firms, restaurants and retail all competing for local search."
+  },
+  {
+    "slug": "web-design-company-andheri",
+    "name": "Andheri",
+    "area": "Mumbai (western suburbs)",
+    "nearby": [
+      "Goregaon",
+      "Jogeshwari",
+      "Vile Parle",
+      "Juhu"
+    ],
+    "blurb": "Andheri is a major business and entertainment hub, with agencies, startups, clinics and service companies that need to stand out online."
+  },
+  {
+    "slug": "web-design-company-kandivali",
+    "name": "Kandivali",
+    "area": "Mumbai (western suburbs)",
+    "nearby": [
+      "Malad",
+      "Borivali",
+      "Charkop",
+      "Goregaon"
+    ],
+    "blurb": "Kandivali has a large residential population and a dense mix of shops, clinics, classes and professional services."
+  },
+  {
+    "slug": "web-design-company-malad",
+    "name": "Malad",
+    "area": "Mumbai (western suburbs)",
+    "nearby": [
+      "Goregaon",
+      "Kandivali",
+      "Andheri",
+      "Borivali"
+    ],
+    "blurb": "Malad combines big residential areas with offices and retail, so local search visibility matters for most businesses here."
+  },
+  {
+    "slug": "web-design-company-goregaon",
+    "name": "Goregaon",
+    "area": "Mumbai (western suburbs)",
+    "nearby": [
+      "Malad",
+      "Andheri",
+      "Jogeshwari",
+      "Kandivali"
+    ],
+    "blurb": "Goregaon has offices, studios, clinics and growing local businesses that compete for the same nearby customers."
+  },
+  {
+    "slug": "web-design-company-kalyan",
+    "name": "Kalyan",
+    "area": "Thane district",
+    "nearby": [
+      "Dombivli",
+      "Ulhasnagar",
+      "Thane",
+      "Bhiwandi"
+    ],
+    "blurb": "Kalyan is a large central-line city in the Thane district, with traders, clinics, schools and service businesses serving a big local population."
+  },
+  {
+    "slug": "web-design-company-dombivli",
+    "name": "Dombivli",
+    "area": "Thane district",
+    "nearby": [
+      "Kalyan",
+      "Thane",
+      "Ulhasnagar",
+      "Navi Mumbai"
+    ],
+    "blurb": "Dombivli is a dense residential city with a strong local economy of clinics, classes, CA firms and neighbourhood retail."
+  },
+  {
+    "slug": "web-design-company-panvel",
+    "name": "Panvel",
+    "area": "Raigad district",
+    "nearby": [
+      "Navi Mumbai",
+      "Kharghar",
+      "Kamothe",
+      "Kalamboli"
+    ],
+    "blurb": "Panvel is a fast-growing transport and trading hub at the edge of Navi Mumbai, with new businesses opening across the area."
+  },
+  {
+    "slug": "web-design-company-boisar",
+    "name": "Boisar",
+    "area": "Palghar district",
+    "nearby": [
+      "Tarapur",
+      "Palghar",
+      "Dahanu",
+      "Virar"
+    ],
+    "blurb": "Boisar is an industrial town in the Palghar district, home to manufacturers, suppliers and contractors who benefit from a clear online presence."
+  },
+  {
+    "slug": "web-design-company-bhiwandi",
+    "name": "Bhiwandi",
+    "area": "Thane district",
+    "nearby": [
+      "Thane",
+      "Kalyan",
+      "Vasai",
+      "Mumbra"
+    ],
+    "blurb": "Bhiwandi is known for warehousing, logistics and textile units, which makes a professional, trustworthy website valuable for B2B enquiries."
+  },
+  {
+    "slug": "web-design-company-ulhasnagar",
+    "name": "Ulhasnagar",
+    "area": "Thane district",
+    "nearby": [
+      "Kalyan",
+      "Dombivli",
+      "Ambernath",
+      "Thane"
+    ],
+    "blurb": "Ulhasnagar has a busy trading and manufacturing economy with many businesses that still rely mainly on word of mouth."
+  },
+  {
+    "slug": "web-design-company-vashi",
+    "name": "Vashi",
+    "area": "Navi Mumbai",
+    "nearby": [
+      "Nerul",
+      "Sanpada",
+      "Turbhe",
+      "Mankhurd"
+    ],
+    "blurb": "Vashi is a central business node in Navi Mumbai, with offices, hospitals, schools and retail serving the whole city."
+  },
+  {
+    "slug": "web-design-company-kharghar",
+    "name": "Kharghar",
+    "area": "Navi Mumbai",
+    "nearby": [
+      "Kamothe",
+      "Belapur",
+      "Panvel",
+      "Taloja"
+    ],
+    "blurb": "Kharghar is a growing residential and institutional area of Navi Mumbai with many new local businesses."
+  },
+  {
+    "slug": "web-design-company-mulund",
+    "name": "Mulund",
+    "area": "Mumbai (eastern suburbs)",
+    "nearby": [
+      "Thane",
+      "Bhandup",
+      "Nahur",
+      "Vikhroli"
+    ],
+    "blurb": "Mulund sits on the border of Mumbai and Thane, with a settled residential market and many professional practices."
+  },
+  {
+    "slug": "web-design-company-powai",
+    "name": "Powai",
+    "area": "Mumbai (eastern suburbs)",
+    "nearby": [
+      "Vikhroli",
+      "Chandivali",
+      "Saki Naka",
+      "Andheri"
+    ],
+    "blurb": "Powai has corporate offices, institutions and a large professional population, so businesses here compete on quality and trust."
+  },
+  {
+    "slug": "web-design-company-chembur",
+    "name": "Chembur",
+    "area": "Mumbai (eastern suburbs)",
+    "nearby": [
+      "Ghatkopar",
+      "Govandi",
+      "Kurla",
+      "Trombay"
+    ],
+    "blurb": "Chembur mixes older established businesses with newer services, all of which need to be easy to find on Google."
+  }
+]

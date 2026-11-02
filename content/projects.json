@@ -1,0 +1,151 @@
+[
+  {
+    "slug": "machinaerp",
+    "name": "MachinaERP",
+    "cat": "saas",
+    "catLabel": "SaaS",
+    "kind": "dash",
+    "seed": 11,
+    "tag": "SaaS · Project tracking",
+    "status": "Live product · India",
+    "short": "Project tracking software built specifically for mould manufacturers, from job cards to delivery.",
+    "lede": "A focused ERP interface for mould manufacturers who needed job-card visibility, delivery tracking and production status without the bloat of generic enterprise tools.",
+    "scope": "UX / UI / Build",
+    "output": "SaaS dashboard",
+    "focus": "Speed + clarity",
+    "stack": [
+      "React",
+      "Custom ERP",
+      "Dashboard design"
+    ],
+    "note": "Built for a Vasai-based mould manufacturer, entirely in React, and rolled out in 8 weeks.",
+    "steps": [
+      [
+        "Discovery",
+        "Mapped the real factory workflow: enquiry, job card, mould progress, dispatch and follow-up."
+      ],
+      [
+        "Structure",
+        "Reduced the product into clear modules so operators could find work status without training overhead."
+      ],
+      [
+        "Interface",
+        "Built dense but readable screens with visual hierarchy for priority, ownership and delivery risk."
+      ],
+      [
+        "Outcome",
+        "A faster internal product that feels custom to the manufacturing floor instead of borrowed from another industry."
+      ]
+    ],
+    "seoTitle": "MachinaERP Case Study | Project Tracking SaaS | MadeOfPixels Studio",
+    "seoDesc": "How MadeOfPixels Studio built MachinaERP, a React project tracking system for mould manufacturers with job cards, delivery tracking and production dashboards.",
+    "type": "Web App",
+    "client": "Mould manufacturer, Vasai",
+    "features": [
+      "Job cards",
+      "Delivery tracking",
+      "Production dashboards",
+      "Team management"
+    ]
+  },
+  {
+    "slug": "madeofpixels-studio-identity",
+    "name": "MadeOfPixels Studio",
+    "cat": "brand",
+    "catLabel": "Brand identity",
+    "kind": "brand",
+    "seed": 5,
+    "tag": "Brand identity · Our own",
+    "status": "Our own brand",
+    "short": "Our own brand, built the same way we build yours.",
+    "lede": "A brand system designed to feel technical, loud and precise: part machine shop, part creative studio, with a visual language that scales across web, print and social.",
+    "scope": "Identity system",
+    "output": "Logo + web",
+    "focus": "Recognition",
+    "stack": [
+      "Logo & mark",
+      "Type & colour system",
+      "Website"
+    ],
+    "note": "The six-square mark, the type system and this website are all part of the same identity.",
+    "steps": [
+      [
+        "Positioning",
+        "Defined the brand around custom craft, sharp execution and refusal to look template-made."
+      ],
+      [
+        "System",
+        "Built a tight type, colour, grid and mark system around acid green, black and industrial spacing."
+      ],
+      [
+        "Application",
+        "Translated the identity into a website, CTA language, case-study format and repeatable visual assets."
+      ],
+      [
+        "Outcome",
+        "A distinct studio presence that sells process, not just polish, and gives every touchpoint a point of view."
+      ]
+    ],
+    "seoTitle": "MadeOfPixels Studio Identity | Brand Identity Case Study",
+    "seoDesc": "Brand identity case study: how MadeOfPixels Studio designed its own logo, type, colour and grid system, then applied it across web, print and social.",
+    "type": "Brand Identity",
+    "client": "MadeOfPixels Studio",
+    "features": [
+      "Six-square mark",
+      "Type system",
+      "Acid green + black palette",
+      "Grid and spacing",
+      "Web and social assets"
+    ]
+  },
+  {
+    "slug": "filelink-platform",
+    "name": "FileLink Platform",
+    "cat": "webapp",
+    "catLabel": "Web app",
+    "kind": "qr",
+    "seed": 23,
+    "tag": "Web app · QR file sharing",
+    "status": "Web app",
+    "short": "File management and QR sharing for manufacturing teams.",
+    "lede": "A file management and QR sharing product for teams that need quick access to documents, drawings and references without digging through folders or chat threads.",
+    "scope": "Product UX",
+    "output": "Web app",
+    "focus": "Access speed",
+    "stack": [
+      "Supabase",
+      "QR generation",
+      "React",
+      "Vercel"
+    ],
+    "note": "Designed around low-friction daily use: upload, tag, generate a QR code, share.",
+    "steps": [
+      [
+        "Problem",
+        "Identified the handoff gap: files existed, but the right person could not always reach the right file quickly."
+      ],
+      [
+        "Flow",
+        "Designed upload, tagging, QR generation and sharing flows around low-friction daily use."
+      ],
+      [
+        "Interface",
+        "Kept the UI direct: clear file states, copyable links, scannable QR blocks and simple actions."
+      ],
+      [
+        "Outcome",
+        "A practical internal platform that makes shared files feel immediate, trackable and easy to trust."
+      ]
+    ],
+    "seoTitle": "FileLink Platform Case Study | QR File Sharing Web App",
+    "seoDesc": "Case study: FileLink, a React and Supabase web app for QR file sharing and file management built by MadeOfPixels Studio for manufacturing teams.",
+    "type": "Web App",
+    "client": "Manufacturing teams",
+    "features": [
+      "File upload",
+      "Tagging",
+      "QR generation",
+      "Link sharing"
+    ]
+  }
+]

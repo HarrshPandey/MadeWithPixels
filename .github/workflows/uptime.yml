@@ -1,0 +1,16 @@
+name: Uptime check
+# Every 30 minutes this requests every page in your sitemap. If anything fails, the run is marked failed and GitHub emails you.
+# (Turn on notifications for failed workflow runs in GitHub > Settings > Notifications > Actions.)
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node build/check-live.js https://madeofpixels.in

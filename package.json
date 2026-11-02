@@ -1,0 +1,13 @@
+{
+  "name": "madeofpixels-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MadeOfPixels Studio website",
+  "scripts": {
+    "build": "node build/build.js",
+    "lint": "node build/lint.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
