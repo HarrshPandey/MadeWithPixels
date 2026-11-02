@@ -73,7 +73,7 @@ const HOME_FAQ=[
 const BIZ_ID=SITE.url+'/#business', ORG_NODE={'@id':BIZ_ID};
 const BUSINESS={
   '@type':['ProfessionalService','LocalBusiness'],'@id':BIZ_ID,name:SITE.name,alternateName:'Made of Pixels',url:SITE.url+'/',
-  logo:{'@type':'ImageObject','@id':SITE.url+'/#logo',url:SITE.url+'/icon-512.png',caption:SITE.name},
+  logo:{'@type':'ImageObject','@id':SITE.url+'/#logo',url:SITE.url+'/logo.png',caption:SITE.name},
   image:SITE.ogImage,slogan:'Bold by design. Built from scratch.',
   description:'MadeOfPixels Studio is a web design agency in Vasai West and Mumbai building custom websites, brand identities, UI/UX design and web apps from scratch. Zero templates.',
   foundingDate:SITE.founded,email:SITE.email,telephone:SITE.phone,
