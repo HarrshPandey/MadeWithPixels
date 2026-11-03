@@ -11,7 +11,7 @@ fs.rmSync(OUT,{recursive:true,force:true}); fs.mkdirSync(OUT,{recursive:true});
 const css=(fs.readFileSync(path.join(A,'site.base.css'),'utf8')+'\n'+fs.readFileSync(path.join(A,'site.extra.css'),'utf8')+'\n'+fs.readFileSync(path.join(A,'site.more.css'),'utf8'))
   .replace(/\/\*[\s\S]*?\*\//g,'').replace(/\s*\n\s*/g,'\n').replace(/\s*([{};,>])\s*/g,'$1').replace(/;}/g,'}').trim();
 const MARK='/* ---------- Lenis smooth scroll';
-const base=fs.readFileSync(path.join(A,'site.js'),'utf8'), feat=fs.readFileSync(path.join(A,'features.js'),'utf8');
+const base=fs.readFileSync(path.join(A,'site.js'),'utf8'), feat=fs.readFileSync(path.join(A,'features.js'),'utf8')+'\n'+fs.readFileSync(path.join(A,'eggs.js'),'utf8');
 const at=base.indexOf(MARK); if(at<0) throw new Error('site.js marker missing');
 const js=base.slice(0,at)+feat+'\n'+base.slice(at);
 const adminJs=fs.readFileSync(path.join(A,'admin.js'),'utf8');

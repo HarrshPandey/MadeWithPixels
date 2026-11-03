@@ -390,6 +390,7 @@ function notFound(v){
   <h1>This page isn’t <em>built</em>.</h1>
   <p class="sub">The link may be old or mistyped. Head back to the studio, or tell us what you were looking for.</p>
   <div class="actions"><a class="btn btn-primary" href="/">Back home →</a><a class="btn" href="/projects">See the work</a><a class="btn" href="/contact" data-open-contact>Contact us</a></div>
+  <div class="snake rv" id="snake"><div class="snake-bar mono"><span>WHILE YOU’RE HERE</span><span class="sn-score">SCORE 00</span></div><canvas aria-label="Snake game. Arrow keys, W A S D or swipe to steer." tabindex="0"></canvas><div class="snake-foot mono"><span class="sn-msg">CLICK OR TAP TO PLAY. EAT THE ORANGE PIXEL.</span><button type="button" class="sn-share" hidden>Share score</button></div></div>
 </section>`;
   return {path:'/404',file:'404.html',opts:{path:'/404',title:'Page not found | MadeOfPixels Studio',desc:'This page could not be found. Return to MadeOfPixels Studio, a web design agency in Vasai and Mumbai.',nav:null,body,noindex:true,v}};
 }
