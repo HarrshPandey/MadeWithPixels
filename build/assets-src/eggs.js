@@ -35,14 +35,14 @@
     toast('Grid on. Type "grid" again to hide it.');
   }
 
-  /* ---- 2. orange: the accent changes colour for ten seconds ---- */
+  /* ---- 2. orange: the accent changes colour for about five seconds ---- */
   let hueT=[];
   function hues(){
     hueT.forEach(clearTimeout); hueT=[];
     const set=['#B8E600','#2F6BFF','#FF4FA3'];
-    set.forEach((c,i)=>hueT.push(setTimeout(()=>root.style.setProperty('--accent',c),i*2500)));
-    hueT.push(setTimeout(()=>{ root.style.removeProperty('--accent'); toast('Back to orange.'); },10000));
-    toast('Colour roulette for ten seconds.');
+    set.forEach((c,i)=>hueT.push(setTimeout(()=>root.style.setProperty('--accent',c),i*1200)));
+    hueT.push(setTimeout(()=>{ root.style.removeProperty('--accent'); toast('Back to orange.'); },4800));
+    toast('Colour roulette.');
   }
 
   /* ---- 3. click the underlined word in a headline: it flips between the serif italic and the heavy sans ---- */
